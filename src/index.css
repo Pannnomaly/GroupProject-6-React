@@ -54,6 +54,11 @@
   --color-main9: #78350F;
   --color-main10: #C9B28C;
   --color-main11: #EFEDEA;
+
+  --box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.4);
+
+  --font-poppins: "Poppins", sans-serif;
+  --font-earn: 'IM Fell Great Primer';
 }
 
 :root {
