@@ -1,52 +1,16 @@
 import React from "react";
 import { useRoomDetailLogic } from "../lib/useRoomDetailLogic";
 import { Button } from "@/components/ui/button";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 
 const RoomDetail = () => {
   useRoomDetailLogic();
 
   return (
+    <>
     <main>
-      {/* <!-- NAVBAR --> */}
-      <header className="h-16 bg-[#eff0f2] shadow-md shadow-[#8b8b8b] text-[#111] font-medium">
-        <nav className="h-16 flex items-center justify-between no-underline text-[22px]">
-          <div className="flex items-center pl-10">
-            <div>
-              <a href="#">
-                <img className="w-12" src="images/ic-logo.svg" alt="Hotel Logo" />
-              </a>
-            </div>
-            <div>
-              <a href="./index.html">
-                <p className="font-bold text-center">MonkeyDB</p>
-              </a>
-            </div>
-            <div>
-              <a href="./index.html">
-                <p className="text-[#808080] text-center">Hostel</p>
-              </a>
-            </div>
-          </div>
-          <div className="flex items-center gap-x-4 pr-10 h-full">
-            <div className="h-full px-3 flex justify-center items-center hover:bg-[#CBCCCE] cursor-pointer">
-              <a href="./user-profile.html">
-                <p className="text-center">User</p>
-              </a>
-            </div>
-            <div className="h-full px-3 flex justify-center items-center hover:bg-[#CBCCCE] cursor-pointer">
-              <a href="./index.html">
-                <p className="text-center">Availability</p>
-              </a>
-            </div>
-            <div className="h-full px-3 flex justify-center items-center hover:bg-[#CBCCCE] cursor-pointer">
-              <a href="./index.html">
-                <p className="text-center">Contact Us</p>
-              </a>
-            </div>
-          </div>
-        </nav>
-      </header>
-
+      <Navbar />
       {/* <!-- Sign In and Register Bar --> */}
       {/* <!-- Mobile --> */}
       <section className="md:hidden flex justify-center w-full mt-10 px-4">
@@ -501,89 +465,9 @@ const RoomDetail = () => {
       </section>
 
       <div id="modal-backdrop" className="fixed inset-0 bg-black bg-opacity-50 hidden"></div>
-
-      {/* <!-- FOOTER --> */}
-      <footer className="bg-[#635f58] h-54 shadow-md shadow-[#8b8b8b] mt-10 flex flex-col items-center justify-between text-[#111] font-medium">
-        <div className="flex items-start justify-around pt-5 w-5/6 h-full text-[17px]">
-          <div className="my-auto">
-            <div>
-              <a href="#">
-                <img className="w-20" src="images/ic-logo.svg" alt="Hotel Logo" />
-              </a>
-            </div>
-          </div>
-          <div className="flex flex-col justify-center">
-            <div>
-              <p className="font-bold">SITE MAP</p>
-            </div>
-            <div className="pt-3 gap-1.25 flex flex-col">
-              <div className="hover:bg-[#54504A]">
-                <a href="#">
-                  <p>User</p>
-                </a>
-              </div>
-              <div className="hover:bg-[#54504A]">
-                <a href="#">
-                  <p>Availability</p>
-                </a>
-              </div>
-              <div className="hover:bg-[#54504A]">
-                <a href="#">
-                  <p>Contact Us</p>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col justify-center">
-            <div>
-              <p className="font-bold">SOCIALS</p>
-            </div>
-            <div className="pt-3 gap-1.25 flex flex-col">
-              <div className="hover:bg-[#54504A]">
-                <a href="#">
-                  <p>Facebook</p>
-                </a>
-              </div>
-              <div className="hover:bg-[#54504A]">
-                <a href="#">
-                  <p>Instagram</p>
-                </a>
-              </div>
-              <div className="hover:bg-[#54504A]">
-                <a href="#">
-                  <p>Twitter</p>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col justify-between h-full">
-            <div className="flex flex-col w-2/3">
-              <p className="font-bold">HEAD OFFICE</p>
-              <div className="pt-3">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, possimus?
-              </div>
-            </div>
-            <div className="flex flex-col pb-5">
-              <div>NEWS LETTER</div>
-              <div className="w-2/3 bg-[#F5F5F5] rounded-md mt-3 shadow-md shadow-[#8b8b8b]">
-                <input
-                  type="email"
-                  name=""
-                  id=""
-                  placeholder="Enter your email address"
-                  className="w-full"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="flex items-center justify-around pb-5 w-5/6 text-[17px]">
-          <div>contact@gmail.com</div>
-          <div>084-444-4444</div>
-          <div>© MonkeyDB Hostel All rights reserved</div>
-        </div>
-      </footer>
+      <Footer />
     </main>
+    </>
   );
 };
 
