@@ -15,14 +15,13 @@ import BookingDetail from './pages/BookingDetail.jsx'
 //import Availability from './pages/Availability.jsx'
 //import ContactUs from './pages/ContactUs.jsx'
 
-const router = createBrowserRouter ([
+const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     errorElement: <Error />,
     children: [
       {
-        path: "/",
         element: <Layout />,
         children: [
           //{ path: "/", element: <Homepage /> },

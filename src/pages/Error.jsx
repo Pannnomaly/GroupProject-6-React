@@ -1,8 +1,9 @@
 export default function Error ()
 {
+    console.log("Error here");
     return (
         <div>
-            <h1>Error Occurred!</h1>
+            <h1>This is Error</h1>
         </div>
     );
 }
