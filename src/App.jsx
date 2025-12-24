@@ -1,5 +1,4 @@
 import { Outlet } from "react-router-dom";
-import RoomDetail from "./pages/RoomDetail";
 
 export default function App ()
 {
