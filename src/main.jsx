@@ -9,8 +9,8 @@ import Layout from './components/Layout'
 //import Login from './pages/Login.jsx'
 //import Registration from './pages/Registration.jsx'
 //import RoomDetail from './pages/RoomDetail.jsx'
-import BookingDetail from './pages/BookingDetail.jsx'
-//import BookingConfirm from './pages/BookingConfirm.jsx'
+// import BookingDetail from './pages/BookingDetail.jsx'
+import BookingConfirm from './pages/BookingConfirm.jsx'
 //import User from './pages/User.jsx'
 //import Availability from './pages/Availability.jsx'
 //import ContactUs from './pages/ContactUs.jsx'
@@ -28,8 +28,8 @@ const router = createBrowserRouter([
           //{ path: "/login", element: <Login /> },
           //{ path: "/register", element: <Registration /> },
           //{ path: "/roomdetail", element: <RoomDetail /> },
-          { path: "/bookingdetail", element: <BookingDetail /> },
-          //{ path: "/bookingconfirm", element: <BookingConfirm /> },
+          //{ path: "/bookingdetail", element: <BookingDetail /> },
+          { path: "/bookingconfirm", element: <BookingConfirm /> },
           //{ path: "/user", element: <User /> },
           //{ path: "/availability ", element: <Availability  /> },
           //{ path: "/contactus ", element: <ContactUs  /> },
