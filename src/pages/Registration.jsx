@@ -1,79 +1,76 @@
-import { Button } from "@/components/ui/button";
-import React from "react";
+import { Link } from "react-router-dom";
 
 const Registration = () => {
   return (
     <>
-      <main className="bg-white min-h-screen flex flex-col justify-center items-center py-10">
-        <a href="./index.html">
-          <h1 className="text-3xl font-serif text-[#8c7761] mb-10">MonkeyDB Hostels</h1>
-        </a>
-
-        <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 px-6">
+      <main className="bg-white min-h-screen flex flex-col justify-center items-center font-earn">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* <!-- Left Section --> */}
-          <div>
-            <img src="./images/room-01.jpg" className="rounded-xl shadow w-full mb-6" />
+          <div className="relative hidden md:block">
+            <img
+              src="https://res.cloudinary.com/dhggmrfe1/image/upload/v1766600224/christina-radevich-kQjEq2bNFS0-unsplash_qsmfqh.jpg"
+              className="shadow w-full object-cover"
+            />
 
-            <h2 className="text-2xl font-semibold mb-2">good places for your vacation.</h2>
-
-            <div className="bg-[#d9cbbb] rounded-xl p-6 w-auto mt-7">
-              <h3 className="font-semibold mb-1">Basic dialog title</h3>
-              <p className="text-sm text-gray-700 mb-4">
-                A dialog is a type of modal window that appears in front of app content to provide
-                critical information, or prompt for a decision to be made.
-              </p>
-              <div className="flex justify-end space-x-4 text-sm font-medium">
-                <Button className="hover:underline">Action 2</Button>
-                <Button className="hover:underline">Action 1</Button>
-              </div>
-            </div>
+            <h1 className="absolute top-10 left-1/2 -translate-x-1/2 text-4xl text-black">
+              MonkeyDB Hotel Bangkok
+            </h1>
           </div>
 
           {/* <!-- Right Section --> */}
-          <div className="flex flex-col justify-start max-w-full">
-            <h2 className="text-2xl font-semibold mb-4">Sign up</h2>
-
-            {/* <!-- Google Button --> */}
-            <a href="./room-detail.html">
-              <Button className="w-full bg-gray-700 text-white py-3 rounded-lg flex justify-center items-center gap-3 mb-4 hover:bg-gray-800 transition">
-                <img src="https://www.svgrepo.com/show/475656/google-color.svg" className="w-5" />
-                <p>Continue with Google</p>
-              </Button>
-            </a>
-
-            {/* <!-- Facebook Button --> */}
-            <a href="./room-detail.html">
-              <Button className="w-full bg-blue-400 text-white py-3 rounded-lg flex justify-center items-center gap-3 mb-6 hover:bg-blue-700 transition">
-                <img src="https://files.svgcdn.io/streamline-color/meta.svg" className="w-7" />
-                <p>Continue with Facebook</p>
-              </Button>
-            </a>
+          <div className="flex flex-col justify-center w-full max-w-md mx-auto">
+            <h2 className="text-4xl text-center font-medium mb-10">Sign up</h2>
 
             {/* Form */}
-            <div className="border rounded-xl p-6">
+            <div>
               <label className="text-sm">Email</label>
               <input
                 type="email"
                 placeholder="email@email.com"
-                className="w-full border px-3 py-2 rounded-lg mt-1 mb-4 focus:ring-2 focus:ring-black focus:outline-none"
+                className="w-full border px-3 py-2 mt-1 mb-4 focus:ring-2 focus:ring-black focus:outline-none"
               />
 
               <label className="text-sm">Password</label>
               <input
                 type="password"
                 placeholder="12345"
-                className="w-full border px-3 py-2 rounded-lg mt-1 mb-6 focus:ring-2 focus:ring-black focus:outline-none"
+                className="w-full border px-3 py-2 mt-1 mb-6 focus:ring-2 focus:ring-black focus:outline-none"
               />
-
-              <a href="./room-detail.html">
-                <Button className="w-full bg-[#d9cbbb] text-gray-700 py-3 rounded-lg mb-4 hover:bg-[#e2dad1]">
+              <Link to="/roomdetail">
+                <button className="w-full bg-(--color-main10) text-(--color-main11) py-3  mb-4 hover:bg-(--color-main5)">
                   Create Your Accout
-                </Button>
-              </a>
+                </button>
+              </Link>
 
               <a href="#" className="text-sm text-gray-600 hover:underline">
                 Forgot password?
               </a>
+            </div>
+
+            <div className="flex items-center my-10">
+              <div className="grow border-t border-(--color-main10)"></div>
+
+              <span className="mx-4 text-2xl text-center text-(--color-main6)">or</span>
+
+              <div className="grow border-t border-(--color-main10)"></div>
+            </div>
+
+            <div className="flex flex-col items-center">
+              {/* <!-- Google Button --> */}
+              <Link to="/roomdetail" className="w-[80%]">
+                <button className="w-full bg-(--color-main2) text-white py-3 flex justify-center mb-4 gap-5 hover:bg-(--color-main5) transition">
+                  <img src="https://www.svgrepo.com/show/475656/google-color.svg" className="w-5" />
+                  <p>Continue with Google</p>
+                </button>
+              </Link>
+
+              {/* <!-- Facebook Button --> */}
+              <Link to="/roomdetail" className="w-[80%]">
+                <button className="w-full bg-(--color-main2) text-white py-3 flex justify-center items-center mb-4 gap-5 hover:bg-(--color-main5) transition">
+                  <img src="https://files.svgcdn.io/streamline-color/meta.svg" className="w-7" />
+                  <p>Continue with Facebook</p>
+                </button>
+              </Link>
             </div>
           </div>
         </div>
