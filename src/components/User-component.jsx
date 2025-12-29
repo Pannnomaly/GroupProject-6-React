@@ -8,7 +8,7 @@ export default function UserComponent() {
             <div className="flex justify-center items-center hover:bg-(--color-main2) transition duration-300 ease-in-out rounded-full object-cover aspect-square w-9">
               <a href="#">
                 <img
-                  src="images/gear-settings.svg"
+                  src="gear-settings.svg"
                   alt="gear logo"
                   width="30"
                   height="30"
@@ -66,7 +66,7 @@ export default function UserComponent() {
             <div className="flex justify-center items-center w-8 bg-(--color-main3) rounded-full object-cover aspect-square shadow-(--box-shadow) hover:bg-(--color-main2) transition duration-300 ease-in-out cursor-pointer">
               <button className="cursor-pointer">
                 <img
-                  src="images/arrow-forward-navigation.svg"
+                  src="arrow-forward-navigation.svg"
                   alt="backward"
                   width="25px"
                   height="25px"
@@ -77,7 +77,7 @@ export default function UserComponent() {
             <div className="flex justify-center items-center w-8 bg-(--color-main3) rounded-full object-cover aspect-square shadow-(--box-shadow) hover:bg-(--color-main2) transition duration-300 ease-in-out cursor-pointer">
               <button className="cursor-pointer">
                 <img
-                  src="images/arrow-forward-navigation.svg"
+                  src="arrow-forward-navigation.svg"
                   alt="backward"
                   width="25px"
                   height="25px"
