@@ -5,16 +5,21 @@ const Registration = () => {
     <>
       <main className="bg-white min-h-screen flex flex-col justify-center items-center font-earn">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div className="md:flex hidden flex-wrap absolute top-20 z-50 left-1/2 -translate-x-1/2 gap-10">
+            <h1 className="text-6xl text-(--color-main11) text-start">
+              MonkeyDB
+            </h1>
+            <h1 className="text-6xl text-(--color-main3) text-end">
+              Hotel Bangkok
+            </h1>
+          </div>
           {/* <!-- Left Section --> */}
-          <div className="relative hidden md:block">
+          <div className="hidden md:block">
             <img
               src="https://res.cloudinary.com/dhggmrfe1/image/upload/v1766600224/christina-radevich-kQjEq2bNFS0-unsplash_qsmfqh.jpg"
               className="shadow w-full object-cover"
             />
 
-            <h1 className="absolute top-10 left-1/2 -translate-x-1/2 text-4xl text-black">
-              MonkeyDB Hotel Bangkok
-            </h1>
           </div>
 
           {/* <!-- Right Section --> */}
