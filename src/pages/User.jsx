@@ -1,5 +1,6 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import UserComponent from "@/components/User-component";
 
 export default function User ()
 {
@@ -7,8 +8,7 @@ export default function User ()
     return (
         <div>
             <Navbar />
-            <h1>This is User</h1>
-
+            <UserComponent />
             <Footer />
         </div>
     );
