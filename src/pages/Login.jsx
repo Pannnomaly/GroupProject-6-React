@@ -1,4 +1,4 @@
-import React from "react";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
@@ -41,23 +41,23 @@ const Login = () => {
           </div>
 
           <div className="grid grid-cols-2 gap-4 mb-6">
-            <a href="./room-detail.html">
+            <Link to="/roomdetail">
               <button className="w-full border  py-2 flex items-center justify-center gap-2 hover:bg-gray-50">
                 <img src="https://www.svgrepo.com/show/475656/google-color.svg" className="w-5" />
               </button>
-            </a>
-            <a href="./room-detail.html">
+            </Link>
+            <Link to="/roomdetail">
               <button className="w-full border  py-2 flex items-center justify-center gap-2 hover:bg-gray-50">
                 <img src="https://files.svgcdn.io/streamline-color/meta.svg" className="w-5" />
               </button>
-            </a>
+            </Link>
           </div>
 
-          <a href="./room-detail.html">
-            <button className="w-full bg-[var(--color-main4)] text-gray-700 font-medium py-3  hover:bg-[#e9decf] transition">
+          <Link to="/roomdetail">
+            <button className="w-full bg-(--color-main4) text-gray-700 font-medium py-3  hover:bg-[#e9decf] transition">
               Log in
             </button>
-          </a>
+          </Link>
         </div>
       </main>
     </>
