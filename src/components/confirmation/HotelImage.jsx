@@ -1,13 +1,11 @@
-const HotelImage = ({ imageUrl, alt }) => {
-  return (
-    <div className="w-full h-64 overflow-hidden">
-      <img 
-        src={imageUrl} 
-        alt={alt} 
-        className="w-full h-full object-cover"
-      />
-    </div>
-  );
-};
-
+const HotelImage = ({ src, alt, className = "" }) => (
+  <div className={`w-full h-96 bg-gray-100 flex items-center justify-center ${className}`}>
+    <img 
+      src={src}
+      alt={alt}
+      className="max-w-full max-h-full object-contain"
+    />
+  </div>
+);
+ 
 export default HotelImage;
