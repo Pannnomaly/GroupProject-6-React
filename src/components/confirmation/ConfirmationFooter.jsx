@@ -1,5 +1,5 @@
 const ConfirmationFooter = () => (
-  <div className="bg-gray-50 p-6 text-center text-base text-gray-700 border-t border-gray-200">
+  <div className="bg-gray-50 p-6 text-center text-base text-gray-700">
     <p>
       For reservations: <span className="font-semibold">MonkeyDB Hotel @BKK</span> | 
       Email: <a href="mailto:reservations@monkeydb.com" className="text-blue-600 hover:underline">reservations@monkeydb.com</a> | 

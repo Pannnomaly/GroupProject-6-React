@@ -4,11 +4,11 @@ const ConfirmButton = ({
   className = "",
   disabled = false
 }) => (
-  <div className={`pt-6 ${className}`}>
+  <div className={`flex justify-center ${className}`}>
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`w-full bg-(--color-main3) hover:bg-(--color-main2) text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-300 text-lg ${
+      className={`w-full max-w-xs bg-(--color-main3) hover:bg-blue-700 text-lg text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300 text-lg ${
         disabled ? 'opacity-50 cursor-not-allowed' : ''
       }`}
     >

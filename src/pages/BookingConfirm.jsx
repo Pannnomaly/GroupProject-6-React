@@ -35,10 +35,10 @@ const BookingConfirm = () => {
   return (
     <div className="font-earn">
       <Navbar />
-
+      <div className="container mx-auto px-4 py-6">
       <BackButton to="/booking" label="Back to Booking" />
-
-      <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200">
+      </div>
+       <div className="bg-white overflow-hidden border border-gray-200 max-w-6xl mx-auto">
         <ConfirmationHeader confirmationNumber={reservationData.confirmationNumber} />
 
         <HotelImage

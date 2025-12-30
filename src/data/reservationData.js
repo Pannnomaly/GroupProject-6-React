@@ -12,5 +12,5 @@ Request for extra pillows and non-smoking room.
 Early check-in if available.
 Celebrating anniversary - room decoration would be appreciated.`,
   hotelAddress: 'MonkeyDB Hotel @BKK, 123 Rama1 Road, Pathumwan, Bangkok, 10330 Thailand',
-  hotelImage: 'public/bookingconfirm/doubleroom.jpg'
+  hotelImage: '/bookingconfirm/doubleroom.jpg'
 };
