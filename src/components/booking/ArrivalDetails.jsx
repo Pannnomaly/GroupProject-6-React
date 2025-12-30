@@ -1,5 +1,5 @@
 const ArrivalDetails = ({ formData, onChange }) => (
-  <div className="bg-white rounded-lg shadow p-6">
+  <div className="bg-white p-6">
     <h3 className="text-xl font-semibold mb-6">Arrival Details</h3>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div className="form-group">
@@ -35,7 +35,7 @@ const ArrivalDetails = ({ formData, onChange }) => (
             name="estimatedArrival"
             value={formData.estimatedArrival}
             onChange={onChange}
-            className="block w-full p-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs"
+            className="block w-full p-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm focus:ring-brand focus:border-brand shadow-xs"
             min="00:00"
             max="23:59"
             step="1800"

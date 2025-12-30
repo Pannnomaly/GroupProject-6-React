@@ -1,6 +1,6 @@
 // src/components/booking/GuestDetailsForm.jsx
 const GuestDetailsForm = ({ formData, onChange }) => (
-  <div className="bg-white rounded-lg shadow p-6">
+  <div className="bg-white">
     <h3 className="text-xl font-semibold mb-6">Enter your details</h3>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div className="form-group">
@@ -9,7 +9,7 @@ const GuestDetailsForm = ({ formData, onChange }) => (
           name="title"
           value={formData.title}
           onChange={onChange}
-          className="w-full p-2 border border-gray-300 rounded-md"
+          className="w-full p-2 border border-gray-300"
         >
           <option>Mr.</option>
           <option>Ms.</option>
@@ -24,7 +24,7 @@ const GuestDetailsForm = ({ formData, onChange }) => (
           value={formData.firstName}
           onChange={onChange}
           required
-          className="w-full p-2 border border-gray-300 rounded-md"
+          className="w-full p-2 border border-gray-300 "
         />
       </div>
       <div className="form-group">
@@ -35,7 +35,7 @@ const GuestDetailsForm = ({ formData, onChange }) => (
           value={formData.lastName}
           onChange={onChange}
           required
-          className="w-full p-2 border border-gray-300 rounded-md"
+          className="w-full p-2 border border-gray-300 "
         />
       </div>
       <div className="form-group">
@@ -44,7 +44,7 @@ const GuestDetailsForm = ({ formData, onChange }) => (
           name="country"
           value={formData.country}
           onChange={onChange}
-          className="w-full p-2 border border-gray-300 rounded-md"
+          className="w-full p-2 border border-gray-300 "
         >
           <option>Thai</option>
           <option>Non-Thai</option>
@@ -58,7 +58,7 @@ const GuestDetailsForm = ({ formData, onChange }) => (
           value={formData.email}
           onChange={onChange}
           required
-          className="w-full p-2 border border-gray-300 rounded-md"
+          className="w-full p-2 border border-gray-300 "
         />
       </div>
       <div className="form-group">
@@ -69,7 +69,7 @@ const GuestDetailsForm = ({ formData, onChange }) => (
           value={formData.phone}
           onChange={onChange}
           required
-          className="w-full p-2 border border-gray-300 rounded-md"
+          className="w-full p-2 border border-gray-300 "
         />
       </div>
     </div>

@@ -45,35 +45,35 @@ export default function BookingDetail() {
           
           <form onSubmit={handleSubmit} className="grid md:grid-cols-3 gap-8">
             <div className="md:col-span-2 space-y-8">
-              <div className="bg-white rounded-lg shadow-lg p-6">
+              <div className="bg-white p-6">
                 <GuestDetailsForm formData={formData} onChange={handleInputChange} />
               </div>
-              <div className="bg-white rounded-lg shadow-lg p-6">
+              <div className="bg-white p-6">
                 <PaymentMethod formData={formData} onChange={handleInputChange} />
               </div>
-              <div className="bg-white rounded-lg shadow-lg p-6">
+              <div className="bg-white p-6">
                 <OptionalPaymentForm formData={formData} onChange={handleInputChange} />
               </div>
-              <div className="bg-white rounded-lg shadow-lg p-6">
+              <div className="bg-white p-6">
                 <ArrivalDetails formData={formData} onChange={handleInputChange} />
               </div>
             </div>
             
             <div className="space-y-8">
-              <div className="bg-white rounded-lg shadow-lg p-6">
+              <div className="bg-white p-6">
                 <h3 className="text-2xl font-semibold mb-6 text-gray-800">Reservation Summary</h3>
                 <div className="space-y-6">
                   <HotelInfo />
-                  <div className="border-t border-gray-200 my-4"></div>
+                  <div className="my-4"></div>
                   <BookingDates />
-                  <div className="border-t border-gray-200 my-4"></div>
+                  <div className="my-4"></div>
                   <RoomDetails />
-                  <div className="border-t border-gray-200 my-4"></div>
+                  <div className="my-4"></div>
                   <PriceSummary />
                 </div>
                 <button
                   type="submit"
-                  className="w-full mt-8 bg-(--color-main3) hover:bg-(--color-main2) text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300"
+                  className="w-full mt-8 bg-(--color-main3) hover:bg-(--color-main2) text-white font-semibold text-lg py-3 px-6  transition-colors duration-300"
                 >
                   Continue to a secure payment form
                 </button>

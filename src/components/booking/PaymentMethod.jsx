@@ -1,6 +1,6 @@
 // src/components/booking/PaymentMethod.jsx
 const PaymentMethod = ({ formData, onChange }) => (
-  <div className="bg-white rounded-lg shadow p-6">
+  <div className="bg-white p-6">
     <h3 className="text-xl font-semibold mb-6">Select a Payment Method</h3>
     <div className="space-y-4">
       <label className="flex items-center space-x-3 cursor-pointer">
