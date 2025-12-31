@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-        <footer className="h-76 flex flex-col items-center justify-between bg-(--color-main3) text-(--color-main11) shadow-(--box-shadow) font-medium font-earn">
-            <div className="flex items-start justify-around pt-5 w-11/12 h-full text-lg">
+        <footer className="h-16 flex flex-col items-center justify-between bg-(--color-main3) text-(--color-main11) shadow-(--box-shadow) font-medium font-earn md:h-20 lg:h-76">
+            <div className="items-start justify-around pt-5 w-11/12 h-full text-lg hidden lg:flex">
                 <div className="my-auto">
                     <div>
                         <Link to="/">
@@ -77,12 +77,16 @@ export default function Footer() {
                     </div>
                 </div>
             </div>
-            <div className="flex items-center justify-center pb-4 pt-2 px-10 w-11/12 text-xl gap-3">
+            <div className="h-16 items-center justify-center lg:pb-4 lg:pt-2 px-10 w-11/12 text-xl gap-3 md:h-20 lg:flex hidden">
                 <div>contact@gmail.com</div>
                 <div>||</div>
                 <div>084-444-4444</div>
                 <div>||</div>
-                <div>© MonkeyDB Hostel All rights reserved</div>
+                <div>© MonkeyDB Hostel, All rights reserved</div>
+            </div>
+            <div className="w-full h-16 md:h-20 flex items-center justify-between text-md md:text-xl px-3 md:px-10 md:gap-3 lg:hidden">
+                <div>© MonkeyDB Hostel, All rights reserved</div>
+                <div>contact@gmail.com</div>
             </div>
         </footer>
   );
