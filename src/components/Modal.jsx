@@ -1,24 +1,15 @@
-import { useRoomDetailLogic } from "../lib/useRoomDetailLogic";
-
-export default function Modal() {
-  useRoomDetailLogic();
+export default function Modal({ isModalOpen, handleCloseModal, imageSrc }) {
+  if (!isModalOpen) return null; // ไม่แสดงผลถ้าไม่ได้เปิด
   return (
     <>
       {/* <!-- Modal-Detail --> */}
-      <section
-        id="my-modal"
-        className="hidden fixed top-1/2 left-1/2 -translate-x-[50%] -translate-y-[55%] z-50 max-w-4xl overflow-y-auto max-h-[90vh] bg-[#ede8dc] mt-10 p-8 border-2 border-2-black border-2-opacity-30 shadow"
-      >
-        <button id="close-modal" className="absolute top-4 right-4 px-3 py-1 bg-black text-white">
+      <section className="fixed top-1/2 left-1/2 -translate-x-[50%] -translate-y-[55%] z-50 max-w-4xl overflow-y-auto max-h-[90vh] bg-(--color-main5) mt-10 p-8 border-2 border-2-black border-2-opacity-30 shadow">
+        <button onClick={handleCloseModal} className="absolute top-4 right-4 px-3 py-1 bg-black text-white">
           X
         </button>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <img
-              id="modal-image"
-              src="./images/room-detail/family/i-home-D-aY4aGgduE-unsplash.jpg"
-              className="shadow cursor-pointer"
-            />
+            <img src={imageSrc} className="shadow cursor-pointer" />
           </div>
           <div>
             <h2 className="font-semibold text-lg">Fully Furnished Apartment</h2>
@@ -36,29 +27,29 @@ export default function Modal() {
 
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
           <input
-            className="p-3  border-2 w-full focus:ring-2 focus:ring-black focus:outline-none"
+            className="p-3 bg-white border-2 w-full focus:ring-2 focus:ring-black focus:outline-none"
             placeholder="Address"
           />
           <input
-            className="p-3  border-2 w-full focus:ring-2 focus:ring-black focus:outline-none"
+            className="p-3  bg-white border-2 w-full focus:ring-2 focus:ring-black focus:outline-none"
             placeholder="About"
           />
 
           <input
-            className="p-3  border-2 w-full focus:ring-2 focus:ring-black focus:outline-none"
+            className="p-3  bg-white border-2 w-full focus:ring-2 focus:ring-black focus:outline-none"
             placeholder="Location"
           />
           <input
-            className="p-3  border-2 w-full focus:ring-2 focus:ring-black focus:outline-none"
+            className="p-3  bg-white border-2 w-full focus:ring-2 focus:ring-black focus:outline-none"
             placeholder="Location"
           />
 
           <input
-            className="p-3  border-2 w-full focus:ring-2 focus:ring-black focus:outline-none"
+            className="p-3  bg-white border-2 w-full focus:ring-2 focus:ring-black focus:outline-none"
             placeholder="Work"
           />
           <input
-            className="p-3  border-2 w-full focus:ring-2 focus:ring-black focus:outline-none"
+            className="p-3  bg-white border-2 w-full focus:ring-2 focus:ring-black focus:outline-none"
             placeholder="Work"
           />
         </div>
@@ -98,21 +89,21 @@ export default function Modal() {
           <div>
             <h3 className="font-medium mb-4">Payment Details</h3>
             <input
-              className="w-full border-2 p-3  mb-3 focus:ring-2 focus:ring-black focus:outline-none"
+              className="w-full bg-white border-2 p-3  mb-3 focus:ring-2 focus:ring-black focus:outline-none"
               placeholder="Enter Name on Card"
             />
             <input
-              className="w-full border-2 p-3  mb-3 focus:ring-2 focus:ring-black focus:outline-none"
+              className="w-full  bg-white border-2 p-3  mb-3 focus:ring-2 focus:ring-black focus:outline-none"
               placeholder="Card Number"
             />
 
             <div className="flex gap-4">
               <input
-                className="w-1/2 border-2 p-3  focus:ring-2 focus:ring-black focus:outline-none"
+                className="w-1/2  bg-white border-2 p-3  focus:ring-2 focus:ring-black focus:outline-none"
                 placeholder="Expire Date"
               />
               <input
-                className="w-1/2 border-2 p-3  focus:ring-2 focus:ring-black focus:outline-none"
+                className="w-1/2  bg-white border-2 p-3  focus:ring-2 focus:ring-black focus:outline-none"
                 placeholder="CVV"
               />
             </div>
@@ -129,7 +120,7 @@ export default function Modal() {
         </div>
       </section>
 
-      <div id="modal-backdrop" className="fixed inset-0 bg-black/50 hidden"></div>
+      <div onClick={handleCloseModal} className="fixed inset-0 bg-black/50"></div>
     </>
   );
 }
