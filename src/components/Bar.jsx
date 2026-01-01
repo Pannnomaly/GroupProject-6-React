@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Bar() {
   return (
     <>
       {/* <!-- Sign In and Register Bar --> */}
       {/* <!-- Mobile --> */}
-      <section className="md:hidden flex justify-center w-full mt-10 px-4">
+      <section className="md:hidden flex justify-center w-full mt-10 px-4 font-earn">
         <div className="bg-white shadow-xl border-2 flex flex-col gap-4 px-4 py-5 w-full max-w-md">
           {/* <!-- Guests --> */}
           <div className="relative">
@@ -67,11 +68,11 @@ export default function Bar() {
           </div>
 
           <div className="flex justify-between">
-            <a href="./login.html">
+            <Link to="/login">
               <button className="ml-auto px-4 py-2 hover:bg-gray-100 font-medium">
                 Sign in / Register
               </button>
-            </a>
+            </Link>
             <img
               src="https://res.cloudinary.com/dhggmrfe1/image/upload/v1766600151/person_vgy3os.svg"
               height="32px"

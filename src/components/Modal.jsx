@@ -1,10 +1,15 @@
+import { Link } from "react-router-dom";
+
 export default function Modal({ isModalOpen, handleCloseModal, imageSrc }) {
   if (!isModalOpen) return null; // ไม่แสดงผลถ้าไม่ได้เปิด
   return (
     <>
       {/* <!-- Modal-Detail --> */}
-      <section className="fixed top-1/2 left-1/2 -translate-x-[50%] -translate-y-[55%] z-50 max-w-4xl overflow-y-auto max-h-[90vh] bg-(--color-main5) mt-10 p-8 border-2 border-2-black border-2-opacity-30 shadow">
-        <button onClick={handleCloseModal} className="absolute top-4 right-4 px-3 py-1 bg-black text-white">
+      <section className="fixed top-1/2 left-1/2 -translate-x-[50%] -translate-y-[55%] z-50 max-w-4xl overflow-y-auto max-h-[90vh] bg-(--color-main5) mt-10 p-8 border-2 border-2-black border-2-opacity-30 shadow font-earn">
+        <button
+          onClick={handleCloseModal}
+          className="absolute top-4 right-4 px-3 py-1 bg-black text-white"
+        >
           X
         </button>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -17,11 +22,11 @@ export default function Modal({ isModalOpen, handleCloseModal, imageSrc }) {
             <p className="text-sm text-gray-600 mt-2">Duration: Long (2 - 5 Years)</p>
             <p className="text-sm text-gray-600 mt-2">Guests: 4 Adults</p>
             <p className="text-sm mt-2 font-bold">$ 1000 USD</p>
-            <a href="./booking-page.html" alt="booking-page">
+            <Link to="/bookingdetail" alt="booking-page">
               <button className="mt-4 border-2 border-2-black bg-gray-200 px-3 py-1">
                 Reserve
               </button>
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -53,8 +58,13 @@ export default function Modal({ isModalOpen, handleCloseModal, imageSrc }) {
             placeholder="Work"
           />
         </div>
+        <div className="flex items-center my-10">
+          <div className="grow border-t border-(--color-main10)"></div>
 
-        <h2 className="text-xl font-semibold mt-12">Step 2</h2>
+          <span className="mx-4 text-2xl text-center text-(--color-main6)">Step 2</span>
+
+          <div className="grow border-t border-(--color-main10)"></div>
+        </div>
 
         <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* <!-- Payment Method --> */}
@@ -109,12 +119,14 @@ export default function Modal({ isModalOpen, handleCloseModal, imageSrc }) {
             </div>
 
             <div className="flex justify-between mt-6">
-              <a href="./room-detail.html" alt="room-detail">
-                <button className="px-6 py-2 border-2">Back</button>
-              </a>
-              <button className="px-6 py-2 bg-black hover:bg-gray-700 text-white">
-                Confirm payment
-              </button>
+              <Link to="/bookingdetail" alt="booking-page">
+                <button className="px-6 py-2 border-2 bg-white">Back</button>
+              </Link>
+              <Link to="/bookingdetail" alt="booking-page">
+                <button className="px-6 py-2 bg-(--color-main2) hover:bg-(--color-main3) text-white">
+                  Confirm payment
+                </button>
+              </Link>
             </div>
           </div>
         </div>
