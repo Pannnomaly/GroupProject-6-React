@@ -8,11 +8,11 @@ const Login = () => {
         <div className="container w-full max-w-2xl bg-white shadow-md p-8 border border-gray-200">
           <div className="flex justify-end gap-2 my-2">
             <p className="text-gray-500 text-sm ">You're new here? </p>
-            <a href="./registration.html">
-              <p className="text-sm text-end font-semibold underline underline-offset-2 mb-1">
+            <Link to="/register">
+              <p className="text-sm text-end font-semibold hover:underline underline-offset-2 mb-1">
                 Create an account
               </p>
-            </a>
+            </Link>
           </div>
 
           <div className="space-y-4">

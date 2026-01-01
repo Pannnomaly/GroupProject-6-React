@@ -25,7 +25,7 @@ const RoomDetail = () => {
       <Navbar />
       <Bar />
       <SliderImage />
-      <RoomCard onImageClick={handleOpenModal} />
+      <RoomCard handleOpenModal={handleOpenModal} />
       <Modal
         isModalOpen={isModalOpen}
         handleCloseModal={handleCloseModal}
