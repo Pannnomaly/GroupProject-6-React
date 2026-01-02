@@ -1,7 +1,14 @@
+import { format } from "date-fns";
 import { Link } from "react-router-dom";
 
-export default function Modal({ isModalOpen, handleCloseModal, imageSrc }) {
+export default function Modal({
+  isModalOpen,
+  handleCloseModal,
+  imageSrc,
+  bookingDate,
+}) {
   if (!isModalOpen) return null; // ไม่แสดงผลถ้าไม่ได้เปิด
+  console.log(bookingDate);
   return (
     <>
       {/* <!-- Modal-Detail --> */}
@@ -18,8 +25,19 @@ export default function Modal({ isModalOpen, handleCloseModal, imageSrc }) {
           </div>
           <div>
             <h2 className="font-semibold text-lg">Fully Furnished Apartment</h2>
-            <p className="text-sm text-gray-600 mt-2">Check in: 12 Mar 2024</p>
-            <p className="text-sm text-gray-600 mt-2">Duration: Long (2 - 5 Years)</p>
+            <p className="text-sm text-gray-600 mt-2">
+              Check in:{" "}
+              {bookingDate?.from
+                ? format(bookingDate.from, "dd MMM yyyy")
+                : "-"}
+            </p>
+            <p className="text-sm text-gray-600 mt-2">
+              Check out:{" "}
+              {bookingDate?.to ? format(bookingDate.to, "dd MMM yyyy") : "-"}
+            </p>
+            <p className="text-sm text-gray-600 mt-2">
+              Duration: Long (2 - 5 Years)
+            </p>
             <p className="text-sm text-gray-600 mt-2">Guests: 4 Adults</p>
             <p className="text-sm mt-2 font-bold">$ 1000 USD</p>
             <Link to="/bookingdetail" alt="booking-page">
@@ -61,7 +79,9 @@ export default function Modal({ isModalOpen, handleCloseModal, imageSrc }) {
         <div className="flex items-center my-10">
           <div className="grow border-t border-(--color-main10)"></div>
 
-          <span className="mx-4 text-2xl text-center text-(--color-main6)">Step 2</span>
+          <span className="mx-4 text-2xl text-center text-(--color-main6)">
+            Step 2
+          </span>
 
           <div className="grow border-t border-(--color-main10)"></div>
         </div>
@@ -132,7 +152,10 @@ export default function Modal({ isModalOpen, handleCloseModal, imageSrc }) {
         </div>
       </section>
 
-      <div onClick={handleCloseModal} className="fixed inset-0 bg-black/50"></div>
+      <div
+        onClick={handleCloseModal}
+        className="fixed inset-0 bg-black/50"
+      ></div>
     </>
   );
 }
