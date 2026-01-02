@@ -1,7 +1,24 @@
-import React from "react";
 import { Link } from "react-router-dom";
+import { format } from "date-fns";
+import { Calendar as CalendarIcon } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
-export default function Bar() {
+export default function Bar({ bookingDate, setBookingDate }) {
+  // ฟังก์ชันช่วยแสดงข้อความบนปุ่ม
+  const getDateDisplay = () => {
+    if (bookingDate?.from) {
+      if (bookingDate.to) {
+        return `${format(bookingDate.from, "dd MMM yyyy")} - ${format(
+          bookingDate.to,
+          "dd MMM yyyy"
+        )}`;
+      }
+      return format(bookingDate.from, "dd MMM");
+    }
+    return "Check In || Check Out";
+  };
+
   return (
     <>
       {/* <!-- Sign In and Register Bar --> */}
@@ -22,10 +39,24 @@ export default function Bar() {
           </div>
 
           {/* <!-- Check In / Check Out --> */}
-          <div className="w-full">
-            <button className="border border-black bg-gray-200 w-full px-4 py-2 hover:bg-gray-100 font-medium">
-              Check In || Check Out
-            </button>
+          <div className="w-full flex justify-center">
+            <Popover>
+              <PopoverTrigger asChild>
+                <button className="border border-black bg-(--color-main11) px-4 py-2 hover:bg-(--color-main5) font-medium flex items-center gap-2">
+                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  {getDateDisplay()}
+                </button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="center">
+                <Calendar
+                  initialFocus
+                  mode="range"
+                  selected={bookingDate}
+                  onSelect={setBookingDate}
+                  numberOfMonths={2}
+                />
+              </PopoverContent>
+            </Popover>
           </div>
 
           <div className="flex justify-between items-center w-full">
@@ -62,9 +93,23 @@ export default function Bar() {
           </div>
 
           <div className="flex flex-1 justify-center items-center gap-4">
-            <button className="border border-black bg-gray-200 px-4 py-2 hover:bg-gray-100 font-medium">
-              Check In || Check Out
-            </button>
+            <Popover>
+              <PopoverTrigger asChild>
+                <button className="border border-black bg-(--color-main11) px-4 py-2 hover:bg-(--color-main5) font-medium flex items-center gap-2">
+                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  {getDateDisplay()}
+                </button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="center">
+                <Calendar
+                  initialFocus
+                  mode="range"
+                  selected={bookingDate}
+                  onSelect={setBookingDate}
+                  numberOfMonths={2}
+                />
+              </PopoverContent>
+            </Popover>
           </div>
 
           <div className="flex justify-between">
