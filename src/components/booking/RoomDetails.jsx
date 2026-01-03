@@ -1,5 +1,5 @@
 const RoomDetails = () => (
-  <div className="mb-6 pb-6 border-b border-gray-200">
+  <div className="mb-6 pb-6">
     <div className="flex justify-between items-center mb-2">
       <span className="font-medium">Double Room</span>
       <span className="font-medium">THB 1,200</span>
@@ -11,5 +11,4 @@ const RoomDetails = () => (
     </div>
   </div>
 );
- 
 export default RoomDetails;

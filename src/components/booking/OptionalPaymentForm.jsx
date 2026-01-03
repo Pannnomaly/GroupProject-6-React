@@ -1,6 +1,6 @@
 // src/components/booking/OptionalPaymentForm.jsx
 const OptionalPaymentForm = ({ formData, onChange }) => (
-  <div className="bg-white rounded-lg shadow p-6">
+  <div className="bg-white">
     <h3 className="text-xl font-semibold mb-6">Optional Payment Form</h3>
     <div className="space-y-6">
       <div>
@@ -10,7 +10,7 @@ const OptionalPaymentForm = ({ formData, onChange }) => (
           value={formData.specialRequests}
           onChange={onChange}
           rows="3"
-          className="w-full p-2 border border-gray-300 rounded-md"
+          className="w-full p-2 border border-gray-300 "
           placeholder="Enter any special requests here..."
         ></textarea>
       </div>
@@ -20,7 +20,7 @@ const OptionalPaymentForm = ({ formData, onChange }) => (
             id="offers"
             name="offers"
             type="checkbox"
-            className="h-4 w-4 text-blue-600 border-gray-300 rounded"
+            className="h-4 w-4 text-blue-600 border-gray-300 "
           />
         </div>
         <div className="ml-3 text-sm">

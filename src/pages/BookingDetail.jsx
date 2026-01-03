@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import GuestDetailsForm from '@/components/booking/GuestDetailsForm';
 import PaymentMethod from '@/components/booking/PaymentMethod';
 import OptionalPaymentForm from '@/components/booking/OptionalPaymentForm';
@@ -7,8 +9,8 @@ import HotelInfo from '@/components/booking/HotelInfo';
 import BookingDates from '@/components/booking/BookingDates';
 import RoomDetails from '@/components/booking/RoomDetails';
 import PriceSummary from '@/components/booking/PriceSummary';
-
-const BookingDetail = () => {
+ 
+export default function BookingDetail() {
   const [formData, setFormData] = useState({
     title: 'Mr.',
     firstName: '',
@@ -18,10 +20,8 @@ const BookingDetail = () => {
     phone: '',
     paymentMethod: 'credit',
     specialRequests: '',
-    estimatedArrival: 'I don\'t know',
-    arriveBy: 'Air',
   });
-
+ 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -32,42 +32,58 @@ const BookingDetail = () => {
     console.log('Form submitted:', formData);
     // Handle form submission
   };
-
+ 
   return (
-    <div className="p-4">
-      <div className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h2 className="text-3xl font-bold">Complete Your Booking</h2>
-        </div>
-        
-        <form onSubmit={handleSubmit} className="grid md:grid-cols-3 gap-8">
-          <div className="md:col-span-2 space-y-8">
-            <GuestDetailsForm formData={formData} onChange={handleInputChange} />
-            <PaymentMethod formData={formData} onChange={handleInputChange} />
-            <OptionalPaymentForm formData={formData} onChange={handleInputChange} />
-            <ArrivalDetails formData={formData} onChange={handleInputChange} />
+    <div className="font-earn">
+      <Navbar />
+      
+      <div className="min-h-screen w-full flex justify-center bg-gray-100">
+        <div className="w-[90%] max-w-7xl my-10">
+          <div className="mb-8">
+            <h2 className="text-4xl font-bold text-gray-900">Complete Your Booking</h2>
           </div>
           
-          <div className="space-y-8">
-            <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="text-xl font-semibold mb-6">Reservation Summary</h3>
-              <HotelInfo />
-              <BookingDates />
-              <RoomDetails />
-              <PriceSummary />
+          <form onSubmit={handleSubmit} className="grid md:grid-cols-3 gap-8">
+            <div className="md:col-span-2 space-y-8">
+              <div className="bg-white p-6">
+                <GuestDetailsForm formData={formData} onChange={handleInputChange} />
+              </div>
+              <div className="bg-white p-6">
+                <PaymentMethod formData={formData} onChange={handleInputChange} />
+              </div>
+              <div className="bg-white p-6">
+                <OptionalPaymentForm formData={formData} onChange={handleInputChange} />
+              </div>
+              <div className="bg-white p-6">
+                <ArrivalDetails formData={formData} onChange={handleInputChange} />
+              </div>
             </div>
             
-            <button
-              type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
-            >
-              Continue to a secure payment form
-            </button>
-          </div>
-        </form>
+            <div className="space-y-8">
+              <div className="bg-white p-6">
+                <h3 className="text-2xl font-semibold mb-6 text-gray-800">Reservation Summary</h3>
+                <div className="space-y-6">
+                  <HotelInfo />
+                  <div className="my-4"></div>
+                  <BookingDates />
+                  <div className="my-4"></div>
+                  <RoomDetails />
+                  <div className="my-4"></div>
+                  <PriceSummary />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full mt-8 bg-(--color-main3) hover:bg-(--color-main2) text-white font-semibold text-lg py-3 px-6  transition-colors duration-300"
+                >
+                  Continue to a secure payment form
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
+      
+      <Footer />
     </div>
   );
-};
-
-export default BookingDetail;
+}

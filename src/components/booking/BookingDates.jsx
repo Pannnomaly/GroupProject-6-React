@@ -6,5 +6,4 @@ const BookingDates = () => (
     </div>
   </div>
 );
- 
 export default BookingDates;
