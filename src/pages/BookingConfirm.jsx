@@ -13,20 +13,6 @@ import ConfirmationFooter from '@/components/confirmation/ConfirmationFooter';
 import { reservationData } from '@/data/reservationData';
 
 const BookingConfirm = () => {
-  // Using data from reservationData.js
-  const {
-    confirmationNumber,
-    guestName,
-    checkIn,
-    checkOut,
-    guestCount,
-    nights,
-    roomType,
-    amount,
-    specialRequest,
-    hotelAddress,
-    hotelImage
-  } = reservationData;
 
   const handleConfirm = () => {
     console.log('Reservation confirmed');
