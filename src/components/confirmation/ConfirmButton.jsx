@@ -8,7 +8,7 @@ const ConfirmButton = ({
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`w-full max-w-xs bg-(--color-main3) hover:bg-blue-700 text-lg text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300 text-lg ${
+      className={`w-full max-w-xs bg-(--color-main3) hover:bg-blue-700 text-lg text-white font-semibold py-3 px-6 transition-colors duration-300 ${
         disabled ? 'opacity-50 cursor-not-allowed' : ''
       }`}
     >
