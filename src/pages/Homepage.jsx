@@ -246,7 +246,7 @@ const Homepage = () => {
                             className="w-full h-140 object-cover"
                         />
                           <img
-                            src="public/door.jpg"
+                            src="/door.jpg"
                             alt="Lobby"
                             className="w-full h-140 object-cover"
                         />
