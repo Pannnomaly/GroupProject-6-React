@@ -1,4 +1,4 @@
-import React from "react";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
@@ -8,11 +8,11 @@ const Login = () => {
         <div className="container w-full max-w-2xl bg-white shadow-md p-8 border border-gray-200">
           <div className="flex justify-end gap-2 my-2">
             <p className="text-gray-500 text-sm ">You're new here? </p>
-            <a href="./registration.html">
-              <p className="text-sm text-end font-semibold underline underline-offset-2 mb-1">
+            <Link to="/register">
+              <p className="text-sm text-end font-semibold hover:underline underline-offset-2 mb-1">
                 Create an account
               </p>
-            </a>
+            </Link>
           </div>
 
           <div className="space-y-4">
@@ -41,23 +41,23 @@ const Login = () => {
           </div>
 
           <div className="grid grid-cols-2 gap-4 mb-6">
-            <a href="./room-detail.html">
+            <Link to="/roomdetail">
               <button className="w-full border  py-2 flex items-center justify-center gap-2 hover:bg-gray-50">
                 <img src="https://www.svgrepo.com/show/475656/google-color.svg" className="w-5" />
               </button>
-            </a>
-            <a href="./room-detail.html">
+            </Link>
+            <Link to="/roomdetail">
               <button className="w-full border  py-2 flex items-center justify-center gap-2 hover:bg-gray-50">
                 <img src="https://files.svgcdn.io/streamline-color/meta.svg" className="w-5" />
               </button>
-            </a>
+            </Link>
           </div>
 
-          <a href="./room-detail.html">
-            <button className="w-full bg-[var(--color-main4)] text-gray-700 font-medium py-3  hover:bg-[#e9decf] transition">
+          <Link to="/roomdetail">
+            <button className="w-full bg-(--color-main4) text-gray-700 font-medium py-3  hover:bg-[#e9decf] transition">
               Log in
             </button>
-          </a>
+          </Link>
         </div>
       </main>
     </>
