@@ -13,6 +13,7 @@ import BookingDetail from './pages/BookingDetail.jsx';
 import BookingConfirm from './pages/BookingConfirm.jsx';
 import User from './pages/User.jsx';
 import ContactUs from './pages/ContactUs.jsx';
+import Admin from './pages/Admin';
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
           { path: "bookingconfirm", element: <BookingConfirm /> },
           { path: "user", element: <User /> },
           { path: "contactus", element: <ContactUs /> },
+          { path: "admin", element: <Admin/> },
         ],
       },
     ],
