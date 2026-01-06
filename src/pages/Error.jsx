@@ -1,9 +1,8 @@
 export default function Error ()
 {
-    console.log("Error here");
     return (
-        <div>
-            <h1>This is Error</h1>
+        <div className="min-h-screen flex justify-center items-center">
+            <h1 className="text-4xl">404 - Page not found!</h1>
         </div>
     );
 }
