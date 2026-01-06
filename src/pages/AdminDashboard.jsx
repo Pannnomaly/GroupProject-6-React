@@ -1,6 +1,6 @@
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar.jsx"
 import SidebarApp from "../components/SidebarApp.jsx"
-import { ThemeProvider } from "@/components/theme-provider"
+// import { ThemeProvider } from "@/components/theme-provider"
 import { Bed, NotebookPen, LogOut } from "lucide-react"
 import { ChartComponent } from "@/components/chart-bar-interactive.js"
 
