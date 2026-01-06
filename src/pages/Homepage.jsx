@@ -50,27 +50,10 @@ const Homepage = () => {
 
                 {/* Text */}
                 <div
-                    className="
-      absolute
-      left-6 bottom-20
-      sm:left-10
-      md:left-16 md:bottom-32
-      text-[#EFEDEA]
-      tracking-[0.1em]
-      max-w-xl
-      z-10
-    "
+                    className="  absolute  left-6 bottom-2 sm:left-10  md:left-16 md:bottom-32   text-[#EFEDEA]  tracking-[0.1em]  max-w-xl  z-10"
                 >
                     <p
-                        className="
-        text-5xl
-        sm:text-6xl
-        md:text-8xl
-        lg:text-[140px]
-        leading-none
-        mb-4
-        opacity-30
-      "
+                        className="text-5xl sm:text-6xl md:text-8xl lg:text-[140px] leading-none  mb-4 opacity-30 "
                     >
                         S.
                     </p>
@@ -90,7 +73,7 @@ const Homepage = () => {
                         MonkeyDB UIIA Hotel Bangkok
                     </p>
 
-                    <button className="border border-[#958574] px-8 sm:px-12 md:px-16 py-3 text-lg sm:text-xl tracking-wider text-[#6C5B5C] hover:bg-[#BBAF90] hover:border-transparent  hover:text-[#ffff] transition">
+                    <button className="border border-[#958574] px-8 sm:px-12 md:px-20 py-2 text-sm sm:text-xl tracking-wider text-[#6C5B5C] hover:bg-[#BBAF90] hover:border-transparent  hover:text-[#ffff] transition">
                         HOTEL DETAILS
                     </button>
                 </div>
@@ -102,13 +85,7 @@ const Homepage = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
                     <img
                         src="/window.jpg"
-                        className="
-                            w-full
-                            aspect-[4/3]
-                            md:aspect-[16/10]
-                            object-contain
-                            shadow-lg
-                        "
+                        className="  w-full aspect-[4/3] md:aspect-[16/10] object-contain shadow-lg"
                     />
 
                     <div>
@@ -150,7 +127,7 @@ const Homepage = () => {
                         </h2>
                     </div>
 
-                    <div className="w-full md:w-2/5">
+                    <div className="w-full md:w-2/5  ">
                         <img
                             src="/newpadthai.png"
                             alt="Pad Thai"
@@ -163,7 +140,7 @@ const Homepage = () => {
                 <div className="w-full max-w-7xl mx-auto py-12">
                     {/* BUTTONS */}
                     <div className="flex flex-col md:flex-row justify-evenly gap-8 md:gap-14 mb-12">
-                        <button className="px-8 py-3 text-[#5f5b54] shadow-xl border-gray-200 text-lg sm:text-xl hover:bg-amber-900 hover:text-white transition">
+                        <button className="px-20 py-3 text-[#5f5b54] shadow-xl border-gray-200 text-lg sm:text-xl hover:bg-amber-900 hover:text-white transition">
                             Room Type
                         </button>
 
@@ -171,7 +148,7 @@ const Homepage = () => {
                             Local recommendations
                         </button>
 
-                        <button className="px-8 py-3 text-[#5f5b54] shadow-xl border-gray-200 text-lg sm:text-xl hover:bg-amber-900 hover:text-white transition">
+                        <button className="px-20 py-3 text-[#5f5b54] shadow-xl border-gray-200 text-lg sm:text-xl hover:bg-amber-900 hover:text-white transition">
                             Facilities
                         </button>
                     </div>
@@ -243,23 +220,23 @@ const Homepage = () => {
             </section>
 
             {/* ================= GALLERY ================= */}
-            <section className="min-h-screen bg-[#ffff] flex justify-center items-center py-20 px-4 sm:px-6 lg:px-8">
-                <div className="bg-white shadow-lg w-full max-w-5xl overflow-hidden">
+            <section className="min-h-screen bg-[#ffff] flex justify-center items-center py-30 px-5 sm:px-6 lg:px-8">
+                <div className="bg-white shadow-lg w-full max-w-7xl overflow-hidden">
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         <img
                             src="/building.jpg"
                             alt="Building"
-                            className="w-full h-96 object-cover"
+                            className="w-full h-140 object-cover"
                         />
                         <img
                             src="/pool.jpg"
                             alt="Pool"
-                            className="w-full h-96 object-cover"
+                            className="w-full h-140 object-cover"
                         />
                         <img
                             src="/lobby.jpg"
                             alt="Lobby"
-                            className="w-full h-96 object-cover"
+                            className="w-full h-140 object-cover"
                         />
                     </div>
                 </div>
@@ -270,3 +247,4 @@ const Homepage = () => {
 };
 
 export default Homepage;
+
