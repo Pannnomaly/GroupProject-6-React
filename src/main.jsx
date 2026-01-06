@@ -14,6 +14,7 @@ import BookingConfirm from './pages/BookingConfirm.jsx';
 import User from './pages/User.jsx';
 import ContactUs from './pages/ContactUs.jsx';
 import AdminDashboard from './pages/AdminDashboard';
+import Admin from './pages/Admin';
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,7 @@ const router = createBrowserRouter([
           { path: "user", element: <User /> },
           { path: "contactus", element: <ContactUs /> },
           { path: "admindashboard", element: <AdminDashboard /> },
+          { path: "admin", element: <Admin/> },
         ],
       },
     ],
