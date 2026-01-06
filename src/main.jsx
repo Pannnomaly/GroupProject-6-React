@@ -15,6 +15,7 @@ import User from './pages/User.jsx';
 import ContactUs from './pages/ContactUs.jsx';
 import AdminDashboard from './pages/AdminDashboard';
 import Admin from './pages/Admin';
+import Explore from './pages/ExploreDetail';
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
           { path: "contactus", element: <ContactUs /> },
           { path: "admindashboard", element: <AdminDashboard /> },
           { path: "admin", element: <Admin/> },
+          { path: "explore", element: <Explore/> },
         ],
       },
     ],

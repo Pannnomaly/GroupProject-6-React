@@ -1,6 +1,7 @@
 import Footer from "@/components/Footer";
 import React from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const Homepage = () => {
     const handleMenuClick = () => {
@@ -30,9 +31,11 @@ const Homepage = () => {
                     />
                 </a>
 
-                <button className="px-6 py-2 sm:px-8 md:px-12 border border-[#EFEDEA] uppercase tracking-wide hover:bg-[#EFEDEA] hover:text-[#134A5F] transition text-sm sm:text-base">
-                    Book Now
-                </button>
+                <Link to="roomdetail">
+                    <button className="px-6 py-2 sm:px-8 md:px-12 border border-[#EFEDEA] uppercase tracking-wide hover:bg-[#EFEDEA] hover:text-[#134A5F] transition text-sm sm:text-base">
+                        Book Now
+                    </button>
+                </Link>
             </header>
 
             {/* ================= HERO ================= */}
@@ -73,9 +76,11 @@ const Homepage = () => {
                         MonkeyDB UIIA Hotel Bangkok
                     </p>
 
-                    <button className="border border-[#958574] px-8 sm:px-12 md:px-20 py-2 text-sm sm:text-xl tracking-wider text-[#6C5B5C] hover:bg-[#BBAF90] hover:border-transparent  hover:text-[#ffff] transition">
-                        HOTEL DETAILS
-                    </button>
+                    <Link to="roomdetail">
+                        <button className="border border-[#958574] px-8 sm:px-12 md:px-20 py-2 text-sm sm:text-xl tracking-wider text-[#6C5B5C] hover:bg-[#BBAF90] hover:border-transparent  hover:text-[#ffff] transition">
+                            HOTEL DETAILS
+                        </button>
+                    </Link>
                 </div>
             </section>
 
@@ -103,9 +108,11 @@ const Homepage = () => {
                         </p>
 
                         <div className="text-center md:text-left">
-                        <button className="border border-[#C9B28C] px-8 sm:px-12 md:px-20 py-2 text-sm sm:text-base tracking-wider text-[#134A5F] hover:bg-[#6C5B5C] hover:border-transparent hover:text-[#EFEDEA] transition">
-                            EXPLORE HIGHLIGHTS
-                        </button>
+                        <Link to="explore">
+                            <button className="border border-[#C9B28C] px-8 sm:px-12 md:px-20 py-2 text-sm sm:text-base tracking-wider text-[#134A5F] hover:bg-[#6C5B5C] hover:border-transparent hover:text-[#EFEDEA] transition">
+                                EXPLORE HIGHLIGHTS
+                            </button>
+                        </Link>
                     </div>
                 </div>
                 </div>
