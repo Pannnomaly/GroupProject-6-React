@@ -85,7 +85,7 @@ const Homepage = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
                     <img
                         src="/window.jpg"
-                        className="  w-full aspect-[4/3] md:aspect-[16/10] object-contain shadow-lg"
+                        className="  w-full aspect-[4/3] md:aspect-[11/10] object-contain shadow-lg"
                     />
 
                     <div>
@@ -222,7 +222,7 @@ const Homepage = () => {
             {/* ================= GALLERY ================= */}
             <section className="min-h-screen bg-[#ffff] flex justify-center items-center py-30 px-5 sm:px-6 lg:px-8">
                 <div className="bg-white shadow-lg w-full max-w-7xl overflow-hidden">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                         <img
                             src="/building.jpg"
                             alt="Building"
@@ -235,6 +235,11 @@ const Homepage = () => {
                         />
                         <img
                             src="/lobby.jpg"
+                            alt="Lobby"
+                            className="w-full h-140 object-cover"
+                        />
+                          <img
+                            src="public/door.jpg"
                             alt="Lobby"
                             className="w-full h-140 object-cover"
                         />
