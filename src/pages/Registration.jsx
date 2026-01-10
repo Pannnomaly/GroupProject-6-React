@@ -27,7 +27,7 @@ const Registration = () => {
             <h2 className="text-4xl text-center font-medium mb-10">Sign up</h2>
 
             {/* Form */}
-            <div>
+            <form>
               <label className="text-sm">Email</label>
               <input
                 type="email"
@@ -50,7 +50,7 @@ const Registration = () => {
               <a href="#" className="text-sm text-gray-600 hover:underline">
                 Forgot password?
               </a>
-            </div>
+            </form>
 
             <div className="flex items-center my-10">
               <div className="grow border-t border-(--color-main10)"></div>

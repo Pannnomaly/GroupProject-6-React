@@ -15,7 +15,7 @@ const Login = () => {
             </Link>
           </div>
 
-          <div className="space-y-4">
+          <form className="space-y-4">
             <input
               type="email"
               placeholder="Email"
@@ -26,12 +26,12 @@ const Login = () => {
               placeholder="Password"
               className="w-full px-4 py-3 border  focus:ring-2 focus:ring-black focus:outline-none"
             />
-          </div>
+          </form>
 
           <div className="text-right mt-2">
-            <a href="#" className="text-sm text-gray-600 hover:underline">
+            <Link to="/forgetpassword" className="text-sm text-gray-600 hover:underline">
               Forgot password?
-            </a>
+            </Link>
           </div>
 
           <div className="my-6 flex items-center gap-4">
@@ -54,7 +54,7 @@ const Login = () => {
           </div>
 
           <Link to="/roomdetail">
-            <button className="w-full bg-(--color-main4) text-gray-700 font-medium py-3  hover:bg-[#e9decf] transition">
+            <button className="w-full bg-(--color-main4) hover:bg-[#e9decf] text-gray-700 font-medium py-3  transition">
               Log in
             </button>
           </Link>

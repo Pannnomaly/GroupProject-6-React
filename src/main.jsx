@@ -16,6 +16,7 @@ import ContactUs from './pages/ContactUs.jsx';
 import AdminDashboard from './pages/AdminDashboard';
 import Admin from './pages/Admin';
 import Explore from './pages/ExploreDetail';
+import ForgetPassword from './pages/ForgetPassword';
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,7 @@ const router = createBrowserRouter([
           { path: "admindashboard", element: <AdminDashboard /> },
           { path: "admin", element: <Admin/> },
           { path: "explore", element: <Explore/> },
+          { path: "forgetpassword", element: <ForgetPassword/> },
         ],
       },
     ],
