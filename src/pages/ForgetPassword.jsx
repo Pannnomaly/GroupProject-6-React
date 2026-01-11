@@ -12,7 +12,7 @@ export default function ForgetPassword() {
     <main className="flex min-h-screen items-center justify-center bg-gray-100 font-earn">
       <div className="container w-full max-w-xl space-y-8 p-8 border border-gray-200 bg-white shadow-md ">
         <div>
-          <img className="mx-auto h-12 w-auto" src="../../public/hotel-logo.png" alt="MonkeyDB Hostel Bangkok" />
+          <img className="mx-auto h-12 w-auto" src="hotel-logo.png" alt="MonkeyDB Hostel Bangkok" />
           <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
             Reset Your Password
           </h2>
