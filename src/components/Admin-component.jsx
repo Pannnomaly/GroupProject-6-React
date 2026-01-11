@@ -1,19 +1,6 @@
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar.jsx";
-import SidebarApp from "../components/SidebarApp.jsx";
-
 export default function AdminComponent() {
   return (
-    <div className="flex flex-row font-earn">
-      <div>
-        <SidebarProvider>
-          <SidebarApp />
-          <div className="m-5 flex flex-col gap-6 w-full md:px-0">
-            <div className="flex justify-between">
-              <SidebarTrigger />
-            </div>
-          </div>
-        </SidebarProvider>
-      </div>
+    <div className="flex flex-row font-earn max-w-[95%]">
       <main className="w-screen flex flex-col justify-center items-center py-20">
         <div className="w-[95%] flex justify-between items-center bg-(--color-main3) text-(--color-main12) p-3 rounded-t-md">
           <div>
@@ -108,13 +95,13 @@ export default function AdminComponent() {
                   </div>
                 </div>
               </div>
-              {/* <div className="flex justify-end mb-5 mr-5">
+              <div className="flex justify-end mb-5 mr-5">
                 <a href="admin-dashboard.html">
                   <button className="px-6 py-4 bg-(--color-main3) hover:bg-(--color-main2) rounded-xl cursor-pointer">
                     Close
                   </button>
                 </a>
-              </div> */}
+              </div>
             </div>
           </div>
         </div>
