@@ -1,6 +1,12 @@
+import AsideAdmin from "@/pages/AsideAdmin";
+import { Link } from "react-router-dom";
+
 export default function AdminComponent() {
   return (
     <div className="flex flex-row font-earn max-w-[95%]">
+      <div>
+        <AsideAdmin />
+      </div>
       <main className="w-screen flex flex-col justify-center items-center py-20">
         <div className="w-[95%] flex justify-between items-center bg-(--color-main3) text-(--color-main12) p-3 rounded-t-md">
           <div>
@@ -96,11 +102,11 @@ export default function AdminComponent() {
                 </div>
               </div>
               <div className="flex justify-end mb-5 mr-5">
-                <a href="admin-dashboard.html">
+                <Link to="../asideadmin">
                   <button className="px-6 py-4 bg-(--color-main3) hover:bg-(--color-main2) rounded-xl cursor-pointer">
                     Close
                   </button>
-                </a>
+                </Link>
               </div>
             </div>
           </div>

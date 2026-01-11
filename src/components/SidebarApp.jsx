@@ -6,7 +6,7 @@ import { Link } from "react-router-dom"
 const items = [
   {
     title: "Dashboard",
-    url: "#",
+    url: "../admindashboard",
     icon: LayoutDashboard,
   },
   {
@@ -51,7 +51,7 @@ export default function SideBar() {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton asChild>
-                            <Link to="#">
+                            <Link to="../admin">
                                 <User />
                                 <span>Joe Dorn</span>
                             </Link>
