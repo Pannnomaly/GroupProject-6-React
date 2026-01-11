@@ -7,64 +7,64 @@ export default function Footer() {
                 <div className="my-auto">
                     <div>
                         <Link to="/">
-                                <img className="w-50" src="hotel-logo.png" alt="Hotel Logo" />
+                                <img className="w-40" src="hotel-logo.png" alt="Hotel Logo" />
                         </Link>
                     </div>
                 </div>
                 <div className="flex flex-col justify-center">
                     <div>
-                        <p className="font-bold text-2xl">SITE MAP</p>
+                        <p className="font-bold text-xl">SITE MAP</p>
                     </div>
                     <div className="pt-3 gap-5 flex flex-col">
                         <div className="hover:bg-(--color-main2) rounded-lg transition duration-300 ease-in-out">
                             <Link to="/user">
-                                <p className="text-xl">User</p>
+                                <p className="text-lg">User</p>
                             </Link>
                         </div>
                         <div className="hover:bg-(--color-main2) rounded-lg transition duration-300 ease-in-out">
                             <Link to="/roomdetail">
-                                <p className="text-xl">Availability</p>
+                                <p className="text-lg">Availability</p>
                             </Link>
                         </div>
                         <div className="hover:bg-(--color-main2) rounded-lg transition duration-300 ease-in-out">
                             <Link to="/contactus">
-                                <p className="text-xl">Contact Us</p>
+                                <p className="text-lg">Contact Us</p>
                             </Link>
                         </div>
                     </div>
                 </div>
                 <div className="flex flex-col justify-center">
                     <div>
-                        <p className="font-bold text-2xl">SOCIALS</p>
+                        <p className="font-bold text-xl">SOCIALS</p>
                     </div>
                 <div className="pt-3 gap-5 flex flex-col">
                     <div className="hover:bg-(--color-main2) rounded-lg transition duration-300 ease-in-out">
                         <Link to="/">
-                            <p className="text-xl">Facebook</p>
+                            <p className="text-lg">Facebook</p>
                         </Link>
                     </div>
                     <div className="hover:bg-(--color-main2) rounded-lg transition duration-300 ease-in-out">
                         <Link to="/">
-                            <p className="text-xl">Instagram</p>
+                            <p className="text-lg">Instagram</p>
                         </Link>
                     </div>
                     <div className="hover:bg-(--color-main2) rounded-lg transition duration-300 ease-in-out">
                         <Link to="/">
-                            <p className="text-xl">Twitter</p>
+                            <p className="text-lg">Twitter</p>
                         </Link>
                     </div>
                 </div>
                 </div>
                 <div className="flex flex-col justify-between h-full">
                     <div className="flex flex-col w-3/4">
-                        <p className="font-bold text-2xl">HEAD OFFICE</p>
-                        <div className="pt-3 text-xl">
+                        <p className="font-bold text-xl">HEAD OFFICE</p>
+                        <div className="pt-3 text-lg">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
                         possimus?
                         </div>
                     </div>
                     <div className="flex flex-col pb-5">
-                        <div className="text-2xl font-bold pb-1">NEWSLETTER</div>
+                        <div className="text-xl font-bold pb-1">NEWSLETTER</div>
                         <div className="w-3/4 bg-(--color-main11) mt-3 shadow-(--box-shadow) text-gray-500">
                             <input
                                 type="email"
@@ -77,7 +77,7 @@ export default function Footer() {
                     </div>
                 </div>
             </div>
-            <div className="h-16 items-center justify-center lg:pb-4 lg:pt-2 px-10 w-11/12 text-xl gap-3 md:h-20 lg:flex hidden">
+            <div className="h-16 items-center justify-center lg:pb-4 lg:pt-2 px-10 w-11/12 text-lg gap-3 md:h-20 lg:flex hidden">
                 <div>contact@gmail.com</div>
                 <div>||</div>
                 <div>084-444-4444</div>
