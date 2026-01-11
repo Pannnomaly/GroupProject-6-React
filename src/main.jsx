@@ -17,6 +17,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import Admin from './pages/Admin';
 import Explore from './pages/ExploreDetail';
 import LayoutAdmin from './components/LayoutAdmin';
+import ForgetPassword from './pages/ForgetPassword';
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,7 @@ const router = createBrowserRouter([
           { path: "user", element: <User /> },
           { path: "contactus", element: <ContactUs /> },
           { path: "explore", element: <Explore/> },
+          { path: "forgetpassword", element: <ForgetPassword/> },
         ],
       },
       {
