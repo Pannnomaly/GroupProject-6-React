@@ -13,12 +13,6 @@ import BookingDetail from './pages/BookingDetail.jsx';
 import BookingConfirm from './pages/BookingConfirm.jsx';
 import User from './pages/User.jsx';
 import ContactUs from './pages/ContactUs.jsx';
-import AdminDashboard from './pages/AdminDashboard';
-import Admin from './pages/Admin';
-import Explore from './pages/ExploreDetail';
-import LayoutAdmin from './components/LayoutAdmin';
-import ForgetPassword from './pages/ForgetPassword';
-import AsideAdmin from './pages/AsideAdmin';
 
 const router = createBrowserRouter([
   {
@@ -37,16 +31,6 @@ const router = createBrowserRouter([
           { path: "bookingconfirm", element: <BookingConfirm /> },
           { path: "user", element: <User /> },
           { path: "contactus", element: <ContactUs /> },
-          { path: "explore", element: <Explore/> },
-          { path: "forgetpassword", element: <ForgetPassword/> },
-        ],
-      },
-      {
-        element: <LayoutAdmin />,
-        children: [
-          { path: "asideadmin", element: <AsideAdmin /> },
-          { path: "admindashboard", element: <AdminDashboard /> },
-          { path: "admin", element: <Admin/> },
         ],
       },
     ],
