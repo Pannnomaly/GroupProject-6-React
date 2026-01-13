@@ -3,6 +3,7 @@ import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaFacebookF, FaTwitter, FaInstagra
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
+
 export default function ContactUs() {
   const [formData, setFormData] = useState({
     name: '',
@@ -23,9 +24,9 @@ export default function ContactUs() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col font-earn ">
       <Navbar />
-      
+
       <div className="flex-grow">
         {/* Contact Form and Info Section */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -36,7 +37,7 @@ export default function ContactUs() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
-            <div className="bg-white shadow-lg rounded-lg p-8">
+            <div className="bg-white border-2 shadow-lg p-8">
               <h3 className="text-2xl font-bold text-gray-900 mb-6">Send Us a Message</h3>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
@@ -49,7 +50,7 @@ export default function ContactUs() {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-4 py-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                     required
                   />
                 </div>
@@ -64,7 +65,7 @@ export default function ContactUs() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-4 py-2 border border-gray-300  focus:ring-blue-500 focus:border-blue-500"
                     required
                   />
                 </div>
@@ -79,7 +80,7 @@ export default function ContactUs() {
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-4 py-2 border border-gray-300  focus:ring-blue-500 focus:border-blue-500"
                     required
                   />
                 </div>
@@ -91,10 +92,10 @@ export default function ContactUs() {
                   <textarea
                     id="message"
                     name="message"
-                    rows="4"
+                    rows="5"
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-4 py-2 border border-gray-300  focus:ring-blue-500 focus:border-blue-500"
                     required
                   ></textarea>
                 </div>
@@ -102,7 +103,7 @@ export default function ContactUs() {
                 <div>
                   <button
                     type="submit"
-                    className="w-full bg-blue-600 text-white py-3 px-6 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+                    className="w-full  bg-(--color-main3) hover:bg-(--color-main2) text-white py-3 px-6 focus:outline-none focus:ring-2 focus:ring-offset transition-colors"
                   >
                     Send Message
                   </button>
@@ -127,8 +128,8 @@ export default function ContactUs() {
               {/* Contact Information */}
               <div className="space-y-6">
                 <div className="flex items-start">
-                  <div className="flex-shrink-0 bg-blue-100 p-3 rounded-full">
-                    <FaMapMarkerAlt className="text-blue-600" size={20} />
+                  <div className="flex-shrink-0 bg-(--color-main3) p-3 rounded-full">
+                    <FaMapMarkerAlt className="text-white" size={20} />
                   </div>
                   <div className="ml-4">
                     <h3 className="text-lg font-medium text-gray-900">Our Location</h3>
@@ -137,8 +138,8 @@ export default function ContactUs() {
                 </div>
 
                 <div className="flex items-start">
-                  <div className="flex-shrink-0 bg-blue-100 p-3 rounded-full">
-                    <FaPhone className="text-blue-600" size={18} />
+                  <div className="flex-shrink-0 bg-(--color-main3) p-3 rounded-full">
+                    <FaPhone className="text-white" size={18} />
                   </div>
                   <div className="ml-4">
                     <h3 className="text-lg font-medium text-gray-900">Phone Number</h3>
@@ -147,8 +148,8 @@ export default function ContactUs() {
                 </div>
 
                 <div className="flex items-start">
-                  <div className="flex-shrink-0 bg-blue-100 p-3 rounded-full">
-                    <FaEnvelope className="text-blue-600" size={18} />
+                  <div className="flex-shrink-0 bg-(--color-main3) p-3 rounded-full">
+                    <FaEnvelope className="text-white" size={18} />
                   </div>
                   <div className="ml-4">
                     <h3 className="text-lg font-medium text-gray-900">Email Address</h3>
@@ -159,16 +160,16 @@ export default function ContactUs() {
                 <div className="pt-2">
                   <h3 className="text-lg font-medium text-gray-900 mb-4">Follow Us</h3>
                   <div className="flex space-x-4">
-                    <a href="#" className="bg-blue-600 text-white p-3 rounded-full hover:bg-blue-700 transition-colors">
+                    <a href="#" className="bg-(--color-main3) text-white p-3 rounded-full hover:bg-blue-700 transition-colors">
                       <FaFacebookF size={18} />
                     </a>
-                    <a href="#" className="bg-blue-400 text-white p-3 rounded-full hover:bg-blue-500 transition-colors">
+                    <a href="#" className="bg-(--color-main3) text-white p-3 rounded-full hover:bg-blue-500 transition-colors">
                       <FaTwitter size={18} />
                     </a>
-                    <a href="#" className="bg-pink-600 text-white p-3 rounded-full hover:bg-pink-700 transition-colors">
+                    <a href="#" className="bg-(--color-main3) text-white p-3 rounded-full hover:bg-pink-700 transition-colors">
                       <FaInstagram size={18} />
                     </a>
-                    <a href="#" className="bg-blue-700 text-white p-3 rounded-full hover:bg-blue-800 transition-colors">
+                    <a href="#" className="bg-(--color-main3) text-white p-3 rounded-full hover:bg-blue-800 transition-colors">
                       <FaLinkedinIn size={18} />
                     </a>
                   </div>
