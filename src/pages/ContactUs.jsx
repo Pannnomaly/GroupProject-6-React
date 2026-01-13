@@ -1,25 +1,32 @@
-import { useState } from 'react';
-import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
-
+import { useState } from "react";
+import {
+  FaMapMarkerAlt,
+  FaPhone,
+  FaEnvelope,
+  FaFacebookF,
+  FaTwitter,
+  FaInstagram,
+  FaLinkedinIn,
+} from "react-icons/fa";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export default function ContactUs() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    console.log("Form submitted:", formData);
     // Add your form submission logic here
   };
 
@@ -32,16 +39,24 @@ export default function ContactUs() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900">Contact Us</h2>
-            <p className="mt-4 text-lg text-gray-600">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+            <p className="mt-4 text-lg text-gray-600">
+              We'd love to hear from you. Send us a message and we'll respond as
+              soon as possible.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
             <div className="bg-white border-2 shadow-lg p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Send Us a Message</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">
+                Send Us a Message
+              </h3>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     Your Name
                   </label>
                   <input
@@ -56,7 +71,10 @@ export default function ContactUs() {
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     Email Address
                   </label>
                   <input
@@ -71,7 +89,10 @@ export default function ContactUs() {
                 </div>
 
                 <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="subject"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     Subject
                   </label>
                   <input
@@ -86,7 +107,10 @@ export default function ContactUs() {
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     Your Message
                   </label>
                   <textarea
@@ -132,8 +156,12 @@ export default function ContactUs() {
                     <FaMapMarkerAlt className="text-white" size={20} />
                   </div>
                   <div className="ml-4">
-                    <h3 className="text-lg font-medium text-gray-900">Our Location</h3>
-                    <p className="mt-1 text-gray-600">123 Hotel Street, Bangkok 10110, Thailand</p>
+                    <h3 className="text-lg font-medium text-gray-900">
+                      Our Location
+                    </h3>
+                    <p className="mt-1 text-gray-600">
+                      123 Hotel Street, Bangkok 10110, Thailand
+                    </p>
                   </div>
                 </div>
 
@@ -142,7 +170,9 @@ export default function ContactUs() {
                     <FaPhone className="text-white" size={18} />
                   </div>
                   <div className="ml-4">
-                    <h3 className="text-lg font-medium text-gray-900">Phone Number</h3>
+                    <h3 className="text-lg font-medium text-gray-900">
+                      Phone Number
+                    </h3>
                     <p className="mt-1 text-gray-600">+66 2 123 4567</p>
                   </div>
                 </div>
@@ -152,24 +182,40 @@ export default function ContactUs() {
                     <FaEnvelope className="text-white" size={18} />
                   </div>
                   <div className="ml-4">
-                    <h3 className="text-lg font-medium text-gray-900">Email Address</h3>
+                    <h3 className="text-lg font-medium text-gray-900">
+                      Email Address
+                    </h3>
                     <p className="mt-1 text-gray-600">info@monkeydbhotel.com</p>
                   </div>
                 </div>
 
                 <div className="pt-2">
-                  <h3 className="text-lg font-medium text-gray-900 mb-4">Follow Us</h3>
+                  <h3 className="text-lg font-medium text-gray-900 mb-4">
+                    Follow Us
+                  </h3>
                   <div className="flex space-x-4">
-                    <a href="#" className="bg-(--color-main3) text-white p-3 rounded-full hover:bg-blue-700 transition-colors">
+                    <a
+                      href="#"
+                      className="bg-(--color-main3) text-white p-3 rounded-full hover:bg-blue-700 transition-colors"
+                    >
                       <FaFacebookF size={18} />
                     </a>
-                    <a href="#" className="bg-(--color-main3) text-white p-3 rounded-full hover:bg-blue-500 transition-colors">
+                    <a
+                      href="#"
+                      className="bg-(--color-main3) text-white p-3 rounded-full hover:bg-blue-500 transition-colors"
+                    >
                       <FaTwitter size={18} />
                     </a>
-                    <a href="#" className="bg-(--color-main3) text-white p-3 rounded-full hover:bg-pink-700 transition-colors">
+                    <a
+                      href="#"
+                      className="bg-(--color-main3) text-white p-3 rounded-full hover:bg-pink-700 transition-colors"
+                    >
                       <FaInstagram size={18} />
                     </a>
-                    <a href="#" className="bg-(--color-main3) text-white p-3 rounded-full hover:bg-blue-800 transition-colors">
+                    <a
+                      href="#"
+                      className="bg-(--color-main3) text-white p-3 rounded-full hover:bg-blue-800 transition-colors"
+                    >
                       <FaLinkedinIn size={18} />
                     </a>
                   </div>
@@ -177,9 +223,8 @@ export default function ContactUs() {
               </div>
             </div>
           </div>
-
-
-
         </div>
-    );
+      </div>
+    </div>
+  );
 }
