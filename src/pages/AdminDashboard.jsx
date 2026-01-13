@@ -1,5 +1,5 @@
 import { Bed, NotebookPen, LogOut } from "lucide-react";
-import { ChartComponent } from "@/components/chart-bar-interactive.js";
+import { ChartComponent } from "@/components/chart-bar-interactive.jsx";
 
 export default function AdminDashboard() {
   return (
