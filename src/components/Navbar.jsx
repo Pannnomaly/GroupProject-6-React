@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 export default function Navbar ()
 {
     return (
-            <header className="h-16 bg-(--color-main3) shadow-(--box-shadow) text-(--color-main11) font-medium font-earn md:h-20 lg:h-24">
-                <nav className="h-16 flex items-center justify-between no-underline text-md md:h-20 md:text-xl md:px-3 lg:h-24 lg:text-2xl lg:px-10">
+            <header className="h-20 bg-(--color-main3) shadow-(--box-shadow)  text-(--color-main11) font-medium font-earn md:h-20 lg:h-20">
+                <nav className="h-20 flex items-center justify-between not-visited:text-md md:h-20 md:text-xl md:px-3 lg:h-20 lg:text-xl lg:px-10">
                     <div className="flex items-center pl-10">
                             <Link to="/">
-                                <img className="w-23 md:w-30 lg:w-35" src="hotel-logo.png" alt="Hotel Logo" />
+                                <img className="w-23 md:w-30 lg:w-27" src="hotel-logo.png" alt="Hotel Logo" />
                             </Link>
                     </div>
                     <div className="flex items-center gap-x-4 pr-10 h-full">

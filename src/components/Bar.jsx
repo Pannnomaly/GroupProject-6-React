@@ -54,7 +54,7 @@ export default function Bar({ bookingDate, setBookingDate }) {
           {/* <!-- Guests --> */}
           <Popover>
             <PopoverTrigger asChild>
-              <button className="flex items-center gap-2 border border-gray-300 px-4 py-2 hover:bg-gray-50 bg-white min-w-50">
+              <button className="flex items-center gap-2 border border-gray-300 px-4 py-2 hover:bg-gray-50 bg-[white] min-w-50">
                 <Users className="h-4 w-4 text-gray-600" />
                 <span className="font-medium text-gray-700">
                   {rooms.length} Room, {totalGuests} Guests
@@ -132,7 +132,7 @@ export default function Bar({ bookingDate, setBookingDate }) {
           <div className="w-full flex justify-center">
             <Popover>
               <PopoverTrigger asChild>
-                <button className="border border-black bg-(--color-main11) px-4 py-2 hover:bg-(--color-main5) font-medium flex items-center gap-2">
+                <button className=" bg-(--color-main11) px-4 py-2 hover:bg-(--color-main5) font-medium flex items-center gap-2">
                   <CalendarIcon className="mr-2 h-4 w-4" />
                   {getDateDisplay()}
                 </button>
@@ -167,14 +167,14 @@ export default function Bar({ bookingDate, setBookingDate }) {
 
       {/* <!-- Sign In and Register Bar --> */}
       {/* <!-- Desktop --> */}
-      <section className="hidden md:flex justify-center w-full mt-10 px-4">
-        <div className="bg-white shadow-xl border-2 flex items-center gap-4 px-6 py-3 w-full max-w-4xl">
+      <section className="hidden md:flex justify-center w-full mt-10 px-4 font-earn">
+        <div className="bg-white  shadow-xl border-2 flex items-center gap-4 px-6 py-3 w-full max-w-4xl">
           {/* <!-- Guests --> */}
           <Popover>
             <PopoverTrigger asChild>
-              <button className="flex items-center gap-2 border border-black px-4 py-2 bg-(--color-main) hover:bg-gray-50 min-w-50">
-                <Users className="h-4 w-4 text-gray-600" />
-                <span className="font-medium text-gray-700">
+              <button className="flex items-center gap-2  px-6 py-2 bg-[#134A5F] hover:bg-gray-400  min-w-50">
+                <Users className="h-4 w-4 text-white hover:text-[#6D6767]" />
+                <span className="font-medium text-white hover:text-[#6D6767]">
                   {rooms.length} Room, {totalGuests} Guests
                 </span>
               </button>
@@ -234,7 +234,7 @@ export default function Bar({ bookingDate, setBookingDate }) {
                 <div className="pt-4 border-t border-gray-100 flex flex-col gap-3">
                   <button
                     onClick={addRoom}
-                    className="text-cyan-700 font-semibold border border-cyan-700 py-2 hover:bg-cyan-50 transition-colors"
+                    className="text-black font-semibold border border-cyan-700 py-2 hover:bg-cyan-50 transition-colors"
                   >
                     Add additional room
                   </button>
@@ -249,7 +249,7 @@ export default function Bar({ bookingDate, setBookingDate }) {
           <div className="flex flex-1 justify-center items-center gap-4">
             <Popover>
               <PopoverTrigger asChild>
-                <button className="border border-black bg-(--color-main11) px-4 py-2 hover:bg-(--color-main5) font-medium flex items-center gap-2">
+                <button className=" bg-(--color-main11) px-7 py-2 hover:bg-(--color-main5) font-medium text-[#000000] flex items-center gap-2">
                   <CalendarIcon className="mr-2 h-4 w-4" />
                   {getDateDisplay()}
                 </button>
