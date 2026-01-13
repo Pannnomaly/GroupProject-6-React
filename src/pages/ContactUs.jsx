@@ -42,7 +42,7 @@ export default function ContactUs() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                    Your name
+                    Your Name
                   </label>
                   <input
                     type="text"
@@ -177,10 +177,9 @@ export default function ContactUs() {
               </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      <Footer />
-    </div>
-  );
+
+
+        </div>
+    );
 }
