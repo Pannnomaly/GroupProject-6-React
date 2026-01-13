@@ -1,12 +1,8 @@
-// import { ThemeProvider } from "@/components/theme-provider"
 import { Bed, NotebookPen, LogOut } from "lucide-react";
 import { ChartComponent } from "@/components/chart-bar-interactive.jsx";
-import AsideAdmin from "@/pages/AsideAdmin";
 
 export default function AdminDashboard() {
   return (
-    <div className="flex">
-      <AsideAdmin />
       <div className="m-5 flex flex-col gap-6 w-full md:px-0">
         <div>
           <h1 className="text-2xl font-bold">Dashboard</h1>
@@ -97,6 +93,5 @@ export default function AdminDashboard() {
           </div>
         </div>
       </div>
-    </div>
   );
 }
