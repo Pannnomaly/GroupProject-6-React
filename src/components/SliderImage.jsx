@@ -11,7 +11,7 @@ export default function SliderImage() {
             {/* <!-- Slide 1 --> */}
             <div className="swiper-slide">
               <img
-                src="https://res.cloudinary.com/dhggmrfe1/image/upload/v1767020570/point3d-commercial-imaging-ltd-_Swg04CP0bU-unsplash_uqjdcl.jpg"
+                src="singlebed.jpg"
                 className="w-[80%] h-64 object-cover shadow-lg mx-auto transition-transform duration-500 hover:scale-105"
               />
             </div>
@@ -19,7 +19,7 @@ export default function SliderImage() {
             {/* <!-- Slide 2 --> */}
             <div className="swiper-slide">
               <img
-                src="https://res.cloudinary.com/dhggmrfe1/image/upload/v1767020404/pexels-andrew-3201763_e9cr4i.jpg"
+                src= "https://res.cloudinary.com/dhggmrfe1/image/upload/v1767020569/olexandr-ignatov-w72a24brINI-unsplash_1_pvofpl.jpg"
                 className="w-[80%] h-64 object-cover shadow-lg mx-auto transition-transform duration-500 hover:scale-105"
               />
             </div>
@@ -27,17 +27,17 @@ export default function SliderImage() {
             {/* <!-- Slide 3 --> */}
             <div className="swiper-slide">
               <img
-                src="https://res.cloudinary.com/dhggmrfe1/image/upload/v1767020486/138761299_kwyop4.png"
+                src="https://res.cloudinary.com/dhggmrfe1/image/upload/v1767020403/227707266_qoqdcw.png"
                 className="w-[80%] h-64 object-cover shadow-lg mx-auto transition-transform duration-500 hover:scale-105"
               />
             </div>
           </div>
 
           {/* <!-- Pagination --> */}
-          <div className="swiper-pagination mt-4"></div>
+          <div className="swiper-pagination mt-4 "></div>
 
           {/* <!-- Navigation --> */}
-          <div className="swiper-button-next"></div>
+          <div className="swiper-button-next "></div>
           <div className="swiper-button-prev"></div>
         </div>
       </section>

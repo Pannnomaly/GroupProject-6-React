@@ -138,15 +138,6 @@ const Homepage = () => {
             <section className="px-4 sm:px-8 md:px-16 py-16 sm:py-20 bg-[#EFEDEA]">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
 
-                    {/* <motion.img
-      src="/window.jpg"
-      className="w-full aspect-[4/3] md:aspect-[11/10] object-contain shadow-lg"
-     initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
-whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      viewport={{ once: false , amount: 0.3 }}
-    /> */}
-
                     <motion.div
                         className="overflow-hidden rounded-lg"
                         whileHover={{ scale: 1.03 }}
