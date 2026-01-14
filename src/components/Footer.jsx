@@ -7,7 +7,7 @@ export default function Footer() {
                 <div className="my-auto">
                     <div>
                         <Link to="/">
-                                <img className="w-50" src="hotel-logo.png" alt="Hotel Logo" />
+                                <img className="w-40" src="hotel-logo.png" alt="Hotel Logo" />
                         </Link>
                     </div>
                 </div>
