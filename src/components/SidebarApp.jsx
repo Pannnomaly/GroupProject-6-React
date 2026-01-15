@@ -10,14 +10,9 @@ const items = [
     icon: LayoutDashboard,
   },
   {
-    title: "Room Lists",
-    url: "#",
+    title: "Room Management",
+    url: "../adminroomlists",
     icon: Bed,
-  },
-  {
-    title: "Booking",
-    url: "#",
-    icon: NotebookPen,
   },
 ]
 

@@ -1,5 +1,5 @@
 import { Bed, NotebookPen, LogOut } from "lucide-react";
-import { ChartComponent } from "@/components/chart-bar-interactive.jsx";
+import { ChartAreaInteractive } from "@/components/chart-area-interactive.jsx";
 
 export default function AdminDashboard() {
   return (
@@ -30,7 +30,7 @@ export default function AdminDashboard() {
             <LogOut color="#ff5656" />
           </div>
         </div>
-        <div id="block-2" className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div id="block-2" className="grid grid-cols-1 gap-4">
           <div
             id="RA"
             className="bg-primary-foreground rounded-lg h-fit min-h-32 p-5 flex flex-col gap-2"
@@ -58,38 +58,10 @@ export default function AdminDashboard() {
               </div>
             </div>
           </div>
-          <div
-            id="PT"
-            className="bg-primary-foreground rounded-lg h-fit min-h-32 p-5 flex flex-col gap-2"
-          >
-            <p className="font-bold">Pending Tasks</p>
-            <div
-              id="scrolling-PT"
-              className="flex flex-col gap-2 max-h-56 overflow-y-auto pr-2"
-            >
-              <div className="p-2">
-                <p>Task 1</p>
-                <p className="text-sm font-extralight">10 secs ago</p>
-              </div>
-              <div className="p-2">
-                <p>Task 2</p>
-                <p className="text-sm font-extralight">1 hours ago</p>
-              </div>
-              <div className="p-2">
-                <p>Task 3</p>
-                <p className="text-sm font-extralight">10 hours ago</p>
-              </div>
-              <div className="p-2">
-                <p>Task 4</p>
-                <p className="text-sm font-extralight">16 hours ago</p>
-              </div>
-            </div>
-          </div>
         </div>
         <div id="block-3" className="w-full">
           <div className="bg-primary-foreground rounded-lg h-fit min-h-32 p-5">
-            <p className="font-bold">Total Revenue</p>
-            <ChartComponent />
+            <ChartAreaInteractive />
           </div>
         </div>
       </div>
