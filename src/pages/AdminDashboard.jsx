@@ -7,29 +7,6 @@ export default function AdminDashboard() {
         <div>
           <h1 className="text-2xl font-bold">Dashboard</h1>
         </div>
-        <div id="block-1" className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-primary-foreground rounded-lg min-h-32 flex-1 flex justify-between p-10">
-            <div>
-              <p>Total Booking</p>
-              <p>85/120</p>
-            </div>
-            <Bed color="#5661ff" />
-          </div>
-          <div className="bg-primary-foreground rounded-lg min-h-32 flex-1 flex justify-between p-10">
-            <div>
-              <p>Check-in</p>
-              <p>23</p>
-            </div>
-            <NotebookPen color="#56ff5e" />
-          </div>
-          <div className="bg-primary-foreground rounded-lg min-h-32 flex-1 flex justify-between p-10">
-            <div>
-              <p>Check-out</p>
-              <p>23</p>
-            </div>
-            <LogOut color="#ff5656" />
-          </div>
-        </div>
         <div id="block-2" className="grid grid-cols-1 gap-4">
           <div
             id="RA"
@@ -38,7 +15,7 @@ export default function AdminDashboard() {
             <p className="font-bold">Recent Activites</p>
             <div
               id="scrolling-RA"
-              className="flex flex-col gap-2 max-h-56 overflow-y-auto pr-2"
+              className="flex flex-col gap-2 max-h-100 overflow-y-auto pr-2"
             >
               <div className="p-2">
                 <p>Activity 1</p>
@@ -51,6 +28,34 @@ export default function AdminDashboard() {
               <div className="p-2">
                 <p>Activity 3</p>
                 <p className="text-sm font-extralight">4 hours ago</p>
+              </div>
+              <div className="p-2">
+                <p>Activity 4</p>
+                <p className="text-sm font-extralight">10 hours ago</p>
+              </div>
+              <div className="p-2">
+                <p>Activity 4</p>
+                <p className="text-sm font-extralight">10 hours ago</p>
+              </div>
+              <div className="p-2">
+                <p>Activity 4</p>
+                <p className="text-sm font-extralight">10 hours ago</p>
+              </div>
+              <div className="p-2">
+                <p>Activity 4</p>
+                <p className="text-sm font-extralight">10 hours ago</p>
+              </div>
+              <div className="p-2">
+                <p>Activity 4</p>
+                <p className="text-sm font-extralight">10 hours ago</p>
+              </div>
+              <div className="p-2">
+                <p>Activity 4</p>
+                <p className="text-sm font-extralight">10 hours ago</p>
+              </div>
+              <div className="p-2">
+                <p>Activity 4</p>
+                <p className="text-sm font-extralight">10 hours ago</p>
               </div>
               <div className="p-2">
                 <p>Activity 4</p>
