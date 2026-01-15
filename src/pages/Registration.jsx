@@ -1,17 +1,43 @@
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
+import { Link, useOutletContext } from "react-router-dom";
 
 const Registration = () => {
+  const { API } = useOutletContext();
+  const [formData, setFormData] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      await axios.post(API, formData);
+      setFormData({
+        firstname: "",
+        lastname: "",
+        email: "",
+        password: "",
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
   return (
     <>
       <main className="bg-white min-h-screen flex flex-col justify-center items-center font-earn">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="md:flex hidden flex-wrap absolute top-20 z-50 left-1/2 -translate-x-1/2 gap-10">
-            <h1 className="text-6xl text-(--color-main11) text-start">
-              MonkeyDB
-            </h1>
-            <h1 className="text-6xl text-(--color-main3) text-end">
-              Hotel Bangkok
-            </h1>
+            <h1 className="text-6xl text-(--color-main11) text-start">MonkeyDB</h1>
+            <h1 className="text-6xl text-(--color-main3) text-end">Hotel Bangkok</h1>
           </div>
           {/* <!-- Left Section --> */}
           <div className="hidden md:block">
@@ -19,7 +45,6 @@ const Registration = () => {
               src="https://res.cloudinary.com/dhggmrfe1/image/upload/v1766600224/christina-radevich-kQjEq2bNFS0-unsplash_qsmfqh.jpg"
               className="shadow w-full object-cover"
             />
-
           </div>
 
           {/* <!-- Right Section --> */}
@@ -27,43 +52,60 @@ const Registration = () => {
             <h2 className="text-4xl text-center font-medium mb-10">Sign up</h2>
 
             {/* Form */}
-            <form>
-              <label className="text-lg">First name</label>
+            <form onSubmit={handleSubmit}>
+              <label htmlFor="firstname" className="text-lg">First name</label>
               <input
                 type="text"
+                id="firstname"
+                name="firstname"
                 placeholder="First name"
                 className="w-full border px-3 py-2 mt-1 mb-4 focus:ring-2 focus:ring-black focus:outline-none"
+                value={formData.firstname}
+                onChange={handleChange}
               />
 
-              <label className="text-lg">Last name</label>
+              <label htmlFor="lastname" className="text-lg">Last name</label>
               <input
                 type="text"
+                id="lastname"
+                name="lastname"
                 placeholder="Last name"
                 className="w-full border px-3 py-2 mt-1 mb-4 focus:ring-2 focus:ring-black focus:outline-none"
+                value={formData.lastname}
+                onChange={handleChange}
               />
 
-              <label className="text-lg">Email</label>
+              <label htmlFor="email" className="text-lg">Email</label>
               <input
                 type="email"
+                id="email"
+                name="email"
                 placeholder="email@example.com"
                 className="w-full border px-3 py-2 mt-1 mb-4 focus:ring-2 focus:ring-black focus:outline-none"
+                value={formData.email}
+                onChange={handleChange}
               />
 
-              <label className="text-lg">Password</label>
+              <label htmlFor="password" className="text-lg">Password</label>
               <input
                 type="password"
+                id="password"
+                name="password"
                 placeholder="12345"
                 className="w-full border px-3 py-2 mt-1 mb-6 focus:ring-2 focus:ring-black focus:outline-none"
+                value={formData.password}
+                onChange={handleChange}
               />
-              <Link to="/roomdetail">
-                <button className="w-full text-lg bg-(--color-main10) text-(--color-main11) py-3  mb-4 hover:bg-(--color-main5)">
+                <button
+                  type="submit"
+                  className="w-full text-lg bg-(--color-main10) text-(--color-main11) py-3  mb-4 hover:bg-(--color-main5)"
+                >
                   Create Your Accout
                 </button>
-              </Link>
 
-              <a href="#" className="text-sm text-gray-600 hover:underline">
+              <Link to="/forgetpassword" className="text-sm text-gray-600 hover:underline">
                 Forgot password?
-              </a>
+              </Link>
             </form>
 
             <div className="flex items-center my-10">
