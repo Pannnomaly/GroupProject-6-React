@@ -28,21 +28,35 @@ const Registration = () => {
 
             {/* Form */}
             <form>
-              <label className="text-sm">Email</label>
+              <label className="text-lg">First name</label>
               <input
-                type="email"
-                placeholder="email@email.com"
+                type="text"
+                placeholder="First name"
                 className="w-full border px-3 py-2 mt-1 mb-4 focus:ring-2 focus:ring-black focus:outline-none"
               />
 
-              <label className="text-sm">Password</label>
+              <label className="text-lg">Last name</label>
+              <input
+                type="text"
+                placeholder="Last name"
+                className="w-full border px-3 py-2 mt-1 mb-4 focus:ring-2 focus:ring-black focus:outline-none"
+              />
+
+              <label className="text-lg">Email</label>
+              <input
+                type="email"
+                placeholder="email@example.com"
+                className="w-full border px-3 py-2 mt-1 mb-4 focus:ring-2 focus:ring-black focus:outline-none"
+              />
+
+              <label className="text-lg">Password</label>
               <input
                 type="password"
                 placeholder="12345"
                 className="w-full border px-3 py-2 mt-1 mb-6 focus:ring-2 focus:ring-black focus:outline-none"
               />
               <Link to="/roomdetail">
-                <button className="w-full bg-(--color-main10) text-(--color-main11) py-3  mb-4 hover:bg-(--color-main5)">
+                <button className="w-full text-lg bg-(--color-main10) text-(--color-main11) py-3  mb-4 hover:bg-(--color-main5)">
                   Create Your Accout
                 </button>
               </Link>
@@ -65,7 +79,7 @@ const Registration = () => {
               <Link to="/roomdetail" className="w-[80%]">
                 <button className="w-full bg-(--color-main2) text-white py-3 flex justify-center mb-4 gap-5 hover:bg-(--color-main5) transition">
                   <img src="https://www.svgrepo.com/show/475656/google-color.svg" className="w-5" />
-                  <p>Continue with Google</p>
+                  <p className="text-lg">Continue with Google</p>
                 </button>
               </Link>
 
@@ -73,7 +87,7 @@ const Registration = () => {
               <Link to="/roomdetail" className="w-[80%]">
                 <button className="w-full bg-(--color-main2) text-white py-3 flex justify-center items-center mb-4 gap-5 hover:bg-(--color-main5) transition">
                   <img src="https://files.svgcdn.io/streamline-color/meta.svg" className="w-7" />
-                  <p>Continue with Facebook</p>
+                  <p className="text-lg">Continue with Facebook</p>
                 </button>
               </Link>
             </div>
