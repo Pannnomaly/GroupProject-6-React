@@ -89,21 +89,22 @@ export default function AdminRoomLists() {
     const matchesType = typeFilter === 'all' || room.type === typeFilter;
     // ตรวจสอบว่าตรงกับตัวกรองชั้นหรือไม่
     const matchesFloor = floorFilter === 'all' || room.floor.toString() === floorFilter;
-    // ต้องผ่านเงื่อนไขทุกข้อถึงจะแสดงผล (AND logic)
 
+    // ต้องผ่านเงื่อนไขทุกข้อถึงจะแสดงผล (AND logic)
     return matchesSearch && matchesStatus && matchesType && matchesFloor;
   });
 
-
+  // ============================================
   // EVENT HANDLERS - ฟังก์ชันจัดการ Events ต่างๆ
+  // ============================================
+
   // ฟังก์ชันเมื่อกดปุ่มแก้ไขห้อง
   const handleEdit = (room) => {
     // คัดลอกข้อมูลห้องที่จะแก้ไข (ใช้ spread operator เพื่อไม่ให้แก้ไขข้อมูลต้นฉบับโดยตรง)
+    // และเปิด dialog สำหรับแก้ไข
     setEditingRoom({ ...room });
-    // เปิด dialog สำหรับแก้ไข
     setIsDialogOpen(true);
   };
-
   // ฟังก์ชันบันทึกการแก้ไข
   const handleSave = () => {
     // อัพเดทข้อมูลห้องในรายการ
@@ -111,9 +112,8 @@ export default function AdminRoomLists() {
     setRooms(rooms.map(room => 
       room.id === editingRoom.id ? editingRoom : room
     ));
-    // ปิด dialog
+    // ปิด dialog พร้อมล้างข้อมูลห้องที่กำลังแก้ไข
     setIsDialogOpen(false);
-    // ล้างข้อมูลห้องที่กำลังแก้ไข
     setEditingRoom(null);
   };
 
