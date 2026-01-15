@@ -9,9 +9,11 @@ import {
   FaLinkedinIn,
 } from "react-icons/fa";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import axios from "axios";
+import { useOutletContext } from "react-router-dom";
 
 export default function ContactUs() {
+  const { API } = useOutletContext();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -24,17 +26,29 @@ export default function ContactUs() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
-    // Add your form submission logic here
+
+    try {
+      await axios.post(API, formData);
+
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <div className="min-h-screen flex flex-col font-earn ">
       <Navbar />
 
-      <div className="flex-grow">
+      <div className="grow">
         {/* Contact Form and Info Section */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center mb-12">
@@ -152,7 +166,7 @@ export default function ContactUs() {
               {/* Contact Information */}
               <div className="space-y-6">
                 <div className="flex items-start">
-                  <div className="flex-shrink-0 bg-(--color-main3) p-3 rounded-full">
+                  <div className="shrink-0 bg-(--color-main3) p-3 rounded-full">
                     <FaMapMarkerAlt className="text-white" size={20} />
                   </div>
                   <div className="ml-4">
@@ -166,7 +180,7 @@ export default function ContactUs() {
                 </div>
 
                 <div className="flex items-start">
-                  <div className="flex-shrink-0 bg-(--color-main3) p-3 rounded-full">
+                  <div className="shrink-0 bg-(--color-main3) p-3 rounded-full">
                     <FaPhone className="text-white" size={18} />
                   </div>
                   <div className="ml-4">
@@ -178,7 +192,7 @@ export default function ContactUs() {
                 </div>
 
                 <div className="flex items-start">
-                  <div className="flex-shrink-0 bg-(--color-main3) p-3 rounded-full">
+                  <div className="shrink-0 bg-(--color-main3) p-3 rounded-full">
                     <FaEnvelope className="text-white" size={18} />
                   </div>
                   <div className="ml-4">

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-        <footer className="h-16 flex flex-col items-center justify-between bg-[#635F58] text-(--color-main11) shadow-(--box-shadow) font-medium font-earn md:h-20 lg:h-70">
+        <footer className="h-16 flex flex-col items-center justify-between bg-(--color-main3) text-(--color-main11) shadow-(--box-shadow) font-medium font-earn md:h-20 lg:h-70">
             <div className="items-start justify-around pt-8 w-11/12 h-full text-lg hidden lg:flex">
                 <div className="my-auto">
                     <div>
