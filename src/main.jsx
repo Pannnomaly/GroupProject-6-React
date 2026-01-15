@@ -19,6 +19,7 @@ import Explore from './pages/ExploreDetail';
 import LayoutAdmin from './components/LayoutAdmin';
 import ForgetPassword from './pages/ForgetPassword';
 import AsideAdmin from './pages/AsideAdmin';
+import AdminRoomLists from './pages/AdminRoomLists';
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,7 @@ const router = createBrowserRouter([
         children: [
           { path: "asideadmin", element: <AsideAdmin /> },
           { path: "admindashboard", element: <AdminDashboard /> },
+          { path: "adminroomlists", element: <AdminRoomLists />},
           { path: "admin", element: <Admin/> },
         ],
       },
