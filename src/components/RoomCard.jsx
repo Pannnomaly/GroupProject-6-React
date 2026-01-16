@@ -7,7 +7,7 @@ export default function RoomCard({ handleOpenModal }) {
       {rooms.map((room) => (
         <div
           key={room.id}
-          className="bg-white p-4 border-r-1 hover:shadow-lg transition-shadow rounded-lg overflow-hidden"
+          className="bg-white p-4 border-r-1 hover:shadow-lg transition-shadow  overflow-hidden"
         >
           <img
             src={room.image}
@@ -45,7 +45,7 @@ export default function RoomCard({ handleOpenModal }) {
               <span className="text-lg font-semibold">THB {room.price} <span className="text-sm text-gray-500">/ night</span></span>
               <button
                 onClick={() => handleOpenModal(room)}
-                className="px-4 py-2 bg-(--color-main3) text-white rounded hover:bg-blue-700 transition-colors"
+                className="px-4 py-2 bg-(--color-main3) text-white  hover:bg-main6 transition-colors"
               >
                 SELECT ROOM
               </button>

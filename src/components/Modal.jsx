@@ -39,7 +39,7 @@ export default function Modal({ isModalOpen, handleCloseModal, room, bookingDate
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 overflow-y-auto py-10 font-earn">
-      <div className="bg-white rounded-lg p-6 w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+      <div className="bg-white  p-6 w-full max-w-4xl max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold">Booking Summary</h2>
@@ -54,7 +54,7 @@ export default function Modal({ isModalOpen, handleCloseModal, room, bookingDate
               <img
                   src={room.image || 'https://via.placeholder.com/400x300'}
                   alt={room.name}
-                  className="w-full h-64 object-cover rounded-md mb-4 shadow-md"
+                  className="w-full h-64 object-cover  mb-4 shadow-md"
                 />
                <h3 className="font-bold text-2xl text-(--color-main3) mb-2">{room.name}</h3>
                <p className="text-gray-600 text-lg mb-4">{room.type}</p>
@@ -63,7 +63,7 @@ export default function Modal({ isModalOpen, handleCloseModal, room, bookingDate
 
            {/* Right Column: Stay Details & Price */}
            <div className="space-y-6 flex flex-col justify-center">
-             <div className="bg-gray-50 p-6 rounded-lg border border-gray-100">
+             <div className="bg-gray-50 p-6  border border-gray-100">
                 <h4 className="font-semibold text-xl mb-4 text-gray-800">Your Stay</h4>
                 <div className="space-y-3 text-gray-700">
                     <div className="flex justify-between border-b border-gray-200 pb-2">
@@ -96,13 +96,13 @@ export default function Modal({ isModalOpen, handleCloseModal, room, bookingDate
              <div className="flex gap-4">
                  <button
                    onClick={handleCloseModal}
-                   className="w-1/2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-3 rounded-md transition-colors"
+                   className="w-1/2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-3  transition-colors"
                  >
                    Cancel
                  </button>
                  <button
                    onClick={handleProceed}
-                   className="w-1/2 bg-(--color-main3) hover:bg-(--color-main2) text-white font-semibold py-3 rounded-md transition-colors"
+                   className="w-1/2 bg-(--color-main3) hover:bg-(--color-main2) text-white font-semibold py-3  transition-colors"
                  >
                    Proceed to Book
                  </button>

@@ -74,14 +74,14 @@ export default function BookingDetail() {
           
           <form onSubmit={handleSubmit} className="grid md:grid-cols-3 gap-8">
             <div className="md:col-span-2 space-y-8">
-              <div className="bg-white p-6 rounded-lg shadow-sm">
+              <div className="bg-white p-6  shadow-sm">
                 <GuestDetailsForm formData={formData} onChange={handleInputChange} />
               </div>
               
               {/* Payment Method is self-contained in its component now */}
               <PaymentMethod formData={formData} onChange={handleInputChange} />
               
-              <div className="bg-white p-6 rounded-lg shadow-sm">
+              <div className="bg-white p-6  shadow-sm">
                 <OptionalPaymentForm formData={formData} onChange={handleInputChange} />
               </div>
 
@@ -91,7 +91,7 @@ export default function BookingDetail() {
             </div>
             
             <div className="space-y-8">
-              <div className="bg-white p-6 rounded-lg shadow-sm sticky top-10">
+              <div className="bg-white p-6 shadow-sm sticky top-10">
                 <h3 className="text-2xl font-semibold mb-6 text-gray-800">Reservation Summary</h3>
                 <div className="space-y-6">
                   <HotelInfo />
@@ -121,7 +121,7 @@ export default function BookingDetail() {
                            <span>{parseInt(bookingData.roomPricePerNight).toLocaleString()} THB</span>
                        </div>
                   </div>
-                  
+
                   <div className="border-t pt-4">
                        <div className="flex justify-between font-bold text-xl text-(--color-main3)">
                           <span>Total</span>
@@ -132,7 +132,7 @@ export default function BookingDetail() {
                 </div>
                 <button
                   type="submit"
-                  className="w-full mt-8 bg-(--color-main3) hover:bg-(--color-main2) text-white font-semibold text-lg py-3 px-6 rounded-md transition-colors duration-300"
+                  className="w-full mt-8 bg-(--color-main3) hover:bg-(--color-main2) text-white font-semibold text-lg py-3 px-6  transition-colors duration-300"
                 >
                   Pay Now
                 </button>
