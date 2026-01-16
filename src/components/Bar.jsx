@@ -7,8 +7,17 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 
 import GuestControl from "@/components/GuestControl";
 
-export default function Bar({ bookingDate, setBookingDate }) {
-  const [rooms, setRooms] = useState([{ id: 1, adults: 2, children: 0, infants: 0 }]);
+// Updated to accept props for room/guest state management
+export default function Bar({ bookingDate, setBookingDate, rooms: propRooms, setRooms: propSetRooms }) {
+  // Fallback local state if props aren't provided (e.g., used on Homepage)
+  const [localRooms, setLocalRooms] = useState([{ id: 1, adults: 2, children: 0, infants: 0 }]);
+  
+  // State to control popover open/close
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const [isMobilePopoverOpen, setIsMobilePopoverOpen] = useState(false);
+  
+  const rooms = propRooms || localRooms;
+  const setRooms = propSetRooms || setLocalRooms;
 
   const totalGuests = rooms.reduce(
     (acc, curr) => acc + curr.adults + curr.children + curr.infants,
@@ -31,7 +40,6 @@ export default function Bar({ bookingDate, setBookingDate }) {
     }
   };
 
-  // ฟังก์ชันช่วยแสดงข้อความบนปุ่ม
   const getDateDisplay = () => {
     if (bookingDate?.from) {
       if (bookingDate.to) {
@@ -52,7 +60,7 @@ export default function Bar({ bookingDate, setBookingDate }) {
       <section className="md:hidden flex justify-center w-full mt-10 px-4 font-earn">
         <div className="bg-white shadow-xl border-2 flex flex-col gap-4 px-4 py-5 w-full max-w-md">
           {/* <!-- Guests --> */}
-          <Popover>
+          <Popover open={isMobilePopoverOpen} onOpenChange={setIsMobilePopoverOpen}>
             <PopoverTrigger asChild>
               <button className="flex items-center gap-2 border border-gray-300 px-4 py-2 hover:bg-gray-50 bg-[white] min-w-50">
                 <Users className="h-4 w-4 text-gray-600" />
@@ -75,7 +83,6 @@ export default function Bar({ bookingDate, setBookingDate }) {
                     <div className="flex justify-between items-center">
                       <div className="text-sm font-bold text-gray-800">Room {index + 1}</div>
 
-                      {/* ปุ่มลบห้อง: จะแสดงก็ต่อเมื่อมีมากกว่า 1 ห้อง */}
                       {rooms.length > 1 && (
                         <button
                           onClick={() => removeRoom(room.id)}
@@ -86,7 +93,6 @@ export default function Bar({ bookingDate, setBookingDate }) {
                       )}
                     </div>
 
-                    {/* Row: Adults */}
                     <GuestControl
                       label="Adults"
                       subLabel="Ages 13 or more"
@@ -95,7 +101,6 @@ export default function Bar({ bookingDate, setBookingDate }) {
                       onUpdate={(val) => updateRoom(index, "adults", val)}
                     />
 
-                    {/* Row: Children */}
                     <GuestControl
                       label="Children"
                       subLabel="Ages 2 - 12"
@@ -103,7 +108,6 @@ export default function Bar({ bookingDate, setBookingDate }) {
                       onUpdate={(val) => updateRoom(index, "children", val)}
                     />
 
-                    {/* Row: Infants */}
                     <GuestControl
                       label="Infants"
                       subLabel="Under 2"
@@ -120,7 +124,10 @@ export default function Bar({ bookingDate, setBookingDate }) {
                   >
                     Add additional room
                   </button>
-                  <button className="bg-[#005582] text-white font-bold py-2 rounded-sm">
+                  <button 
+                    onClick={() => setIsMobilePopoverOpen(false)}
+                    className="bg-[#005582] text-white font-bold py-2 rounded-sm"
+                  >
                     Done
                   </button>
                 </div>
@@ -165,12 +172,11 @@ export default function Bar({ bookingDate, setBookingDate }) {
         </div>
       </section>
 
-      {/* <!-- Sign In and Register Bar --> */}
       {/* <!-- Desktop --> */}
       <section className="hidden md:flex justify-center w-full mt-10 px-4 font-earn">
         <div className="bg-white  shadow-xl border-2 flex items-center gap-4 px-6 py-3 w-full max-w-4xl">
           {/* <!-- Guests --> */}
-          <Popover>
+          <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
             <PopoverTrigger asChild>
               <button className="flex items-center gap-2  px-6 py-2 bg-[#134A5F] hover:bg-gray-400  min-w-50">
                 <Users className="h-4 w-4 text-white hover:text-[#6D6767]" />
@@ -193,7 +199,6 @@ export default function Bar({ bookingDate, setBookingDate }) {
                     <div className="flex justify-between items-center">
                       <div className="text-sm font-bold text-gray-800">Room {index + 1}</div>
 
-                      {/* ปุ่มลบห้อง: จะแสดงก็ต่อเมื่อมีมากกว่า 1 ห้อง */}
                       {rooms.length > 1 && (
                         <button
                           onClick={() => removeRoom(room.id)}
@@ -204,7 +209,6 @@ export default function Bar({ bookingDate, setBookingDate }) {
                       )}
                     </div>
 
-                    {/* Row: Adults */}
                     <GuestControl
                       label="Adults"
                       subLabel="Ages 13 or more"
@@ -213,7 +217,6 @@ export default function Bar({ bookingDate, setBookingDate }) {
                       onUpdate={(val) => updateRoom(index, "adults", val)}
                     />
 
-                    {/* Row: Children */}
                     <GuestControl
                       label="Children"
                       subLabel="Ages 2 - 12"
@@ -221,7 +224,6 @@ export default function Bar({ bookingDate, setBookingDate }) {
                       onUpdate={(val) => updateRoom(index, "children", val)}
                     />
 
-                    {/* Row: Infants */}
                     <GuestControl
                       label="Infants"
                       subLabel="Under 2"
@@ -238,7 +240,10 @@ export default function Bar({ bookingDate, setBookingDate }) {
                   >
                     Add additional room
                   </button>
-                  <button className="bg-[#005582] text-white font-bold py-2 rounded-sm">
+                  <button 
+                    onClick={() => setIsPopoverOpen(false)}
+                    className="bg-[#005582] text-white font-bold py-2 rounded-sm"
+                  >
                     Done
                   </button>
                 </div>
