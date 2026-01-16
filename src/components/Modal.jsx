@@ -12,10 +12,10 @@ export default function Modal({
   return (
     <>
       {/* <!-- Modal-Detail --> */}
-      <section className="fixed top-1/2 left-1/2 -translate-x-[50%] -translate-y-[55%] z-50 max-w-4xl overflow-y-auto max-h-[90vh] bg-(--color-main5) mt-10 p-8 border-2 border-2-black border-2-opacity-30 shadow font-earn">
+      <section className="fixed top-1/2 left-1/2 -translate-x-[50%] -translate-y-[55%] z-50 max-w-4xl overflow-y-auto max-h-[90vh] bg-main5 mt-10 p-8 border-2 border-2-black border-2-opacity-30 shadow font-earn">
         <button
           onClick={handleCloseModal}
-          className="absolute top-4 right-4 px-3 py-1 bg-black text-white"
+          className="absolute top-4 right-4 px-3 py-1 bg-(--color-main2) text-white"
         >
           X
         </button>
@@ -24,7 +24,7 @@ export default function Modal({
             <img src={imageSrc} className="shadow cursor-pointer" />
           </div>
           <div>
-            <h2 className="font-semibold text-lg">Fully Furnished Apartment</h2>
+            <h2 className="font-semibold text-main2 text-lg text-shadow-2xs">Fully Furnished Apartment</h2>
             <p className="text-sm text-gray-600 mt-2">
               Check in:{" "}
               {bookingDate?.from
@@ -35,11 +35,11 @@ export default function Modal({
               Check out:{" "}
               {bookingDate?.to ? format(bookingDate.to, "dd MMM yyyy") : "-"}
             </p>
-            <p className="text-sm text-gray-600 mt-2">
+            <p className="text-shadow-2xs text-sm text-gray-600 mt-2">
               Duration: Long (2 - 5 Years)
             </p>
             <p className="text-sm text-gray-600 mt-2">Guests: 4 Adults</p>
-            <p className="text-sm mt-2 font-bold">$ 1000 USD</p>
+            <p className="text-sm mt-2 text-main2 font-bold">$ 1000 USD</p>
             <Link to="/bookingdetail" alt="booking-page">
               <button className="mt-4 border-2 border-2-black bg-gray-200 px-3 py-1">
                 Reserve
@@ -77,9 +77,9 @@ export default function Modal({
           />
         </div>
         <div className="flex items-center my-10">
-          <div className="grow border-t border-(--color-main10)"></div>
+          <div className="grow border-t  border-(--color-main10)"></div>
 
-          <span className="mx-4 text-2xl text-center text-(--color-main6)">
+          <span className="mx-4 text-2xl font-bold text-center text-(--color-main6)">
             Step 2
           </span>
 

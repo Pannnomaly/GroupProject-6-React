@@ -36,6 +36,18 @@ export const rooms = [
       "public/singlebed.jpg",
   },
   {
+    id: 13,
+   name: "Single Room",
+    type: "Single bed with premium linen",
+    price: "500",
+    size: "18–22 sq.m.",
+    additional1: "Free Wifi",
+    additional2: "Compact seating",
+    additional3: "Private bathroom with rain shower",
+   image:
+      "public/singlebed.jpg",
+  },
+  {
     id: 4,
     name: "Double Room",
     type: "Twin bed",
@@ -115,6 +127,18 @@ export const rooms = [
     image:
       "https://res.cloudinary.com/dhggmrfe1/image/upload/v1767020570/point3d-commercial-imaging-ltd-_Swg04CP0bU-unsplash_uqjdcl.jpg",
    },
+   {
+    id: 14,
+    name: "Double Room",
+    type: "King bed",
+    price: "1000",
+    size: "24–30 sq.m.",
+    additional1: "Free Wifi",
+    additional2: "Small sitting area",
+    additional3: "Bathroom with spa bathtub",
+    image:
+      "https://res.cloudinary.com/dhggmrfe1/image/upload/v1767020570/point3d-commercial-imaging-ltd-_Swg04CP0bU-unsplash_uqjdcl.jpg",
+   },
   {
     id: 11,
     name: "Family Room",
@@ -138,4 +162,21 @@ export const rooms = [
    
     image:       "https://res.cloudinary.com/dhggmrfe1/image/upload/v1767020488/pexels-pixabay-276671_ssbzp0.jpg",
   },
+{
+    id: 15,
+    name: "Family Room",
+    type: "One double bed & One single bed",
+    price: "1200",
+    size: "32–40 sq.m",
+    additional1: "Free Wifi",
+    additional2: "Bathroom with spa bathtub",
+    additional3: "Generous living space",
+   
+    image:       "https://res.cloudinary.com/dhggmrfe1/image/upload/v1767020488/pexels-pixabay-276671_ssbzp0.jpg",
+  },
+
+
+
+
+
 ];

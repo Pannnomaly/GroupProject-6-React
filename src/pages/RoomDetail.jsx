@@ -37,6 +37,7 @@ const RoomDetail = () => {
         imageSrc={selectedImage}
         bookingDate={bookingDate}
       />
+      
       <Footer />
     </>
   );

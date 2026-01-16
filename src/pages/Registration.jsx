@@ -6,20 +6,19 @@ const Registration = () => {
       <main className="bg-white min-h-screen flex flex-col justify-center items-center font-earn">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="md:flex hidden flex-wrap absolute top-20 z-50 left-1/2 -translate-x-1/2 gap-10">
-            <h1 className="text-6xl text-(--color-main11) text-start">
+            {/* <h1 className="text-5xl hidden lg:block text-(--color-main11) text-start">
               MonkeyDB
             </h1>
-            <h1 className="text-6xl text-(--color-main3) text-end">
+            <h1 className="text-5xl hidden lg:block text-(--color-main3) text-end">
               Hotel Bangkok
-            </h1>
+            </h1> */}
           </div>
           {/* <!-- Left Section --> */}
-          <div className="hidden md:block">
+          <div className="hidden md:block w-full h-full object-cover">
             <img
               src="https://res.cloudinary.com/dhggmrfe1/image/upload/v1766600224/christina-radevich-kQjEq2bNFS0-unsplash_qsmfqh.jpg"
               className="shadow w-full object-cover"
             />
-
           </div>
 
           {/* <!-- Right Section --> */}
@@ -32,14 +31,14 @@ const Registration = () => {
               <input
                 type="email"
                 placeholder="email@email.com"
-                className="w-full border px-3 py-2 mt-1 mb-4 focus:ring-2 focus:ring-black focus:outline-none"
+                className="w-full border px-3 py-2 mt-1 mb-4 focus:ring-1 focus:ring-main2 focus:outline-none"
               />
 
               <label className="text-sm">Password</label>
               <input
                 type="password"
-                placeholder="12345"
-                className="w-full border px-3 py-2 mt-1 mb-6 focus:ring-2 focus:ring-black focus:outline-none"
+                placeholder="*******"
+                className="w-full border px-3 py-2 mt-1 mb-6 focus:ring-1 focus:ring-main2 focus:outline-none"
               />
               <Link to="/roomdetail">
                 <button className="w-full bg-(--color-main10) text-(--color-main11) py-3  mb-4 hover:bg-(--color-main5)">
