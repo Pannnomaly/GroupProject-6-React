@@ -72,9 +72,12 @@ export default function AdminRoomLists() {
   const [typeFilter, setTypeFilter] = useState('all');      // กรองตามประเภทห้อง
   const [floorFilter, setFloorFilter] = useState('all');    // กรองตามชั้น
   // เก็บข้อมูลห้องที่กำลังแก้ไข
-  const [editingRoom, setEditingRoom] = useState(null);
   // เก็บสถานะการเปิด/ปิด dialog สำหรับแก้ไขข้อมูล
+  const [editingRoom, setEditingRoom] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  // สร้าง Room
+  const [addingRoom, setAddingRoom] = useState(null);
+  const [isDialogOpen2, setIsDialogOpen2] = useState(false);
 
 
   // FILTER LOGIC - ตรรกะสำหรับกรองข้อมูล
@@ -100,22 +103,29 @@ export default function AdminRoomLists() {
 
   // ฟังก์ชันเมื่อกดปุ่มแก้ไขห้อง
   const handleEdit = (room) => {
-    // คัดลอกข้อมูลห้องที่จะแก้ไข (ใช้ spread operator เพื่อไม่ให้แก้ไขข้อมูลต้นฉบับโดยตรง)
-    // และเปิด dialog สำหรับแก้ไข
-    setEditingRoom({ ...room });
+    // คัดลอกข้อมูลห้องที่จะแก้ไข (ใช้ spread operator เพื่อไม่ให้แก้ไขข้อมูลต้นฉบับโดยตรง) และเปิด dialog สำหรับแก้ไข
+    setEditingRoom({...room});
     setIsDialogOpen(true);
   };
   // ฟังก์ชันบันทึกการแก้ไข
   const handleSave = () => {
-    // อัพเดทข้อมูลห้องในรายการ
-    // ใช้ .map() เพื่อวนลูปและเปลี่ยนข้อมูลห้องที่มี id ตรงกัน
-    setRooms(rooms.map(room => 
+    // อัพเดทข้อมูลห้องในรายการ และใช้ .map() เพื่อวนลูปและเปลี่ยนข้อมูลห้องที่มี id ตรงกัน
+    setRooms(rooms.map(room =>
       room.id === editingRoom.id ? editingRoom : room
     ));
     // ปิด dialog พร้อมล้างข้อมูลห้องที่กำลังแก้ไข
     setIsDialogOpen(false);
     setEditingRoom(null);
   };
+
+
+  // เมื่อกดปุ่ม add new room
+  const handleEditCreateRoom = () => {
+    setAddingRoom(true);
+    setIsDialogOpen2(true);
+  };
+  // เมื่อบันทึก new room
+  const handleSaveRoom = () => {};
 
   // ============================================
   // นับจำนวนห้องแต่ละ Status
@@ -139,6 +149,13 @@ export default function AdminRoomLists() {
       {/* HEADER - ส่วนหัวของหน้า */}
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold">Room Management</h1>
+        <Button
+        className="gap-2 rounded-lg"
+        onClick={() => handleEditCreateRoom()}
+        >
+          <Plus size={16} />
+          Add Room
+        </Button>
       </div>
 
       {/* STATUS SUMMARY - สรุปจำนวนห้องแต่ละ Status */}
@@ -371,11 +388,77 @@ export default function AdminRoomLists() {
           {/* ปุ่มด้านล่าง Dialog */}
           <DialogFooter>
             {/* ปุ่มยกเลิก */}
-            <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
+            <Button className="rounded-lg" variant="outline" onClick={() => setIsDialogOpen(false)}>
               Cancel
             </Button>
             {/* ปุ่มบันทึก */}
-            <Button onClick={handleSave}>Save Changes</Button>
+            <Button className="rounded-lg" onClick={handleSave}>Save Changes</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+      {/* ADD ROOM DIALOG */}
+      <Dialog open={isDialogOpen2} onOpenChange={setIsDialogOpen2}>
+        <DialogContent className="max-w-md">
+          <DialogHeader className="pb-5">
+            <DialogTitle>Add Room</DialogTitle>
+            <DialogDescription>
+              Add new room with details
+            </DialogDescription>
+          </DialogHeader>
+
+          {/* แสดงฟอร์มถ้ามีการกดปุ่มเพิ่มห้อง */}
+          {addingRoom && (
+            <div className="space-y-4">
+              {/* ใส่เลขห้อง */}
+              <div>
+                <Label className="pb-2">Room Number</Label>
+                <Input
+                  type="number"
+                />
+              </div>
+              {/* เลือกประเภทห้อง */}
+              <div>
+                <Label className="pb-2">Room Type</Label>
+                <Select
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Single">Single</SelectItem>
+                    <SelectItem value="Double">Double</SelectItem>
+                    <SelectItem value="Suite">Suite</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* ใส่ราคา */}
+              <div>
+                <Label className="pb-2">Price (฿)</Label>
+                <Input
+                  type="number"
+                />
+              </div>
+
+              {/* ใส่หมายเหตุ */}
+              <div>
+                <Label className="pb-2">Notes</Label>
+                <Textarea
+                  placeholder="Add notes about the room"
+                  rows={3}
+                />
+              </div>
+            </div>
+          )}
+
+          {/* ปุ่มด้านล่าง Dialog */}
+          <DialogFooter>
+            {/* ปุ่มยกเลิก */}
+            <Button className="rounded-lg" variant="outline" onClick={() => setIsDialogOpen2(false)}>
+              Cancel
+            </Button>
+            {/* ปุ่มบันทึก */}
+            <Button className="rounded-lg" onClick={handleSaveRoom}>Add Room</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
