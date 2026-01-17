@@ -13,57 +13,57 @@ export default function Footer() {
                 </div>
                 <div className="flex flex-col justify-center">
                     <div>
-                        <p className="font-bold text-lg">SITE MAP</p>
+                        <p className="font-bold text-shadow-2xs text-lg">SITE MAP</p>
                     </div>
                     <div className="pt-2 gap-5 flex flex-col">
                         <div className="hover:bg-(--color-main2) rounded-lg transition duration-300 ease-in-out">
                             <Link to="/user">
-                                <p className="text-lg">User</p>
+                                <p className="text-shadow-2xs text-lg">User</p>
                             </Link>
                         </div>
                         <div className="hover:bg-(--color-main2) rounded-lg transition duration-300 ease-in-out">
                             <Link to="/roomdetail">
-                                <p className="text-lg">Availability</p>
+                                <p className="text-shadow-2xs text-lg">Availability</p>
                             </Link>
                         </div>
                         <div className="hover:bg-(--color-main2) rounded-lg transition duration-300 ease-in-out">
                             <Link to="/contactus">
-                                <p className="text-lg">Contact Us</p>
+                                <p className="text-shadow-2xs text-lg">Contact Us</p>
                             </Link>
                         </div>
                     </div>
                 </div>
                 <div className="flex flex-col justify-center">
                     <div>
-                        <p className="font-bold text-lg">SOCIALS</p>
+                        <p className="font-bold text-lg text-shadow-2xs">SOCIALS</p>
                     </div>
                 <div className="pt-2 gap-5 flex flex-col">
                     <div className="hover:bg-(--color-main2) rounded-lg transition duration-300 ease-in-out">
                         <Link to="/">
-                            <p className="text-lg">Facebook</p>
+                            <p className="text-lg text-shadow-2xs">Facebook</p>
                         </Link>
                     </div>
                     <div className="hover:bg-(--color-main2) rounded-lg transition duration-300 ease-in-out">
                         <Link to="/">
-                            <p className="text-lg">Instagram</p>
+                            <p className="text-lg text-shadow-2xs">Instagram</p>
                         </Link>
                     </div>
                     <div className="hover:bg-(--color-main2) rounded-lg transition duration-300 ease-in-out">
                         <Link to="/">
-                            <p className="text-lg">Twitter</p>
+                            <p className="text-lg text-shadow-2xs">Twitter</p>
                         </Link>
                     </div>
                 </div>
                 </div>
                 <div className="flex flex-col justify-between h-full">
                     <div className="flex flex-col w-3/4">
-                        <p className="font-semibold  text-lg">HEAD OFFICE</p>
-                        <div className="pt-1 pb-5 text-lg">
+                        <p className="font-semibold  text-lg text-shadow-2xs">HEAD OFFICE</p>
+                        <div className="pt-1 pb-5 text-lg text-shadow-2xs">
                                  123 Hotel Street, Bangkok 10110, Thailand
                         </div>
                     </div>
                     <div className="flex flex-col pb-5">
-                        <div className="text-lg font-semibold pb-1">NEWSLETTER</div>
+                        <div className="text-lg font-semibold pb-1 text-shadow-2xs">NEWSLETTER</div>
                         <div className="w-3/4 bg-(--color-main11) mt-1 shadow-(--box-shadow) px-2 text-gray-500">
                             <input
                                 type="email"
@@ -76,7 +76,7 @@ export default function Footer() {
                     </div>
                 </div>
             </div>
-            <div className="h-16 items-center justify-center lg:pb-4 lg:pt-2 px-10 w-11/12 text-lg gap-3 md:h-20 lg:flex hidden">
+            <div className=" text-shadow-2xs h-16 items-center justify-center lg:pb-4 lg:pt-2 px-10 w-11/12 text-lg gap-3 md:h-20 lg:flex hidden">
                 <div>contact@gmail.com</div>
                 <div>||</div>
                 <div>084-444-4444</div>
