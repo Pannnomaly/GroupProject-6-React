@@ -1,0 +1,22 @@
+import { Outlet } from "react-router-dom";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar.jsx"
+import SidebarApp from "../components/SidebarApp.jsx"
+import { useContext } from "react";
+import { AuthContext } from "../contexts/AuthContext.jsx";
+
+export default function LayoutAdmin ()
+{
+    const { logout } = useContext(AuthContext);
+
+    return (
+        <div className="min-h-screen">
+            <SidebarProvider>
+                <SidebarApp />
+                <div className="mt-6 ml-6">
+                    <SidebarTrigger />
+                </div>
+                <Outlet context={{ logout }} />
+            </SidebarProvider>
+        </div>
+    );
+}

@@ -9,7 +9,7 @@ export const rooms = [
     additional2: "Compact seating",
     additional3: "Private bathroom with rain shower",
     image:
-      "public/singlebed.jpg",
+      "singlebed.jpg",
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ export const rooms = [
     additional2: "Compact seating",
     additional3: "Private bathroom with rain shower",
     image:
-     "public/singlebed.jpg",
+     "singlebed.jpg",
   },
   {
     id: 3,
@@ -33,7 +33,7 @@ export const rooms = [
     additional2: "Compact seating",
     additional3: "Private bathroom with rain shower",
    image:
-      "public/singlebed.jpg",
+      "singlebed.jpg",
   },
   {
     id: 13,

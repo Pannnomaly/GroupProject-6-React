@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation, Navigate, useNavigate } from 'react-router-dom';
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
 import BackButton from '@/components/confirmation/BackButton';
@@ -8,52 +8,64 @@ import GuestStayDetails from '@/components/confirmation/GuestStayDetails';
 import RoomDetails from '@/components/confirmation/RoomDetails';
 import SpecialRequest from '@/components/confirmation/SpecialRequest';
 import HotelAddress from '@/components/confirmation/HotelAddress';
-import ConfirmButton from '@/components/confirmation/ConfirmButton';
 import ConfirmationFooter from '@/components/confirmation/ConfirmationFooter';
-import { reservationData } from '@/data/reservationData';
 
 const BookingConfirm = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const data = location.state;
 
-  const handleConfirm = () => {
-    console.log('Reservation confirmed');
+  // Protect the route: if no data passed (e.g., direct access), redirect to home
+  if (!data) {
+     return <Navigate to="/" replace />;
+  }
+
+  const handleFinish = () => {
+    // Logic for finishing the process, e.g., print or go home
+    alert("Booking Successfully Confirmed!");
+    navigate("/");
   };
 
   return (
     <div className="font-earn">
       <Navbar />
       <div className="container mx-auto px-4 py-6">
-      <BackButton to="/bookingdetail" label="Back to Booking" />
+      <BackButton to="/" label="Back to Home" />
       </div>
        <div className="bg-white overflow-hidden border border-gray-200 max-w-6xl mx-auto">
-        <ConfirmationHeader confirmationNumber={reservationData.confirmationNumber} />
+        <ConfirmationHeader confirmationNumber={data.confirmationNumber} />
 
         <HotelImage
-                src={reservationData.hotelImage}
-                alt={`${reservationData.roomType} - Room Preview`}
+                src={data.hotelImage}
+                alt={`${data.roomType} - Room Preview`}
               />
 
               <div className="p-8 space-y-8">
                 <GuestStayDetails
-                  guestName={reservationData.guestName}
-                  checkIn={reservationData.checkIn}
-                  checkOut={reservationData.checkOut}
-                  guestCount={reservationData.guestCount}
-                  nights={reservationData.nights}
+                  guestName={data.guestName}
+                  checkIn={data.checkIn}
+                  checkOut={data.checkOut}
+                  guestCount={data.guestCount}
+                  nights={data.nights}
                 />
 
                 <RoomDetails
-                  roomType={reservationData.roomType}
-                  amount={reservationData.amount}
+                  roomType={data.roomType}
+                  amount={data.amount}
                 />
 
-                <SpecialRequest request={reservationData.specialRequest} />
+                <SpecialRequest request={data.specialRequest} />
 
-                <HotelAddress address={reservationData.hotelAddress} />
+                <HotelAddress address={data.hotelAddress} />
 
-                <ConfirmButton
-                  onClick={handleConfirm}
-                  className="mt-8"
-                />
+                <div className="flex justify-center mt-8">
+                    <button 
+                      onClick={handleFinish} 
+                      className="w-full max-w-xs bg-(--color-main3) hover:bg-blue-700 text-lg text-white font-semibold py-3 px-6 transition-colors duration-300"
+                    >
+                        Finish
+                    </button>
+                </div>
               </div>
               <ConfirmationFooter />
               </div>
