@@ -1,4 +1,4 @@
-import { StrictMode } from 'react';
+// import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
@@ -20,6 +20,7 @@ import LayoutAdmin from './components/LayoutAdmin';
 import ForgetPassword from './pages/ForgetPassword';
 import AsideAdmin from './pages/AsideAdmin';
 import AdminRoomLists from './pages/AdminRoomLists';
+import AuthContextProvider from './contexts/AuthContextProvider.jsx';
 
 const router = createBrowserRouter([
   {
@@ -56,7 +57,7 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  <AuthContextProvider>
     <RouterProvider router={router} />
-  </StrictMode>
+  </ AuthContextProvider>
 );

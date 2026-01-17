@@ -1,7 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function Navbar ()
+export default function Navbar ({ logout })
 {
+    const navigate = useNavigate();
+
+    const handleNavigate = () => {
+        logout();
+        navigate("/");
+    };
+
     return (
             <header className="h-20 bg-(--color-main3) shadow-(--box-shadow)  text-(--color-main11) font-medium font-earn md:h-20 lg:h-20">
                 <nav className="h-20 flex items-center justify-between not-visited:text-md md:h-20 md:text-xl md:px-3 lg:h-20 lg:text-xl lg:px-10">
@@ -28,6 +35,9 @@ export default function Navbar ()
                                 <p className="text-center hidden md:flex lg:flex">Contact Us</p>
                                 <img className="text-center w-6.25 md:hidden lg:hidden" src="contact-us.svg" alt="Contact Logo" />
                             </Link>
+                        </div>
+                        <div className="h-full px-3 flex justify-center items-center hover:bg-(--color-main2) transition duration-300 ease-in-out cursor-pointer">
+                            <button onClick={handleNavigate}>Log out</button>
                         </div>
                     </div>
                 </nav>

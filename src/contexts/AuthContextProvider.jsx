@@ -1,0 +1,61 @@
+import { AuthContext } from "./AuthContext";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+export default function AuthContextProvider({ children }) {
+  const API = import.meta.env.VITE_API_URL;
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await axios.get(`${API}/auth/cookie/me`, {
+          withCredentials: true,
+        });
+        setUser(response.data.user);
+      } catch (error) {
+        console.error(error);
+        setUser(null);
+      }
+    };
+    checkAuth();
+  }, [API]);
+
+  const login = async ({ email, password }) => {
+    try {
+      const response = await axios.post(
+        `${API}/auth/cookie/login`,
+        { email, password },
+        { withCredentials: true },
+      );
+      setUser(response.data.user);
+
+      console.log(response);
+      return true;
+    } catch (error) {
+      console.error(error);
+      setUser(null);
+      return null;
+    }
+  };
+
+  const logout = async () => {
+    try {
+      await axios.post(
+        `${API}/auth/cookie/logout`,
+        {},
+        { withCredentials: true },
+      );
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setUser(null);
+    }
+  };
+
+  return (
+    <AuthContext.Provider value={{ API, user, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
+}
