@@ -1,13 +1,12 @@
-import { rooms } from "@/mock-db/roomsType";
 import { Bed, Ruler, Wifi, Bath, Users } from "lucide-react";
 
-export default function RoomCard({ handleOpenModal }) {
+export default function RoomCard({ rooms, handleOpenModal }) {
   return (
     <section className="w-full max-w-6xl mx-auto mt-16 mb-16 px-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 font-earn">
       {rooms.map((room) => (
         <div
-          key={room.id}
-          className="bg-white p-4 border-r-1 hover:shadow-lg transition-shadow  overflow-hidden"
+          key={room._id}
+          className="bg-white p-4 border-r hover:shadow-lg transition-shadow  overflow-hidden"
         >
           <img
             src={room.image}
@@ -16,7 +15,7 @@ export default function RoomCard({ handleOpenModal }) {
             onClick={() => handleOpenModal(room)}
           />
           <div className="p-4">
-            <h2 className="text-xl font-bold text-[#6C5B5C]">{room.name}</h2>
+            <h2 className="text-xl font-bold text-main2">{room.name}</h2>
             <p className="text-gray-600 mt-1">{room.type}</p>
 
             <div className="mt-3 space-y-2">
@@ -42,7 +41,9 @@ export default function RoomCard({ handleOpenModal }) {
             </div>
 
             <div className="mt-4 flex justify-between items-center">
-              <span className="text-lg font-semibold">THB {room.price} <span className="text-sm text-gray-500">/ night</span></span>
+              <span className="text-lg font-semibold">
+                THB {room.price} <span className="text-sm text-gray-500">/ night</span>
+              </span>
               <button
                 onClick={() => handleOpenModal(room)}
                 className="px-4 py-2 bg-(--color-main3) text-white  hover:bg-main6 transition-colors"
