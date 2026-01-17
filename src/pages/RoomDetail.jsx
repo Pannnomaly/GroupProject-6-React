@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useOutletContext } from "react-router-dom";
+import axios from "axios";
 
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
@@ -8,11 +10,13 @@ import RoomCard from "@/components/RoomCard";
 import Modal from "@/components/Modal";
 
 const RoomDetail = () => {
+  const { API } = useOutletContext();
+
+  const [rooms, setRooms] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRoom, setSelectedRoom] = useState(null);
 
-  // We lift the state for Guest Data here so we can pass it to both the Bar (for editing)
-  // and the Modal (for display/booking)
   const [guestData, setGuestData] = useState([{ id: 1, adults: 2, children: 0, infants: 0 }]);
 
   const [bookingDate, setBookingDate] = useState({
@@ -20,28 +24,46 @@ const RoomDetail = () => {
     to: new Date(new Date().setDate(new Date().getDate() + 1)), // Default 1 night
   });
 
+  useEffect(() => {
+    const fetchRooms = async () => {
+      try {
+        setLoading(true);
+        const res = await axios.get(`${API}/v1/rooms`);
+        setRooms(res.data.data);
+      } catch (err) {
+        console.error("Failed to load rooms:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRooms();
+  }, [API]);
+
   const handleOpenModal = (room) => {
-    // 'room' here is the full object from mock-db/roomsType.js passed by RoomCard
-    setSelectedRoom(room);  
+    setSelectedRoom(room);
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
-    setIsModalOpen(false); 
+    setIsModalOpen(false);
   };
 
   return (
     <>
       <Navbar />
-      {/* Pass guestData and setGuestData to Bar to synchronize state */}
-      <Bar 
-        bookingDate={bookingDate} 
-        setBookingDate={setBookingDate} 
+      <Bar
+        bookingDate={bookingDate}
+        setBookingDate={setBookingDate}
         rooms={guestData}
         setRooms={setGuestData}
       />
       <SliderImage />
-      <RoomCard handleOpenModal={handleOpenModal} />
+      {loading ? (
+        <p className="text-center mt-20">Loading rooms...</p>
+      ) : (
+        <RoomCard rooms={rooms} handleOpenModal={handleOpenModal} />
+      )}
       <Modal
         isModalOpen={isModalOpen}
         handleCloseModal={handleCloseModal}
