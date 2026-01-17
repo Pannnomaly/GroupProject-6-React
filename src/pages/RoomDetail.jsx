@@ -8,10 +8,10 @@ import Bar from "@/components/Bar";
 import SliderImage from "@/components/SliderImage";
 import RoomCard from "@/components/RoomCard";
 import Modal from "@/components/Modal";
+import { useOutletContext } from "react-router-dom";
 
 const RoomDetail = () => {
-  const { API } = useOutletContext();
-
+  const { logout, user } = useOutletContext();
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -51,10 +51,10 @@ const RoomDetail = () => {
 
   return (
     <>
-      <Navbar />
-      <Bar
-        bookingDate={bookingDate}
-        setBookingDate={setBookingDate}
+      <Navbar user={user} logout={logout} />
+      <Bar 
+        bookingDate={bookingDate} 
+        setBookingDate={setBookingDate} 
         rooms={guestData}
         setRooms={setGuestData}
       />
