@@ -38,7 +38,6 @@ const ArrivalDetails = ({ formData, onChange }) => (
             className="block w-full p-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm focus:ring-brand focus:border-brand shadow-xs"
             min="00:00"
             max="23:59"
-            step="1800"
             required
           />
         </div>
