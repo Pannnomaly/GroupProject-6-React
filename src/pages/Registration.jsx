@@ -15,7 +15,7 @@ const Registration = () => {
     e.preventDefault();
 
     try {
-      await axios.post(API, formData);
+      await axios.post(`${API}/users`, formData);
       setFormData({
         firstname: "",
         lastname: "",

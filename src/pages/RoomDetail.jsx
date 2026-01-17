@@ -8,10 +8,9 @@ import Bar from "@/components/Bar";
 import SliderImage from "@/components/SliderImage";
 import RoomCard from "@/components/RoomCard";
 import Modal from "@/components/Modal";
-import { useOutletContext } from "react-router-dom";
 
 const RoomDetail = () => {
-  const { logout, user } = useOutletContext();
+  const { logout, user, API} = useOutletContext();
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,7 +27,7 @@ const RoomDetail = () => {
     const fetchRooms = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`${API}/v1/rooms`);
+        const res = await axios.get(`${API}/rooms`);
         setRooms(res.data.data);
       } catch (err) {
         console.error("Failed to load rooms:", err);

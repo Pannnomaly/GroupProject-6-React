@@ -9,7 +9,7 @@ export default function AuthContextProvider({ children }) {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await axios.get(`${API}/auth/cookie/me`, {
+        const response = await axios.get(`${API}/users/auth/cookie/me`, {
           withCredentials: true,
         });
         setUser(response.data.user);
@@ -24,7 +24,7 @@ export default function AuthContextProvider({ children }) {
   const login = async ({ email, password }) => {
     try {
       const response = await axios.post(
-        `${API}/auth/cookie/login`,
+        `${API}/users/auth/cookie/login`,
         { email, password },
         { withCredentials: true },
       );
@@ -42,7 +42,7 @@ export default function AuthContextProvider({ children }) {
   const logout = async () => {
     try {
       await axios.post(
-        `${API}/auth/cookie/logout`,
+        `${API}/users/auth/cookie/logout`,
         {},
         { withCredentials: true },
       );
