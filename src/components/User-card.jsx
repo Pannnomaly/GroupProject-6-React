@@ -1,12 +1,12 @@
 export default function UserCard({ imagePath, imageAlt, roomName, checkIn, duration, guests, price }) {
   return (
-    <div className="flex items-center gap-x-10 p-3 hover:bg-(--color-main3) border-b-2 mb-2 text-shadow-2xs transition duration-300 ease-in-out">
+    <div className="flex flex-col md:flex-row items-center gap-x-10 p-3 hover:bg-(--color-main3) border-b-2 mb-2 text-shadow-2xs transition duration-300 ease-in-out">
       <div>
         <img
           src={imagePath}
           alt={imageAlt}
-          width="150px"
-          height="150px"
+          width="175"
+          height="175"
           className="shadow-(--box-shadow)"
         />
       </div>

@@ -21,8 +21,8 @@ export default function UserComponent() {
             <img
               src="images/users-portrait.jpg"
               alt="User Portrait"
-              width="150"
-              height="150"
+              width="175"
+              height="175"
               className="rounded-full object-cover aspect-square shadow-(--box-shadow)"
             />
           </div>
