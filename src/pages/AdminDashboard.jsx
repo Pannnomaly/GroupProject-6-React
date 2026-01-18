@@ -7,7 +7,7 @@ export default function AdminDashboard() {
         <div>
           <h1 className="text-2xl font-bold">Dashboard</h1>
         </div>
-        <div id="block-2" className="grid grid-cols-1 gap-4">
+        {/* <div id="block-2" className="grid grid-cols-1 gap-4">
           <div
             id="RA"
             className="bg-primary-foreground rounded-lg h-fit min-h-32 p-5 flex flex-col gap-2"
@@ -63,7 +63,7 @@ export default function AdminDashboard() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         <div id="block-3" className="w-full">
           <div className="bg-primary-foreground rounded-lg h-fit min-h-32 p-5">
             <ChartAreaInteractive />
