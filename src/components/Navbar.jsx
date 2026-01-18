@@ -37,7 +37,7 @@ export default function Navbar ({ logout })
                             </Link>
                         </div>
                         <div className="h-full px-3 flex justify-center items-center hover:bg-(--color-main2) transition duration-300 ease-in-out cursor-pointer">
-                            <button onClick={handleNavigate}><img src="logout.svg" alt="logout logo" className="w-8 opacity-78" /></button>
+                            <button onClick={handleNavigate}><img src="logout.svg" alt="logout logo" className="w-8 opacity-78 cursor-pointer" /></button>
                         </div>
                     </div>
                 </nav>
