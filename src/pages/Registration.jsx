@@ -40,7 +40,7 @@ const Registration = () => {
             <h1 className="text-6xl text-(--color-main3) text-end">Hotel Bangkok</h1>
           </div>
           {/* <!-- Left Section --> */}
-          <div className="hidden md:block">
+          <div className="hidden md:block w-full h-full object-cover">
             <img
               src="https://res.cloudinary.com/dhggmrfe1/image/upload/v1766600224/christina-radevich-kQjEq2bNFS0-unsplash_qsmfqh.jpg"
               className="shadow w-full object-cover"
@@ -91,7 +91,7 @@ const Registration = () => {
                 type="password"
                 id="password"
                 name="password"
-                placeholder="12345"
+                placeholder="********"
                 className="w-full border px-3 py-2 mt-1 mb-6 focus:ring-2 focus:ring-black focus:outline-none"
                 value={formData.password}
                 onChange={handleChange}

@@ -70,6 +70,7 @@ const RoomDetail = () => {
         bookingDate={bookingDate}
         guestData={guestData}
       />
+      
       <Footer />
     </>
   );

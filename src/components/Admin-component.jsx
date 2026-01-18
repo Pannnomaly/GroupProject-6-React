@@ -6,9 +6,9 @@ export default function AdminComponent() {
       <main className="w-screen flex flex-col justify-center items-center py-20">
         <div className="w-[95%] flex justify-between items-center bg-(--color-main3) text-(--color-main12) p-3 rounded-t-md">
           <div>
-            <h2 className="text-4xl font-bold">Profile</h2>
+            <h2 className="text-4xl font-bold text-main7">Profile</h2>
           </div>
-          <div className="flex justify-center items-center hover:bg-(--color-main2) rounded-full object-cover aspect-square w-9">
+          <div className="flex justify-center items-center hover:bg-(--color-main2)  object-cover aspect-square w-9">
             <a href="#">
               <img
                 src="gear-settings.svg"
@@ -23,7 +23,7 @@ export default function AdminComponent() {
           <div className="w-full px-3 flex flex-col justify-center items-center">
             <div className="w-[90%] mt-15 lg:m-15 bg-(--color-main4) rounded-md">
               <div className="w-full mt-5">
-                <h3 className="text-2xl font-semibold ml-5">Profile Card</h3>
+                <h3 className="text-2xl font-semibold text-main2 ml-5">Profile Card</h3>
               </div>
               <div className="w-full flex flex-col items-center mt-5">
                 <div>
@@ -37,25 +37,25 @@ export default function AdminComponent() {
                 </div>
                 <div className="w-full flex flex-col items-center mt-3">
                   <div>
-                    <p className="text-xl font-semibold">Admin Pann</p>
+                    <p className="text-xl font-semibold  ">Admin Pann</p>
                   </div>
                   <div>
-                    <p className="text-lg">Admin</p>
+                    <p className="text-lg text-main2">Admin</p>
                   </div>
                 </div>
               </div>
               <div className="w-full flex flex-col items-center mt-5">
                 <div className="w-full flex flex-col ml-10">
                   <div>
-                    <p className="text-xl font-semibold">Position</p>
+                    <p className="text-xl font-semibold text-main6">Position</p>
                   </div>
                   <div>
-                    <p className="text-lg">Admin</p>
+                    <p className="text-lg ">Admin</p>
                   </div>
                 </div>
                 <div className="w-full flex flex-col mt-3 ml-10">
                   <div>
-                    <p className="text-xl font-semibold">Phone</p>
+                    <p className="text-xl font-semibold text-main6">Phone</p>
                   </div>
                   <div>
                     <p className="text-lg">084-444-4444</p>
@@ -63,7 +63,7 @@ export default function AdminComponent() {
                 </div>
                 <div className="w-full flex flex-col mt-3 mb-5 ml-10">
                   <div>
-                    <p className="text-xl font-semibold">Check In-Out</p>
+                    <p className="text-xl font-semibold text-main6">Check In-Out</p>
                   </div>
                   <div>
                     <p className="text-lg">No Data</p>
@@ -76,13 +76,13 @@ export default function AdminComponent() {
             <div className="w-[90%] h-full m-15 bg-(--color-main4) flex flex-col justify-between rounded-md pb-5">
               <div>
                 <div className="w-full mt-5">
-                  <p className="text-2xl font-semibold ml-5">
+                  <p className="text-2xl font-semibold ml-5 text-main2 ">
                     Additional Information
                   </p>
                 </div>
                 <div className="w-full mt-5 ml-5">
                   <div>
-                    <p className="text-xl font-semibold">users.Id</p>
+                    <p className="text-xl font-semibold text-main6">users.Id</p>
                   </div>
                   <div>
                     <p className="text-lg">1</p>
@@ -90,7 +90,7 @@ export default function AdminComponent() {
                 </div>
                 <div className="w-full mt-5 ml-5">
                   <div>
-                    <p className="text-xl font-semibold">createdAt</p>
+                    <p className="text-xl font-semibold text-main6">createdAt</p>
                   </div>
                   <div>
                     <p className="text-lg">2023-09-14 00:00:00</p>

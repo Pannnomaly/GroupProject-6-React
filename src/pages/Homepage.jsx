@@ -59,7 +59,7 @@ const Homepage = () => {
 </AnimatePresence>
 
         <div className="bg-[#EFEDEA] text-[#333333] font-serif">
-            {/* ================= NAVBAR ================= */}
+ 
             <header className="fixed top-0 w-full z-50 px-4 sm:px-6 md:px-10 py-6 flex justify-between items-center text-[#EFEDEA] mix-blend-difference">
                 <button
                     onClick={handleMenuClick}
@@ -84,20 +84,18 @@ const Homepage = () => {
                 </Link>
             </header>
 
-            {/* ================= HERO ================= */}
+     
             <section className="relative w-full h-screen overflow-hidden">
-                {/* Background Image */}
+                 
                 <motion.img
                     src="/BGLDP.jpg"
                     alt="Hero background"
                     className="absolute inset-0 w-full h-full object-cover"
                     style={{ scale }}
                 />
-
-                {/* Overlay */}
+              
                 <div className="absolute inset-0 bg-black/30" />
 
-                {/* Text */}
                 <motion.div
                     className="  absolute  left-6 bottom-2 sm:left-10  md:left-16 md:bottom-32   text-[#EFEDEA]  tracking-[0.1em]  max-w-xl  z-10"
                     style={{ scale }}
@@ -118,7 +116,7 @@ const Homepage = () => {
                 </motion.div>
             </section>
 
-            {/* ================= ABOUT ================= */}
+        
             <section className="px-8 sm:px-16 md:px-32 py-16 sm:py-20 md:py-24 bg-[#ffff]">
                 <div className="text-center">
                     <p className="text-2xl sm:text-3xl md:text-4xl tracking-wider mb-5 text-[#958574]">
@@ -126,7 +124,7 @@ const Homepage = () => {
                     <p className="text:xl sm:text-xl md:text-xl tracking-wider mb-10 text-[#958574]">
                         Surrounded by the city, we welcome you into a softer, calmer place to rest and feel at home </p>
                     <Link to="roomdetail">
-                        <button className="border border-[#958574] px-8 sm:px-12 md:px-20 py-2 text-sm sm:text-xl tracking-wider text-[#6C5B5C] hover:bg-[#BBAF90] hover:border-transparent  hover:text-[#ffff] transition">
+                        <button className="border border-[#958574] px-8 sm:px-12 md:px-20 py-2 text-sm sm:text-xl tracking-wider text-[#6C5B5C] hover:bg-main2 hover:border-transparent  hover:text-[#ffff] transition">
                             HOTEL DETAILS
                         </button>
                     </Link>
@@ -134,7 +132,7 @@ const Homepage = () => {
             </section>
 
 
-            {/* ================= SKYLINE ================= */}
+       
             <section className="px-4 sm:px-8 md:px-16 py-16 sm:py-20 bg-[#EFEDEA]">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
 
@@ -175,11 +173,9 @@ const Homepage = () => {
                 </div>
             </section>
 
-            {/* ================= RESTAURANT ================= */}
             <section className="py-16 sm:py-20 bg-[#ffff]">
                 <div className="flex flex-col md:flex-row items-center">
 
-                    {/* TEXT — slide จากซ้าย */}
                     <motion.div
                         className="bg-[#E2DACC]/80 shadow-xl px-8 py-14 w-full md:w-3/5 text-center md:text-left"
                         initial={{ opacity: 0, x: -80, filter: "blur(6px)" }}
@@ -199,7 +195,7 @@ const Homepage = () => {
                         </h2>
                     </motion.div>
 
-                    {/* IMAGE — slide จากขวา */}
+                    
                     <div className="w-full md:w-2/5">
                         <motion.img
                             src="/newpadthai.png"
@@ -214,51 +210,33 @@ const Homepage = () => {
                 </div>
             </section>
             <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-                <div className="w-full max-w-7xl mx-auto py-12">
-                    {/* BUTTONS */}
-                    <div className="flex flex-col md:flex-row justify-evenly gap-8 md:gap-14 mb-12">
-                        <button className="px-20 py-3 text-[#5f5b54] shadow-xl border-gray-200 text-lg sm:text-xl hover:bg-amber-900 hover:text-white transition">
+                <div className="w-full max-w-7xl mx-auto py-12 ">
+        
+                    <div className="flex flex-col md:flex-row justify-evenly gap-8 md:gap-14 mb-12 hidden md:flex">
+                        <button className="px-20 py-3 text-[#5f5b54] shadow-xl border-gray-200 text-lg sm:text-xl hover:bg-main1 hover:text-white transition">
                             Room Type
                         </button>
 
-                        <button className="px-8 py-3 text-white bg-amber-900 shadow-xl text-lg sm:text-xl hover:bg-white hover:text-[#696459] transition">
+                        <button className="px-8 py-3 text-white bg-main1 shadow-xl text-lg sm:text-xl hover:bg-white hover:text-[#696459] transition">
                             Local recommendations
                         </button>
 
-                        <button className="px-20 py-3 text-[#5f5b54] shadow-xl border-gray-200 text-lg sm:text-xl hover:bg-amber-900 hover:text-white transition">
+                        <button className="px-20 py-3 text-[#5f5b54] shadow-xl border-gray-200 text-lg sm:text-xl hover:bg-main1 hover:text-white transition ">
                             Facilities
                         </button>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
-                        {/* Column 1: Room Type */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 ">
+                      
                         <div>
-                            {/* <img
-                                src="/rt.jpg"
-                                alt="Room type"
-                                className="w-full h-64 object-cover mb-4"
-                            /> */}
-
-                            {/* ตอนซูมรูปขึ้นอย่างเดียว */}
-                            {/* <motion.div
-                                className="overflow-hidden"
-                                whileHover={{ scale: 1.03 }}
-                                transition={{ duration: 0.4, ease: "easeOut" }}
-                            >
-                                <motion.img
-                                    src="/rt.jpg"
-                                    className="w-full h-[240px] md:h-[280px] object-cover mb-4"
-                                    whileHover={{ scale: 1.1 }}
-                                    transition={{ duration: 0.6, ease: "easeOut" }}
-                                />
-                            </motion.div> */}
+                       
                             <motion.div
                                 className="relative overflow-hidden"
                                 whileHover="hover"
                                 initial="rest"
                                 animate="rest"
                             >
-                                {/* IMAGE */}
+                           
                                 <motion.img
                                     src="/rt.jpg"
                                     className="w-full h-[240px] md:h-[280px] object-cover"
@@ -269,8 +247,7 @@ const Homepage = () => {
                                     transition={{ duration: 0.6, ease: "easeOut" }}
                                 />
 
-                                {/* OVERLAY */}
-                                <motion.div
+                                    <motion.div
                                     className="absolute inset-0 bg-black/40 flex items-center justify-center"
                                     variants={{
                                         rest: { opacity: 0 },
@@ -309,7 +286,7 @@ const Homepage = () => {
                             </div>
                         </div>
 
-                        {/* Column 2: Local recommendations */}
+                     
                         <div>
 
                             <motion.div
@@ -318,7 +295,7 @@ const Homepage = () => {
                                 initial="rest"
                                 animate="rest"
                             >
-                                {/* IMAGE */}
+                             
                                 <motion.img
                                     src="/localr.jpg"
                                     className="w-full h-[240px] md:h-[280px] object-cover"
@@ -329,7 +306,7 @@ const Homepage = () => {
                                     transition={{ duration: 0.6, ease: "easeOut" }}
                                 />
 
-                                {/* OVERLAY */}
+                              
                                 <motion.div
                                     className="absolute inset-0 bg-black/40 flex items-center justify-center"
                                     variants={{
@@ -338,7 +315,7 @@ const Homepage = () => {
                                     }}
                                     transition={{ duration: 0.3, ease: "easeOut" }}
                                 >
-                                    {/* TEXT */}
+                                  
                                     <motion.span
                                         className="text-white text-xl text-center tracking-widest uppercase"
                                         variants={{
@@ -364,7 +341,7 @@ const Homepage = () => {
                             </div>
                         </div>
 
-                        {/* Column 3: Facilities */}
+                  
                         <div>
 
 
@@ -374,7 +351,7 @@ const Homepage = () => {
                                 initial="rest"
                                 animate="rest"
                             >
-                                {/* IMAGE */}
+                            
                                 <motion.img
                                     src="/fclt.jpg"
                                     className="w-full h-[240px] md:h-[280px] object-cover"
@@ -385,7 +362,7 @@ const Homepage = () => {
                                     transition={{ duration: 0.6, ease: "easeOut" }}
                                 />
 
-                                {/* OVERLAY */}
+                          
                                 <motion.div
                                     className="absolute inset-0 bg-black/40 flex items-center justify-center"
                                     variants={{
@@ -394,7 +371,7 @@ const Homepage = () => {
                                     }}
                                     transition={{ duration: 0.3, ease: "easeOut" }}
                                 >
-                                    {/* TEXT */}
+                                 
                                     <motion.span
                                         className="text-white text-xl text-center tracking-widest uppercase"
                                         variants={{
@@ -424,31 +401,11 @@ const Homepage = () => {
                 </div>
             </section>
 
-            {/* ================= GALLERY ================= */}
+   
             <section className="min-h-screen bg-[#ffff] flex justify-center items-center py-30 px-5 sm:px-6 lg:px-8">
                 <div className="bg-white shadow-lg w-full max-w-7xl overflow-hidden">
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                        {/* <img
-                            src="/building.jpg"
-                            alt="Building"
-                            className="w-full h-140 object-cover"
-                        />
-                        <img
-                            src="/pool.jpg"
-                            alt="Pool"
-                            className="w-full h-140 object-cover"
-                        />
-                        <img
-                            src="/lobby.jpg"
-                            alt="Lobby"
-                            className="w-full h-140 object-cover"
-                        />
-                          <img
-                            src="/door.jpg"
-                            alt="Lobby"
-                            className="w-full h-140 object-cover"
-                        /> */}
-
+                      
                         <motion.div
                             className="overflow-hidden"
                             whileHover={{ scale: 1.03 }}
