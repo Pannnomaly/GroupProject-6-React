@@ -11,7 +11,7 @@ export default function SliderImage() {
             {/* <!-- Slide 1 --> */}
             <div className="swiper-slide">
               <img
-                src="public/singlebed.jpg"
+                src="singlebed.jpg"
                 className="w-[80%] h-64 object-cover shadow-lg mx-auto transition-transform duration-500 hover:scale-105"
               />
             </div>

@@ -1,27 +1,34 @@
 import { LayoutDashboard, Bed, NotebookPen, User } from "lucide-react"
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarSeparator } from "./ui/sidebar"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { Button } from "./ui/button"
+import { useContext } from "react"
+import { AuthContext } from "../contexts/AuthContext.jsx"
 
 // Menu items.
 const items = [
   {
     title: "Dashboard",
-    url: "#",
+    url: "../admindashboard",
     icon: LayoutDashboard,
   },
   {
-    title: "Room Lists",
-    url: "#",
+    title: "Room Management",
+    url: "../adminroomlists",
     icon: Bed,
-  },
-  {
-    title: "Booking",
-    url: "#",
-    icon: NotebookPen,
   },
 ]
 
 export default function SideBar() {
+
+    const { logout } = useContext(AuthContext);
+
+    const navigate = useNavigate();
+
+    const handleNavigate = () => {
+        logout();
+        navigate("/");
+    };
 
     return (
         <Sidebar>
@@ -51,11 +58,14 @@ export default function SideBar() {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton asChild>
-                            <Link to="#">
+                            <Link to="../admin">
                                 <User />
                                 <span>Joe Dorn</span>
                             </Link>
                         </SidebarMenuButton>
+                            <SidebarMenuButton asChild>
+                                <Button onClick={handleNavigate} variant="destructive" className="my-5 transition duration-300 ease-in-out cursor-pointer">Log out</Button>
+                            </SidebarMenuButton>
                     </SidebarMenuItem>
                 </SidebarMenu>
             </SidebarFooter>

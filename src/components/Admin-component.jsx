@@ -1,26 +1,27 @@
+import { Link } from "react-router-dom";
+
 export default function AdminComponent() {
   return (
-    <div className="flex flex-row font-earn">
-      <div>This is aside bar</div>
-      <main className="w-screen flex flex-col justify-center items-center">
-        <div className="w-[95%] flex justify-between items-center bg-(--color-main3) text-(--color-main12) p-3  ">
+    <div className="flex flex-row font-earn max-w-[95%]">
+      <main className="w-screen flex flex-col justify-center items-center py-20">
+        <div className="w-[95%] flex justify-between items-center bg-(--color-main3) text-(--color-main12) p-3 rounded-t-md">
           <div>
             <h2 className="text-4xl font-bold text-main7">Profile</h2>
           </div>
           <div className="flex justify-center items-center hover:bg-(--color-main2)  object-cover aspect-square w-9">
             <a href="#">
               <img
-                src="images/gear-settings.svg"
+                src="gear-settings.svg"
                 alt="gear logo"
-                width="35px"
-                height="35px"
+                width="30px"
+                height="30px"
               />
             </a>
           </div>
         </div>
-        <div className="w-[95%] flex justify-center bg-main5">
+        <div className="w-[95%] flex flex-col lg:flex-row justify-center bg-(--color-main5) rounded-b-md">
           <div className="w-full px-3 flex flex-col justify-center items-center">
-            <div className="w-[90%] m-15 bg-white">
+            <div className="w-[90%] mt-15 lg:m-15 bg-(--color-main4) rounded-md">
               <div className="w-full mt-5">
                 <h3 className="text-2xl font-semibold text-main2 ml-5">Profile Card</h3>
               </div>
@@ -72,7 +73,7 @@ export default function AdminComponent() {
             </div>
           </div>
           <div className="w-full px-3 flex flex-col justify-center items-center">
-            <div className="w-[90%] h-full m-15 bg-white flex flex-col justify-between ">
+            <div className="w-[90%] h-full m-15 bg-(--color-main4) flex flex-col justify-between rounded-md pb-5">
               <div>
                 <div className="w-full mt-5">
                   <p className="text-2xl font-semibold ml-5 text-main2 ">
@@ -97,11 +98,11 @@ export default function AdminComponent() {
                 </div>
               </div>
               <div className="flex justify-end mb-5 mr-5">
-                <a href="admin-dashboard.html">
-                  <button className="px-6 py-4 bg-(--color-main3) hover:bg-(--color-main2) rounded-2xl  cursor-pointer">
+                <Link to="../asideadmin">
+                  <button className="px-6 py-4 bg-(--color-main3) hover:bg-(--color-main2) rounded-xl cursor-pointer">
                     Close
                   </button>
-                </a>
+                </Link>
               </div>
             </div>
           </div>

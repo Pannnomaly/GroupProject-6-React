@@ -1,19 +1,37 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
-import { Calendar as CalendarIcon, Plus, Minus, Users, Trash2 } from "lucide-react";
+import { CalendarIcon, Users, Trash2 } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 import GuestControl from "@/components/GuestControl";
+import { AuthContext } from "@/contexts/AuthContext";
 
-export default function Bar({ bookingDate, setBookingDate }) {
-  const [rooms, setRooms] = useState([{ id: 1, adults: 2, children: 0, infants: 0 }]);
+// Updated to accept props for room/guest state management
+export default function Bar({
+  bookingDate,
+  setBookingDate,
+  rooms: propRooms,
+  setRooms: propSetRooms,
+}) {
 
-  const totalGuests = rooms.reduce(
-    (acc, curr) => acc + curr.adults + curr.children + curr.infants,
-    0
-  );
+  const { authLoading, user } = useContext(AuthContext);
+  console.log(user);
+
+  // Fallback local state if props aren't provided (e.g., used on Homepage)
+  const [localRooms, setLocalRooms] = useState([{ id: 1, adults: 2, children: 0, infants: 0 }]);
+
+  // State to control popover open/close
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const [isMobilePopoverOpen, setIsMobilePopoverOpen] = useState(false);
+
+  const rooms = propRooms || localRooms;
+  const setRooms = propSetRooms || setLocalRooms;
+
+  const totalGuests = rooms.reduce((acc, curr) => {
+    acc + curr.adults + curr.children + curr.infants;
+  }, 0);
 
   const addRoom = () => {
     setRooms([...rooms, { id: Date.now(), adults: 1, children: 0, infants: 0 }]);
@@ -31,13 +49,12 @@ export default function Bar({ bookingDate, setBookingDate }) {
     }
   };
 
-  // ฟังก์ชันช่วยแสดงข้อความบนปุ่ม
   const getDateDisplay = () => {
     if (bookingDate?.from) {
       if (bookingDate.to) {
         return `${format(bookingDate.from, "dd MMM yyyy")} - ${format(
           bookingDate.to,
-          "dd MMM yyyy"
+          "dd MMM yyyy",
         )}`;
       }
       return format(bookingDate.from, "dd MMM");
@@ -52,11 +69,11 @@ export default function Bar({ bookingDate, setBookingDate }) {
       <section className="md:hidden flex justify-center w-full mt-10 px-4 font-earn">
         <div className="bg-white shadow-xl border-2 flex flex-col gap-4 px-4 py-5 w-full max-w-md">
           {/* <!-- Guests --> */}
-          <Popover>
+          <Popover open={isMobilePopoverOpen} onOpenChange={setIsMobilePopoverOpen}>
             <PopoverTrigger asChild>
-              <button className="flex items-center gap-2 border border-gray-300 px-4 py-2 hover:bg-gray-50 bg-[white] min-w-50">
-                <Users className="h-4 w-4 text-gray-600" />
-                <span className="font-medium text-gray-700">
+              <button className="flex items-center gap-2 px-4 py-2 hover:bg-(--color-main4) bg-(--color-main3) text-white min-w-50">
+                <Users className="h-4 w-4 text-white text-shadow-md hover:text-(--color-main6)" />
+                <span className="font-medium text-white text-shadow-md hover:text-(--color-main6)">
                   {rooms.length} Room, {totalGuests} Guests
                 </span>
               </button>
@@ -75,7 +92,6 @@ export default function Bar({ bookingDate, setBookingDate }) {
                     <div className="flex justify-between items-center">
                       <div className="text-sm font-bold text-gray-800">Room {index + 1}</div>
 
-                      {/* ปุ่มลบห้อง: จะแสดงก็ต่อเมื่อมีมากกว่า 1 ห้อง */}
                       {rooms.length > 1 && (
                         <button
                           onClick={() => removeRoom(room.id)}
@@ -86,7 +102,6 @@ export default function Bar({ bookingDate, setBookingDate }) {
                       )}
                     </div>
 
-                    {/* Row: Adults */}
                     <GuestControl
                       label="Adults"
                       subLabel="Ages 13 or more"
@@ -95,7 +110,6 @@ export default function Bar({ bookingDate, setBookingDate }) {
                       onUpdate={(val) => updateRoom(index, "adults", val)}
                     />
 
-                    {/* Row: Children */}
                     <GuestControl
                       label="Children"
                       subLabel="Ages 2 - 12"
@@ -103,7 +117,6 @@ export default function Bar({ bookingDate, setBookingDate }) {
                       onUpdate={(val) => updateRoom(index, "children", val)}
                     />
 
-                    {/* Row: Infants */}
                     <GuestControl
                       label="Infants"
                       subLabel="Under 2"
@@ -120,7 +133,10 @@ export default function Bar({ bookingDate, setBookingDate }) {
                   >
                     Add additional room
                   </button>
-                  <button className="bg-[#005582] text-white font-bold py-2 rounded-sm">
+                  <button
+                    onClick={() => setIsMobilePopoverOpen(false)}
+                    className="bg-(--color-main2) text-white font-bold py-2"
+                  >
                     Done
                   </button>
                 </div>
@@ -144,6 +160,7 @@ export default function Bar({ bookingDate, setBookingDate }) {
                   selected={bookingDate}
                   onSelect={setBookingDate}
                   numberOfMonths={2}
+                  disabled={(date) => date < new Date().setHours(0, 0, 0, 0)}
                 />
               </PopoverContent>
             </Popover>
@@ -152,7 +169,13 @@ export default function Bar({ bookingDate, setBookingDate }) {
           <div className="flex justify-between items-center w-full">
             <Link to="/login">
               <button className="px-4 py-3 hover:bg-gray-100 font-medium w-full text-left">
-                Sign in / Register
+                { authLoading ? (<span className="text-base">Checking auth session. . .</span>) : user ? (
+                  <>
+                    <span className="text-base">
+                      Logged in as <span>{user.firstname}</span>
+                    </span>
+                  </>
+                ) : ("Login / Register") }
               </button>
             </Link>
             <img
@@ -165,16 +188,15 @@ export default function Bar({ bookingDate, setBookingDate }) {
         </div>
       </section>
 
-      {/* <!-- Sign In and Register Bar --> */}
       {/* <!-- Desktop --> */}
       <section className="hidden md:flex justify-center w-full mt-10 px-4 font-earn">
         <div className="bg-white  shadow-xl border-2 flex items-center gap-4 px-6 py-3 w-full max-w-4xl">
           {/* <!-- Guests --> */}
-          <Popover>
+          <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
             <PopoverTrigger asChild>
-              <button className="flex items-center gap-2  px-6 py-2 bg-[#134A5F] hover:bg-gray-400  min-w-50">
-                <Users className="h-4 w-4 text-white hover:text-[#6D6767]" />
-                <span className="font-medium text-white hover:text-[#6D6767]">
+              <button className="flex items-center gap-2  px-6 py-2 bg-(--color-main3) hover:bg-(--color-main4)  min-w-50">
+                <Users className="h-4 w-4 text-white text-shadow-md hover:text-(--color-main6)" />
+                <span className="font-medium text-white text-shdow-md hover:text-(--color-main6)">
                   {rooms.length} Room, {totalGuests} Guests
                 </span>
               </button>
@@ -193,7 +215,6 @@ export default function Bar({ bookingDate, setBookingDate }) {
                     <div className="flex justify-between items-center">
                       <div className="text-sm font-bold text-gray-800">Room {index + 1}</div>
 
-                      {/* ปุ่มลบห้อง: จะแสดงก็ต่อเมื่อมีมากกว่า 1 ห้อง */}
                       {rooms.length > 1 && (
                         <button
                           onClick={() => removeRoom(room.id)}
@@ -204,7 +225,6 @@ export default function Bar({ bookingDate, setBookingDate }) {
                       )}
                     </div>
 
-                    {/* Row: Adults */}
                     <GuestControl
                       label="Adults"
                       subLabel="Ages 13 or more"
@@ -213,7 +233,6 @@ export default function Bar({ bookingDate, setBookingDate }) {
                       onUpdate={(val) => updateRoom(index, "adults", val)}
                     />
 
-                    {/* Row: Children */}
                     <GuestControl
                       label="Children"
                       subLabel="Ages 2 - 12"
@@ -221,7 +240,6 @@ export default function Bar({ bookingDate, setBookingDate }) {
                       onUpdate={(val) => updateRoom(index, "children", val)}
                     />
 
-                    {/* Row: Infants */}
                     <GuestControl
                       label="Infants"
                       subLabel="Under 2"
@@ -238,7 +256,10 @@ export default function Bar({ bookingDate, setBookingDate }) {
                   >
                     Add additional room
                   </button>
-                  <button className="bg-[#005582] text-white font-bold py-2 rounded-sm">
+                  <button
+                    onClick={() => setIsPopoverOpen(false)}
+                    className="bg-(--color-main2) text-white font-bold py-2"
+                  >
                     Done
                   </button>
                 </div>
@@ -261,6 +282,7 @@ export default function Bar({ bookingDate, setBookingDate }) {
                   selected={bookingDate}
                   onSelect={setBookingDate}
                   numberOfMonths={2}
+                  disabled={(date) => date < new Date().setHours(0, 0, 0, 0)}
                 />
               </PopoverContent>
             </Popover>
@@ -269,7 +291,13 @@ export default function Bar({ bookingDate, setBookingDate }) {
           <div className="flex justify-between">
             <Link to="/login">
               <button className="ml-auto px-4 py-2 hover:bg-gray-100 font-medium">
-                Sign in / Register
+                { authLoading ? (<span className="text-base">Checking auth session. . .</span>) : user ? (
+                  <>
+                    <span className="text-base">
+                      Logged in as <span>{user.firstname}</span>
+                    </span>
+                  </>
+                ) : ("Login / Register") }
               </button>
             </Link>
             <img
