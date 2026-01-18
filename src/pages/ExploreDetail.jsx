@@ -1,12 +1,15 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { useOutletContext } from "react-router-dom";
 
 export default function Explore ()
 {
+    const { logout, user} = useOutletContext();
+
     return (
         <div>
-            <Navbar/>
+            <Navbar logout={logout} user={user}/>
 
 
             <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 font-serif">

@@ -31,6 +31,12 @@ export default function Navbar ({ logout })
                             </Link>
                         </div>
                         <div className="h-full px-3 flex justify-center items-center hover:bg-(--color-main2) transition duration-300 ease-in-out cursor-pointer">
+                            <Link to="/explore">
+                                <p className="text-center hidden md:flex lg:flex">Explore</p>
+                                <img className="text-center w-8 md:hidden lg:hidden" src="explore.svg" alt="Explore Logo" />
+                            </Link>
+                        </div>
+                        <div className="h-full px-3 flex justify-center items-center hover:bg-(--color-main2) transition duration-300 ease-in-out cursor-pointer">
                             <Link to="/contactus">
                                 <p className="text-center hidden md:flex lg:flex">Contact Us</p>
                                 <img className="text-center w-6.25 md:hidden lg:hidden" src="contact-us.svg" alt="Contact Logo" />
