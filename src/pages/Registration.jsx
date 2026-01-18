@@ -34,35 +34,18 @@ const Registration = () => {
   return (
     <>
       <main className="bg-white min-h-screen flex flex-col justify-center items-center font-earn">
-        {/* Hotel Name - Mobile (over image) */}
-<div className="md:hidden absolute top-4 left-0 right-0 z-50 px-4">
-  <div className="text-center space-y-1">
-    <div className="text-3xl bg-(--color-main10)/65 text-(--color-main11) px-4 py-2 rounded-lg inline-block">
-      <div>MonkeyDB</div>
-      <div>Hotel Bangkok</div>
-    </div>
-  </div>
-</div>
- 
-      <div className="grid grid-cols-1 md:grid-cols-2 min-h-screen">
-        {/* Left Section - Image */}
-        <div className="relative">
-          <div className="h-64 md:h-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div className="md:flex hidden flex-wrap absolute top-20 z-50 left-1/2 -translate-x-1/2 gap-10">
+            <h1 className="text-6xl text-(--color-main11) text-start">MonkeyDB</h1>
+            <h1 className="text-6xl text-(--color-main3) text-end">Hotel Bangkok</h1>
+          </div>
+          {/* <!-- Left Section --> */}
+          <div className="hidden md:block">
             <img
               src="https://res.cloudinary.com/dhggmrfe1/image/upload/v1766600224/christina-radevich-kQjEq2bNFS0-unsplash_qsmfqh.jpg"
-              className="w-full h-full object-cover"
-              alt="Hotel lobby"
+              className="shadow w-full object-cover"
             />
           </div>
- 
-          {/* Hotel Name - Desktop */}
-          <div className="hidden md:flex absolute top-20 left-1/2 -translate-x-1/2 z-50 w-full max-w-4xl px-4">
-            <h1 className="text-4xl md:text-6xl text-center mx-auto">
-              <span className="text-(--color-main11)">MonkeyDB</span>{' '}
-              <span className="text-(--color-main11)">Hotel Bangkok</span>
-            </h1>
-          </div>
-        </div>
 
           {/* <!-- Right Section --> */}
           <div className="flex flex-col justify-center w-full max-w-md mx-auto">
