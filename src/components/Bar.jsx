@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import { CalendarIcon, Users, Trash2 } from "lucide-react";
@@ -6,6 +6,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 import GuestControl from "@/components/GuestControl";
+import { AuthContext } from "@/contexts/AuthContext";
 
 // Updated to accept props for room/guest state management
 export default function Bar({
@@ -14,6 +15,10 @@ export default function Bar({
   rooms: propRooms,
   setRooms: propSetRooms,
 }) {
+
+  const { authLoading, user } = useContext(AuthContext);
+  console.log(user);
+
   // Fallback local state if props aren't provided (e.g., used on Homepage)
   const [localRooms, setLocalRooms] = useState([{ id: 1, adults: 2, children: 0, infants: 0 }]);
 
@@ -164,7 +169,13 @@ export default function Bar({
           <div className="flex justify-between items-center w-full">
             <Link to="/login">
               <button className="px-4 py-3 hover:bg-gray-100 font-medium w-full text-left">
-                Sign in / Register
+                { authLoading ? (<span className="text-base">Checking auth session. . .</span>) : user ? (
+                  <>
+                    <span className="text-base">
+                      Logged in as <span>{user.firstname}</span>
+                    </span>
+                  </>
+                ) : ("Login / Register") }
               </button>
             </Link>
             <img
@@ -280,7 +291,13 @@ export default function Bar({
           <div className="flex justify-between">
             <Link to="/login">
               <button className="ml-auto px-4 py-2 hover:bg-gray-100 font-medium">
-                Sign in / Register
+                { authLoading ? (<span className="text-base">Checking auth session. . .</span>) : user ? (
+                  <>
+                    <span className="text-base">
+                      Logged in as <span>{user.firstname}</span>
+                    </span>
+                  </>
+                ) : ("Login / Register") }
               </button>
             </Link>
             <img

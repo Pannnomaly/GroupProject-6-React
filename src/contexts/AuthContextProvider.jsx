@@ -5,9 +5,11 @@ import axios from "axios";
 export default function AuthContextProvider({ children }) {
   const API = import.meta.env.VITE_API_URL;
   const [user, setUser] = useState(null);
+  const [authLoading, setAuthLoading] = useState(true);
 
   useEffect(() => {
     const checkAuth = async () => {
+      setAuthLoading(true);
       try {
         const response = await axios.get(`${API}/users/auth/cookie/me`, {
           withCredentials: true,
@@ -16,6 +18,9 @@ export default function AuthContextProvider({ children }) {
       } catch (error) {
         console.error(error);
         setUser(null);
+      } finally
+      {
+        setAuthLoading(false);
       }
     };
     checkAuth();
@@ -54,7 +59,7 @@ export default function AuthContextProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ API, user, login, logout }}>
+    <AuthContext.Provider value={{ API, authLoading, user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
