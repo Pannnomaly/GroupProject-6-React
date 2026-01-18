@@ -33,14 +33,14 @@ const Registration = () => {
   };
   return (
     <>
-      <main className="bg-white min-h-screen flex flex-col justify-center items-center font-earn">
+      <main className="bg-white min-h-screen flex flex-col justify-center items-center font-earn px-5 md:px-0">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          <div className="md:flex hidden flex-wrap absolute top-20 z-50 left-1/2 -translate-x-1/2 gap-10">
-            <h1 className="text-6xl text-(--color-main11) text-start">MonkeyDB</h1>
-            <h1 className="text-6xl text-(--color-main3) text-end">Hotel Bangkok</h1>
+          <div className="md:flex hidden flex-wrap absolute top-20 z-50 left-1/2 -translate-x-1/2 gap-10 text-shadow-lg">
+            <h1 className="text-6xl text-(--color-main11) md:hidden lg:flex">MonkeyDB</h1>
+            <h1 className="text-6xl text-(--color-main3) md:hidden lg:flex">Hotel Bangkok</h1>
           </div>
           {/* <!-- Left Section --> */}
-          <div className="hidden md:block w-full h-full object-cover">
+          <div className="hidden md:flex w-full h-full object-cover">
             <img
               src="https://res.cloudinary.com/dhggmrfe1/image/upload/v1766600224/christina-radevich-kQjEq2bNFS0-unsplash_qsmfqh.jpg"
               className="shadow w-full object-cover"
@@ -49,7 +49,13 @@ const Registration = () => {
 
           {/* <!-- Right Section --> */}
           <div className="flex flex-col justify-center w-full max-w-md mx-auto">
-            <h2 className="text-4xl text-center font-medium mb-10">Sign up</h2>
+            <div className="flex justify-center mt-10 text-shadow-lg">
+              <h1 className="text-4xl text-(--color-main11) hidden md:flex lg:hidden">MonkeyDB</h1>  
+              <h1 className="text-4xl text-(--color-main3) hidden md:flex lg:hidden">Hotel Bangkok</h1>
+              <h1 className="text-4xl text-(--color-main11) md:hidden lg:hidden">MonkeyDB</h1>  
+              <h1 className="text-4xl text-(--color-main3) md:hidden lg:hidden">Hotel Bangkok</h1>
+            </div>
+            <h2 className="text-2xl md:text-3xl text-center font-medium mt-5 mb-10">Sign up</h2>
 
             {/* Form */}
             <form onSubmit={handleSubmit}>
