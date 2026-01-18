@@ -22,7 +22,7 @@ export default function Explore ()
                             >
                                 {/* IMAGE */}
                                 <motion.img
-                                    src="public/cityview.jpg"
+                                    src="cityview.jpg"
                                     className="w-full h-[240px] md:h-[280px] object-cover"
                                     variants={{
                                         rest: { scale: 1 },
@@ -83,7 +83,7 @@ export default function Explore ()
                             >
                                 {/* IMAGE */}
                                 <motion.img
-                                    src="public/pool.jpg"
+                                    src="pool.jpg"
                                     className="w-full h-[240px] md:h-[280px] object-cover"
                                     variants={{
                                         rest: { scale: 1 },
@@ -129,7 +129,7 @@ export default function Explore ()
                             >
                                 {/* IMAGE */}
                                 <motion.img
-                                    src="public/location.jpg"
+                                    src="location.jpg"
                                     className="w-full h-[240px] md:h-[280px] object-cover"
                                     variants={{
                                         rest: { scale: 1 },
