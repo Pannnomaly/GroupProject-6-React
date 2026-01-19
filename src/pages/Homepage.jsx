@@ -71,7 +71,7 @@ const Homepage = () => {
 
                 <a href="/">
                     <img
-                        src="/hotel-logo.png"
+                        src="hotel-logo.png"
                         alt="Hotel Logo"
                         className="h-10"
                     />
@@ -88,7 +88,7 @@ const Homepage = () => {
             <section className="relative w-full h-screen overflow-hidden">
                  
                 <motion.img
-                    src="/BGLDP.jpg"
+                    src="BGLDP.jpg"
                     alt="Hero background"
                     className="absolute inset-0 w-full h-full object-cover"
                     style={{ scale }}
@@ -142,7 +142,7 @@ const Homepage = () => {
                         transition={{ duration: 0.4, ease: "easeOut" }}
                     >
                         <motion.img
-                            src="/window.jpg"
+                            src="window.jpg"
                             className="w-full aspect-[4/3] md:aspect-[11/10] object-contain shadow-lg"
                             whileHover={{ scale: 1.1 }}
                             transition={{ duration: 0.6, ease: "easeOut" }}
@@ -198,7 +198,7 @@ const Homepage = () => {
                     
                     <div className="w-full md:w-2/5">
                         <motion.img
-                            src="/newpadthai.png"
+                            src="padthaifork.png"
                             className="w-full h-[300px] md:h-full object-cover"
                             initial={{ opacity: 0, x: 80, filter: "blur(6px)" }}
                             whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
@@ -238,7 +238,7 @@ const Homepage = () => {
                             >
                            
                                 <motion.img
-                                    src="/rt.jpg"
+                                    src="rt.jpg"
                                     className="w-full h-[240px] md:h-[280px] object-cover"
                                     variants={{
                                         rest: { scale: 1 },
@@ -297,7 +297,7 @@ const Homepage = () => {
                             >
                              
                                 <motion.img
-                                    src="/localr.jpg"
+                                    src="localr.jpg"
                                     className="w-full h-[240px] md:h-[280px] object-cover"
                                     variants={{
                                         rest: { scale: 1 },
@@ -353,7 +353,7 @@ const Homepage = () => {
                             >
                             
                                 <motion.img
-                                    src="/fclt.jpg"
+                                    src="fclt.jpg"
                                     className="w-full h-[240px] md:h-[280px] object-cover"
                                     variants={{
                                         rest: { scale: 1 },
@@ -412,7 +412,7 @@ const Homepage = () => {
                             transition={{ duration: 0.4, ease: "easeOut" }}
                         >
                             <motion.img
-                                src="/building.jpg"
+                                src="building.jpg"
                                 className="w-full h-140 object-cover"
                                 whileHover={{ scale: 1.1 }}
                                 transition={{ duration: 0.6, ease: "easeOut" }}
@@ -438,7 +438,7 @@ const Homepage = () => {
                             transition={{ duration: 0.4, ease: "easeOut" }}
                         >
                             <motion.img
-                                src="/lobby.jpg"
+                                src="lobby.jpg"
                                 className="w-full h-140 object-cover"
                                 whileHover={{ scale: 1.1 }}
                                 transition={{ duration: 0.6, ease: "easeOut" }}
@@ -452,7 +452,7 @@ const Homepage = () => {
                             transition={{ duration: 0.4, ease: "easeOut" }}
                         >
                             <motion.img
-                                src="/door.jpg"
+                                src="door.jpg"
                                 className="w-full h-140 object-cover"
                                 whileHover={{ scale: 1.1 }}
                                 transition={{ duration: 0.6, ease: "easeOut" }}
