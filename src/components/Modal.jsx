@@ -3,7 +3,7 @@ import { format } from "date-fns";
 
 export default function Modal({ isModalOpen, handleCloseModal, room, bookingDate, guestData }) {
   const navigate = useNavigate();
-
+  
   if (!isModalOpen || !room) return null;
 
   const nights =
@@ -11,15 +11,13 @@ export default function Modal({ isModalOpen, handleCloseModal, room, bookingDate
       ? Math.max(1, Math.round((bookingDate.to - bookingDate.from) / (1000 * 60 * 60 * 24)))
       : 1;
 
-  const totalPrice = (parseInt(room.price) || 0) * nights;
+  const totalPrice = (parseInt(room.roomRate) || 0) * nights;
 
-  // Guest Summary String
   const totalAdults = guestData ? guestData.reduce((acc, curr) => acc + curr.adults, 0) : 2;
   const totalChildren = guestData ? guestData.reduce((acc, curr) => acc + curr.children, 0) : 0;
   const guestCountStr = `${totalAdults} Adults${totalChildren > 0 ? `, ${totalChildren} Children` : ""}`;
 
   const handleProceed = () => {
-    // Prepare data to pass to BookingDetail
     const partialReservationData = {
       checkIn: bookingDate.from ? format(bookingDate.from, "dd-MMM-yyyy") : "-",
       checkOut: bookingDate.to ? format(bookingDate.to, "dd-MMM-yyyy") : "-",
@@ -27,10 +25,10 @@ export default function Modal({ isModalOpen, handleCloseModal, room, bookingDate
       nights: `${nights} nights`,
       roomType: room.name,
       roomPricePerNight: room.price,
-      totalPrice: totalPrice, // Raw number for calculations
+      totalPrice: totalPrice, 
       formattedTotalPrice: `${totalPrice.toLocaleString()} THB`,
       hotelImage: room.image,
-      roomDetails: room, // Pass full room object just in case
+      roomDetails: room, 
     };
 
     // Navigate to BookingDetail page
@@ -52,11 +50,11 @@ export default function Modal({ isModalOpen, handleCloseModal, room, bookingDate
           {/* Left Column: Room Image & Basic Info */}
           <div>
             <img
-              src={room.image || "https://via.placeholder.com/400x300"}
+              src={room.imagelink}
               alt={room.name}
               className="w-full h-64 object-cover  mb-4 shadow-md"
             />
-            <h3 className="font-bold text-2xl text-(--color-main3) mb-2">{room.name}</h3>
+            <h3 className="font-bold text-2xl text-(--color-main3) mb-2">{room.roomNumber}</h3>
             <p className="text-gray-600 text-lg mb-4">{room.type}</p>
             <p className="text-gray-500">
               {room.size} • {room.additional1} • {room.additional2}
@@ -93,7 +91,7 @@ export default function Modal({ isModalOpen, handleCloseModal, room, bookingDate
               <div className="mt-6 pt-4">
                 <div className="flex justify-between font-bold text-2xl text-(--color-main3)">
                   <span>Total</span>
-                  <span>{totalPrice.toLocaleString()} THB</span>
+                  <span>THB {totalPrice} </span>
                 </div>
                 <p className="text-right text-xs text-gray-500 mt-1">Includes taxes and fees</p>
               </div>
