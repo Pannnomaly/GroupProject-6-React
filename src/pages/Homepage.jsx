@@ -124,7 +124,7 @@ const Homepage = () => {
                     <p className="text:xl sm:text-xl md:text-xl tracking-wider mb-10 text-[#958574]">
                         Surrounded by the city, we welcome you into a softer, calmer place to rest and feel at home </p>
                     <Link to="roomdetail">
-                        <button className="border border-[#958574] px-8 sm:px-12 md:px-20 py-2 text-sm sm:text-xl tracking-wider text-[#6C5B5C] hover:bg-main2 hover:border-transparent  hover:text-[#ffff] transition">
+                        <button className="border border-[#C9B28C] px-8 sm:px-12 md:px-20 py-2 text-sm sm:text-base tracking-wider text-[#134A5F] hover:bg-[#6C5B5C] hover:border-transparent hover:text-[#EFEDEA] transition">
                             HOTEL DETAILS
                         </button>
                     </Link>
@@ -198,7 +198,7 @@ const Homepage = () => {
                     
                     <div className="w-full md:w-2/5">
                         <motion.img
-                            src="/newpadthai.png"
+                            src="/padthaifork.png"
                             className="w-full h-[300px] md:h-full object-cover"
                             initial={{ opacity: 0, x: 80, filter: "blur(6px)" }}
                             whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
