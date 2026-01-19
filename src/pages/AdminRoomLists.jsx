@@ -346,7 +346,7 @@ export default function AdminRoomLists() {
                   <SelectContent>
                     <SelectItem value="Single">Single</SelectItem>
                     <SelectItem value="Double">Double</SelectItem>
-                    <SelectItem value="Suite">Suite</SelectItem>
+                    <SelectItem value="Twin">Twin</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -354,6 +354,13 @@ export default function AdminRoomLists() {
               {/* เลือก Status */}
               <div>
                 <Label className="pb-2">Status</Label>
+                {editingRoom.status === "Occupied" || editingRoom.status === "Reserved" ?
+                <Input
+                  value={editingRoom.status || ''}
+                  onChange={(e) => setEditingRoom({ ...editingRoom, status: e.target.value })}
+                  disabled
+                />
+                :
                 <Select
                   value={editingRoom.status}
                   onValueChange={(value) => setEditingRoom({ ...editingRoom, status: value })}
@@ -363,12 +370,10 @@ export default function AdminRoomLists() {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="Available">Available</SelectItem>
-                    <SelectItem value="Occupied">Occupied</SelectItem>
-                    <SelectItem value="Reserved">Reserved</SelectItem>
                     <SelectItem value="Cleaning">Cleaning</SelectItem>
                     <SelectItem value="Maintenance">Maintenance</SelectItem>
                   </SelectContent>
-                </Select>
+                </Select>}
               </div>
 
               {/* ใส่ราคา */}
@@ -388,6 +393,7 @@ export default function AdminRoomLists() {
                   value={editingRoom.currentGuest || ''}
                   onChange={(e) => setEditingRoom({ ...editingRoom, currentGuest: e.target.value })}
                   placeholder="Leave empty if no guest"
+                  disabled
                 />
               </div>
 
