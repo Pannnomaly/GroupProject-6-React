@@ -21,6 +21,7 @@ import ForgetPassword from './pages/ForgetPassword';
 import AsideAdmin from './pages/AsideAdmin';
 import AdminRoomLists from './pages/AdminRoomLists';
 import AuthContextProvider from './contexts/AuthContextProvider.jsx';
+import AdminRoute from "./components/adminRoutes.jsx";
 
 const router = createBrowserRouter([
   {
@@ -44,12 +45,17 @@ const router = createBrowserRouter([
         ],
       },
       {
-        element: <LayoutAdmin />,
+        element: <AdminRoute />,
         children: [
-          { path: "asideadmin", element: <AsideAdmin /> },
-          { path: "admindashboard", element: <AdminDashboard /> },
-          { path: "adminroomlists", element: <AdminRoomLists />},
-          { path: "admin", element: <Admin/> },
+          {
+            element: <LayoutAdmin />,
+            children: [
+              { path: "asideadmin", element: <AsideAdmin /> },
+              { path: "admindashboard", element: <AdminDashboard /> },
+              { path: "adminroomlists", element: <AdminRoomLists />},
+              { path: "admin", element: <Admin/> },
+            ],
+          },
         ],
       },
     ],
