@@ -1,4 +1,4 @@
-import { Link, useLocation, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useLocation, Navigate, useNavigate, useOutletContext } from 'react-router-dom';
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
 import BackButton from '@/components/confirmation/BackButton';
@@ -11,6 +11,8 @@ import HotelAddress from '@/components/confirmation/HotelAddress';
 import ConfirmationFooter from '@/components/confirmation/ConfirmationFooter';
 
 const BookingConfirm = () => {
+
+  const { logout, user} = useOutletContext();
   const location = useLocation();
   const navigate = useNavigate();
   const data = location.state;
@@ -28,7 +30,7 @@ const BookingConfirm = () => {
 
   return (
     <div className="font-earn">
-      <Navbar />
+      <Navbar logout={logout} user={user}/>
       <div className="container mx-auto px-4 py-6">
       <BackButton to="/" label="Back to Home" />
       </div>
