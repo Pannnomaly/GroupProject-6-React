@@ -237,7 +237,7 @@ export default function AdminRoomLists() {
                   <SelectItem value="all">All Types</SelectItem>
                   <SelectItem value="Single">Single</SelectItem>
                   <SelectItem value="Double">Double</SelectItem>
-                  <SelectItem value="Suite">Suite</SelectItem>
+                  <SelectItem value="Twin">Twin</SelectItem>
                 </SelectContent>
               </Select>
             </div>
