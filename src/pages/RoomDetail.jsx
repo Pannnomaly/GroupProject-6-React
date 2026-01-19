@@ -54,8 +54,8 @@ const RoomDetail = () => {
       <Bar 
         bookingDate={bookingDate} 
         setBookingDate={setBookingDate} 
-        rooms={guestData}
-        setRooms={setGuestData}
+        guestData={guestData}
+        setGuestData={setGuestData}
       />
       <SliderImage />
       {loading ? (

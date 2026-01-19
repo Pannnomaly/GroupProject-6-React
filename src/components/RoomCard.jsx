@@ -9,14 +9,14 @@ export default function RoomCard({ rooms, handleOpenModal }) {
           className="bg-white p-4 border-r hover:shadow-lg transition-shadow  overflow-hidden"
         >
           <img
-            src={room.image}
-            alt={room.name}
+            src={room.imagelink}
+            alt={"roomImages"}
             className="w-full h-48 object-cover cursor-pointer hover:opacity-90 transition-opacity"
             onClick={() => handleOpenModal(room)}
           />
           <div className="p-4">
-            <h2 className="text-xl font-bold text-main2">{room.name}</h2>
-            <p className="text-gray-600 mt-1">{room.type}</p>
+            <h2 className="text-xl font-bold text-main2">{room.roomNumber}</h2>
+            {/* <p className="text-gray-600 mt-1"></p> */}
 
             <div className="mt-3 space-y-2">
               <div className="flex items-center gap-2 text-gray-600">
@@ -42,7 +42,7 @@ export default function RoomCard({ rooms, handleOpenModal }) {
 
             <div className="mt-4 flex justify-between items-center">
               <span className="text-lg font-semibold">
-                THB {room.price} <span className="text-sm text-gray-500">/ night</span>
+                THB {room.roomRate} <span className="text-sm text-gray-500">/ night</span>
               </span>
               <button
                 onClick={() => handleOpenModal(room)}

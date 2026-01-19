@@ -8,44 +8,31 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import GuestControl from "@/components/GuestControl";
 import { AuthContext } from "@/contexts/AuthContext";
 
-// Updated to accept props for room/guest state management
-export default function Bar({
-  bookingDate,
-  setBookingDate,
-  rooms: propRooms,
-  setRooms: propSetRooms,
-}) {
-
+export default function Bar({ bookingDate, setBookingDate, guestData, setGuestData }) {
   const { authLoading, user } = useContext(AuthContext);
-  console.log(user);
-
-  // Fallback local state if props aren't provided (e.g., used on Homepage)
-  const [localRooms, setLocalRooms] = useState([{ id: 1, adults: 2, children: 0, infants: 0 }]);
 
   // State to control popover open/close
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const [isMobilePopoverOpen, setIsMobilePopoverOpen] = useState(false);
 
-  const rooms = propRooms || localRooms;
-  const setRooms = propSetRooms || setLocalRooms;
+  const totalGuests = guestData.reduce(
+    (acc, curr) => acc + curr.adults + curr.children + curr.infants,
+    0,
+  );
 
-  const totalGuests = rooms.reduce((acc, curr) => {
-    acc + curr.adults + curr.children + curr.infants;
-  }, 0);
-
-  const addRoom = () => {
-    setRooms([...rooms, { id: Date.now(), adults: 1, children: 0, infants: 0 }]);
+  const addGuests = () => {
+    setGuestData([...guestData, { id: Date.now(), adults: 1, children: 0, infants: 0 }]);
   };
 
-  const updateRoom = (index, field, value) => {
-    const newRooms = [...rooms];
-    newRooms[index][field] = value;
-    setRooms(newRooms);
+  const updateGuests = (index, field, value) => {
+    const newGuests = [...guestData];
+    newGuests[index][field] = value;
+    setGuestData(newGuests);
   };
 
-  const removeRoom = (id) => {
-    if (rooms.length > 1) {
-      setRooms(rooms.filter((room) => room.id !== id));
+  const removeGuests = (id) => {
+    if (guestData.length > 1) {
+      setGuestData(guestData.filter((room) => room.id !== id));
     }
   };
 
@@ -74,7 +61,7 @@ export default function Bar({
               <button className="flex items-center gap-2 px-4 py-2 hover:bg-(--color-main4) bg-(--color-main3) text-white min-w-50">
                 <Users className="h-4 w-4 text-white text-shadow-md hover:text-(--color-main6)" />
                 <span className="font-medium text-white text-shadow-md hover:text-(--color-main6)">
-                  {rooms.length} Room, {totalGuests} Guests
+                  {guestData.length} Room, {totalGuests} Guests
                 </span>
               </button>
             </PopoverTrigger>
@@ -84,17 +71,17 @@ export default function Bar({
               align="start"
             >
               <div className="p-4 space-y-6">
-                {rooms.map((room, index) => (
+                {guestData.map((data, index) => (
                   <div
-                    key={room.id}
+                    key={data.id}
                     className="relative space-y-4 pb-4 border-b border-gray-100 last:border-0"
                   >
                     <div className="flex justify-between items-center">
                       <div className="text-sm font-bold text-gray-800">Room {index + 1}</div>
 
-                      {rooms.length > 1 && (
+                      {guestData.length > 1 && (
                         <button
-                          onClick={() => removeRoom(room.id)}
+                          onClick={() => removeGuests(data.id)}
                           className="text-gray-400 hover:text-red-500 transition-colors"
                         >
                           <Trash2 className="h-4 w-4" />
@@ -105,30 +92,30 @@ export default function Bar({
                     <GuestControl
                       label="Adults"
                       subLabel="Ages 13 or more"
-                      value={room.adults}
+                      value={data.adults}
                       min={1}
-                      onUpdate={(val) => updateRoom(index, "adults", val)}
+                      onUpdate={(val) => updateGuests(index, "adults", val)}
                     />
 
                     <GuestControl
                       label="Children"
                       subLabel="Ages 2 - 12"
-                      value={room.children}
-                      onUpdate={(val) => updateRoom(index, "children", val)}
+                      value={data.children}
+                      onUpdate={(val) => updateGuests(index, "children", val)}
                     />
 
                     <GuestControl
                       label="Infants"
                       subLabel="Under 2"
-                      value={room.infants}
-                      onUpdate={(val) => updateRoom(index, "infants", val)}
+                      value={data.infants}
+                      onUpdate={(val) => updateGuests(index, "infants", val)}
                     />
                   </div>
                 ))}
 
                 <div className="pt-4 border-t border-gray-100 flex flex-col gap-3">
                   <button
-                    onClick={addRoom}
+                    onClick={addGuests}
                     className="text-cyan-700 font-semibold border border-cyan-700 py-2 hover:bg-cyan-50 transition-colors"
                   >
                     Add additional room
@@ -169,13 +156,17 @@ export default function Bar({
           <div className="flex justify-between items-center w-full">
             <Link to="/login">
               <button className="px-4 py-3 hover:bg-gray-100 font-medium w-full text-left">
-                { authLoading ? (<span className="text-base">Checking auth session. . .</span>) : user ? (
+                {authLoading ? (
+                  <span className="text-base">Checking auth session. . .</span>
+                ) : user ? (
                   <>
                     <span className="text-base">
                       Logged in as <span>{user.firstname}</span>
                     </span>
                   </>
-                ) : ("Login / Register") }
+                ) : (
+                  "Login / Register"
+                )}
               </button>
             </Link>
             <img
@@ -197,7 +188,7 @@ export default function Bar({
               <button className="flex items-center gap-2  px-6 py-2 bg-(--color-main3) hover:bg-(--color-main4)  min-w-50">
                 <Users className="h-4 w-4 text-white text-shadow-md hover:text-(--color-main6)" />
                 <span className="font-medium text-white text-shdow-md hover:text-(--color-main6)">
-                  {rooms.length} Room, {totalGuests} Guests
+                  {guestData.length} Room, {totalGuests} Guests
                 </span>
               </button>
             </PopoverTrigger>
@@ -207,17 +198,17 @@ export default function Bar({
               align="start"
             >
               <div className="p-4 space-y-6">
-                {rooms.map((room, index) => (
+                {guestData.map((data, index) => (
                   <div
-                    key={room.id}
+                    key={data.id}
                     className="relative space-y-4 pb-4 border-b border-gray-100 last:border-0"
                   >
                     <div className="flex justify-between items-center">
                       <div className="text-sm font-bold text-gray-800">Room {index + 1}</div>
 
-                      {rooms.length > 1 && (
+                      {guestData.length > 1 && (
                         <button
-                          onClick={() => removeRoom(room.id)}
+                          onClick={() => removeGuests(data.id)}
                           className="text-gray-400 hover:text-red-500 transition-colors"
                         >
                           <Trash2 className="h-4 w-4" />
@@ -228,30 +219,30 @@ export default function Bar({
                     <GuestControl
                       label="Adults"
                       subLabel="Ages 13 or more"
-                      value={room.adults}
+                      value={data.adults}
                       min={1}
-                      onUpdate={(val) => updateRoom(index, "adults", val)}
+                      onUpdate={(val) => updateGuests(index, "adults", val)}
                     />
 
                     <GuestControl
                       label="Children"
                       subLabel="Ages 2 - 12"
-                      value={room.children}
-                      onUpdate={(val) => updateRoom(index, "children", val)}
+                      value={data.children}
+                      onUpdate={(val) => updateGuests(index, "children", val)}
                     />
 
                     <GuestControl
                       label="Infants"
                       subLabel="Under 2"
-                      value={room.infants}
-                      onUpdate={(val) => updateRoom(index, "infants", val)}
+                      value={data.infants}
+                      onUpdate={(val) => updateGuests(index, "infants", val)}
                     />
                   </div>
                 ))}
 
                 <div className="pt-4 border-t border-gray-100 flex flex-col gap-3">
                   <button
-                    onClick={addRoom}
+                    onClick={addGuests}
                     className="text-black font-semibold border border-cyan-700 py-2 hover:bg-cyan-50 transition-colors"
                   >
                     Add additional room
@@ -291,13 +282,17 @@ export default function Bar({
           <div className="flex justify-between">
             <Link to="/login">
               <button className="ml-auto px-4 py-2 hover:bg-gray-100 font-medium">
-                { authLoading ? (<span className="text-base">Checking auth session. . .</span>) : user ? (
+                {authLoading ? (
+                  <span className="text-base">Checking auth session. . .</span>
+                ) : user ? (
                   <>
                     <span className="text-base">
                       Logged in as <span>{user.firstname}</span>
                     </span>
                   </>
-                ) : ("Login / Register") }
+                ) : (
+                  "Login / Register"
+                )}
               </button>
             </Link>
             <img
