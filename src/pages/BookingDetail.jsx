@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useLocation, Navigate } from 'react-router-dom';
+import { useNavigate, useLocation, Navigate, useOutletContext } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import GuestDetailsForm from '@/components/booking/GuestDetailsForm';
@@ -9,6 +9,8 @@ import ArrivalDetails from '@/components/booking/ArrivalDetails';
 import HotelInfo from '@/components/booking/HotelInfo';
  
 export default function BookingDetail() {
+
+  const { logout, user} = useOutletContext();
   const navigate = useNavigate();
   const location = useLocation();
   const bookingData = location.state;
@@ -64,7 +66,7 @@ export default function BookingDetail() {
  
   return (
     <div className="font-earn">
-      <Navbar />
+      <Navbar logout={logout} user={user}/>
       
       <div className="min-h-screen w-full flex justify-center bg-gray-100">
         <div className="w-[90%] max-w-7xl my-10">

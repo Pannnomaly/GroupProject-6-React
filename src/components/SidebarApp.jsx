@@ -33,7 +33,9 @@ export default function SideBar() {
     return (
         <Sidebar>
             <SidebarHeader>
-                <img className="size-fit" src="hotel-logo.png" alt="" />
+                <Link to="/">
+                    <img className="size-fit" src="hotel-logo.png" alt="" />
+                </Link>
             </SidebarHeader>
             <SidebarContent>
                 <SidebarGroup>

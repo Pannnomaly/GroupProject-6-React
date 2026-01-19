@@ -13,6 +13,8 @@ import axios from "axios";
 import { useOutletContext } from "react-router-dom";
 
 export default function ContactUs() {
+
+  const { logout, user} = useOutletContext();
   const { API } = useOutletContext();
   const [formData, setFormData] = useState({
     name: "",
@@ -46,7 +48,7 @@ export default function ContactUs() {
 
   return (
     <div className="min-h-screen flex flex-col font-earn ">
-      <Navbar />
+      <Navbar logout={logout} user={user}/>
 
       <div className="grow">
         {/* Contact Form and Info Section */}

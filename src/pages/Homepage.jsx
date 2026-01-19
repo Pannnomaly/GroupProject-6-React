@@ -425,7 +425,7 @@ const Homepage = () => {
                             transition={{ duration: 0.4, ease: "easeOut" }}
                         >
                             <motion.img
-                                src="/pool.jpg"
+                                src="pool.jpg"
                                 className="w-full h-140 object-cover"
                                 whileHover={{ scale: 1.1 }}
                                 transition={{ duration: 0.6, ease: "easeOut" }}

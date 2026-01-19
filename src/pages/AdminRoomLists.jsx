@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
-import { Bed, Edit, Search, Grid3x3, List, Filter, Plus, X } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import {Edit, Search, Plus } from 'lucide-react';
 
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import {
   Select,
@@ -28,23 +26,6 @@ import {
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
-// ============================================
-// ข้อมูลห้องพักเริ่มต้น (Mock Data)
-// ============================================
-const initialRooms = [
-  { id: 101, type: 'Single', status: 'Available', floor: 1, price: 1200, guest: null, notes: '' },
-  { id: 102, type: 'Double', status: 'Occupied', floor: 1, price: 1800, guest: 'John Smith', notes: '' },
-  { id: 103, type: 'Suite', status: 'Reserved', floor: 1, price: 3500, guest: 'Sarah Johnson', notes: 'VIP Guest' },
-  { id: 104, type: 'Single', status: 'Cleaning', floor: 1, price: 1200, guest: null, notes: '' },
-  { id: 201, type: 'Double', status: 'Available', floor: 2, price: 1800, guest: null, notes: '' },
-  { id: 202, type: 'Suite', status: 'Occupied', floor: 2, price: 3500, guest: 'Mike Davis', notes: '' },
-  { id: 203, type: 'Single', status: 'Maintenance', floor: 2, price: 1200, guest: null, notes: 'AC repair needed' },
-  { id: 204, type: 'Double', status: 'Available', floor: 2, price: 1800, guest: null, notes: '' },
-  { id: 301, type: 'Suite', status: 'Occupied', floor: 3, price: 3500, guest: 'Lisa Anderson', notes: '' },
-  { id: 302, type: 'Double', status: 'Reserved', floor: 3, price: 1800, guest: 'Tom Wilson', notes: '' },
-  { id: 303, type: 'Single', status: 'Available', floor: 3, price: 1200, guest: null, notes: '' },
-  { id: 304, type: 'Double', status: 'Cleaning', floor: 3, price: 1800, guest: null, notes: '' },
-];
 
 
 // กำหนดสีสำหรับแต่ละ Status
@@ -62,7 +43,9 @@ export default function AdminRoomLists() {
   // STATE MANAGEMENT - จัดการข้อมูลและสถานะต่างๆ
 
   // เก็บข้อมูลห้องพักทั้งหมด (ใช้ useState เพื่อให้สามารถอัพเดทข้อมูลได้)
-  const [rooms, setRooms] = useState(initialRooms);
+  const [rooms, setRooms] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
 
   // เก็บคำค้นหาที่ user พิมพ์
@@ -84,8 +67,8 @@ export default function AdminRoomLists() {
 
   const filteredRooms = rooms.filter(room => {
     // ตรวจสอบว่าเลขห้องหรือชื่อผู้เข้าพักตรงกับคำค้นหาหรือไม่
-    const matchesSearch = room.id.toString().includes(searchTerm) ||
-                         (room.guest && room.guest.toLowerCase().includes(searchTerm.toLowerCase()));
+    const matchesSearch = room.roomNumber.toString().includes(searchTerm) ||
+                         (room.currentGuest && room.currentGuest.toLowerCase().includes(searchTerm.toLowerCase()));
     // ตรวจสอบว่าตรงกับตัวกรอง status หรือไม่ (ถ้าเลือก 'all' จะไม่กรอง)
     const matchesStatus = statusFilter === 'all' || room.status === statusFilter;
     // ตรวจสอบว่าตรงกับตัวกรองประเภทห้องหรือไม่
@@ -97,9 +80,25 @@ export default function AdminRoomLists() {
     return matchesSearch && matchesStatus && matchesType && matchesFloor;
   });
 
-  // ============================================
-  // EVENT HANDLERS - ฟังก์ชันจัดการ Events ต่างๆ
-  // ============================================
+  const fetchRooms = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/api/v1/rooms/');
+
+        if (response.data){
+          setRooms(response.data.data);
+        }
+
+        setLoading(false);
+      } catch (err) {
+        console.error("Error fetching rooms:", err);
+        setError("Can't fetching rooms data");
+        setLoading(false);
+      }
+    };
+
+  useEffect(() => {
+    fetchRooms();
+  }, []);
 
   // ฟังก์ชันเมื่อกดปุ่มแก้ไขห้อง
   const handleEdit = (room) => {
@@ -107,15 +106,34 @@ export default function AdminRoomLists() {
     setEditingRoom({...room});
     setIsDialogOpen(true);
   };
+
   // ฟังก์ชันบันทึกการแก้ไข
-  const handleSave = () => {
-    // อัพเดทข้อมูลห้องในรายการ และใช้ .map() เพื่อวนลูปและเปลี่ยนข้อมูลห้องที่มี id ตรงกัน
-    setRooms(rooms.map(room =>
-      room.id === editingRoom.id ? editingRoom : room
-    ));
-    // ปิด dialog พร้อมล้างข้อมูลห้องที่กำลังแก้ไข
-    setIsDialogOpen(false);
-    setEditingRoom(null);
+  const handleSave = async () => {
+      try {
+        setLoading(true);
+
+        await axios.patch(
+          `http://localhost:3000/api/v1/rooms/${editingRoom.roomNumber}`, 
+          editingRoom
+        );
+
+        // อัพเดทข้อมูลห้องในรายการ และใช้ .map() เพื่อวนลูปและเปลี่ยนข้อมูลห้องที่มี id ตรงกัน
+        setRooms(rooms.map(room =>
+          room.roomNumber === editingRoom.roomNumber ? editingRoom : room
+        ));
+
+        // ปิด dialog พร้อมล้างข้อมูลห้องที่กำลังแก้ไข
+        setIsDialogOpen(false);
+        setEditingRoom(null);
+
+        console.log("Update successful and UI refreshed");
+
+      } catch (err) {
+        console.error("Error editing rooms data:", err);
+        alert("Failed to Edit the data")
+      } finally {
+        setLoading(false);
+    }
   };
 
 
@@ -139,12 +157,14 @@ export default function AdminRoomLists() {
     Maintenance: rooms.filter(r => r.status === 'Maintenance').length,
   };
 
-
+  if (loading) return <div className="p-10 text-center">Loading rooms...</div>;
+  if (error) return <div className="p-10 text-center text-red-500">{error}</div>;
 
   // ============================================
   // RENDER - แสดงผล UI
   // ============================================
   return (
+
     <div className="m-5 flex flex-col gap-6 w-full">
       {/* HEADER - ส่วนหัวของหน้า */}
       <div className="flex justify-between items-center">
@@ -157,7 +177,6 @@ export default function AdminRoomLists() {
           Add Room
         </Button>
       </div>
-
       {/* STATUS SUMMARY - สรุปจำนวนห้องแต่ละ Status */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         {/* วนลูปแสดงการ์ดสรุปแต่ละ status */}
@@ -257,8 +276,8 @@ export default function AdminRoomLists() {
                   <th className="px-4 py-3 text-left text-sm font-medium">Type</th>
                   <th className="px-4 py-3 text-left text-sm font-medium">Floor</th>
                   <th className="px-4 py-3 text-left text-sm font-medium">Status</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Price</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Guest</th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">Room Rate</th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">Guest ID</th>
                   <th className="px-4 py-3 text-left text-sm font-medium">Notes</th>
                   <th className="px-4 py-3 text-left text-sm font-medium">Actions</th>
                 </tr>
@@ -267,8 +286,8 @@ export default function AdminRoomLists() {
               <tbody className="divide-y">
                 {/* วนลูปแสดงแต่ละแถว */}
                 {filteredRooms.map(room => (
-                  <tr key={room.id} className="hover:bg-muted/50">
-                    <td className="px-4 py-3 font-medium">{room.id}</td>
+                  <tr key={room.roomNumber} className="hover:bg-muted/50">
+                    <td className="px-4 py-3 font-medium">{room.roomNumber}</td>
                     <td className="px-4 py-3">{room.type}</td>
                     <td className="px-4 py-3">{room.floor}</td>
                     <td className="px-4 py-3">
@@ -276,8 +295,8 @@ export default function AdminRoomLists() {
                         {room.status}
                       </span>
                     </td>
-                    <td className="px-4 py-3">฿{room.price}</td>
-                    <td className="px-4 py-3">{room.guest || '-'}</td>
+                    <td className="px-4 py-3">฿{room.roomRate}</td>
+                    <td className="px-4 py-3">{room.currentGuest ? `userID: ${room.currentGuest}` : '-'}</td>
                     <td className="px-4 py-3 text-sm text-muted-foreground max-w-xs truncate">
                       {room.notes || '-'}
                     </td>
@@ -327,7 +346,7 @@ export default function AdminRoomLists() {
                   <SelectContent>
                     <SelectItem value="Single">Single</SelectItem>
                     <SelectItem value="Double">Double</SelectItem>
-                    <SelectItem value="Suite">Suite</SelectItem>
+                    <SelectItem value="Twin">Twin</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -335,6 +354,13 @@ export default function AdminRoomLists() {
               {/* เลือก Status */}
               <div>
                 <Label className="pb-2">Status</Label>
+                {editingRoom.status === "Occupied" || editingRoom.status === "Reserved" ?
+                <Input
+                  value={editingRoom.status || ''}
+                  onChange={(e) => setEditingRoom({ ...editingRoom, status: e.target.value })}
+                  disabled
+                />
+                :
                 <Select
                   value={editingRoom.status}
                   onValueChange={(value) => setEditingRoom({ ...editingRoom, status: value })}
@@ -344,31 +370,30 @@ export default function AdminRoomLists() {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="Available">Available</SelectItem>
-                    <SelectItem value="Occupied">Occupied</SelectItem>
-                    <SelectItem value="Reserved">Reserved</SelectItem>
                     <SelectItem value="Cleaning">Cleaning</SelectItem>
                     <SelectItem value="Maintenance">Maintenance</SelectItem>
                   </SelectContent>
-                </Select>
+                </Select>}
               </div>
 
               {/* ใส่ราคา */}
               <div>
-                <Label className="pb-2">Price (฿)</Label>
+                <Label className="pb-2">Room Rate (฿)</Label>
                 <Input
                   type="number"
-                  value={editingRoom.price}
-                  onChange={(e) => setEditingRoom({ ...editingRoom, price: parseInt(e.target.value) })}
+                  value={editingRoom.roomRate}
+                  onChange={(e) => setEditingRoom({ ...editingRoom, roomRate: parseInt(e.target.value) })}
                 />
               </div>
 
               {/* ใส่ชื่อผู้เข้าพัก */}
               <div>
-                <Label className="pb-2">Guest Name</Label>
+                <Label className="pb-2">Guest ID</Label>
                 <Input
-                  value={editingRoom.guest || ''}
-                  onChange={(e) => setEditingRoom({ ...editingRoom, guest: e.target.value })}
+                  value={editingRoom.currentGuest || ''}
+                  onChange={(e) => setEditingRoom({ ...editingRoom, currentGuest: e.target.value })}
                   placeholder="Leave empty if no guest"
+                  disabled
                 />
               </div>
 
@@ -434,7 +459,7 @@ export default function AdminRoomLists() {
 
               {/* ใส่ราคา */}
               <div>
-                <Label className="pb-2">Price (฿)</Label>
+                <Label className="pb-2">Room Rate (฿)</Label>
                 <Input
                   type="number"
                 />
