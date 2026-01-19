@@ -15,13 +15,8 @@ export default function UserCard({ imagePath, imageAlt, roomName, checkIn, durat
           <p className="text-2xl  text-black font-semibold ">{roomName ? roomName : "Room data"}</p>
         </div>
         <div>
-<<<<<<< HEAD
           <span className="font-semibold text-lg text-[#484848] group-hover:text-white transition-colors">Check in: </span>
           <span className="text-main6 group-hover:text-white transition-colors">{checkIn ? checkIn : "Today"}</span>
-=======
-          <span className="font-semibold text-lg text-black">Check in: </span>
-          <span className="text-black">{checkIn ? checkIn : "Today"}</span>
->>>>>>> 0598ee3616b054828d2a945373c67c51bcb1a3c9
         </div>
         <div>
           <span className="font-semibold text-lg text-black">Duration: </span>

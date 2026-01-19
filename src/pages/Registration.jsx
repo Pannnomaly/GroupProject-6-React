@@ -35,21 +35,12 @@ const Registration = () => {
     <>
       <main className="bg-white min-h-screen flex flex-col justify-center items-center font-earn px-5 md:px-0">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-<<<<<<< HEAD
           <div className="md:flex hidden flex-wrap absolute top-20 z-50 left-1/2 -translate-x-1/2 gap-10">
             <h1 className="text-6xl text-(--color-main11) text-start">MonkeyDB</h1>
             <h1 className="text-6xl text-(--color-main3) text-end">Hotel Bangkok</h1>
           </div>
           {/* <!-- Left Section --> */}
           <div className="hidden md:block">
-=======
-          <div className="md:flex hidden flex-wrap absolute top-20 z-50 left-1/2 -translate-x-1/2 gap-10 text-shadow-lg">
-            <h1 className="text-6xl text-(--color-main11) md:hidden lg:flex">MonkeyDB</h1>
-            <h1 className="text-6xl text-(--color-main3) md:hidden lg:flex">Hotel Bangkok</h1>
-          </div>
-          {/* <!-- Left Section --> */}
-          <div className="hidden md:flex w-full h-full object-cover">
->>>>>>> 0598ee3616b054828d2a945373c67c51bcb1a3c9
             <img
               src="https://res.cloudinary.com/dhggmrfe1/image/upload/v1766600224/christina-radevich-kQjEq2bNFS0-unsplash_qsmfqh.jpg"
               className="shadow w-full object-cover"
