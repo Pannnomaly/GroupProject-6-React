@@ -19,15 +19,9 @@ export default function Navbar ({ logout })
                     </div>
                     <div className="flex items-center gap-x-4 pr-10 h-full">
                         <div className="h-full px-3 flex justify-center items-center hover:bg-(--color-main2) transition duration-300 ease-in-out cursor-pointer">
-                            <Link to="/user">
-                                <p className="text-center hidden md:flex lg:flex">User</p>
-                                <img className="text-center w-7.5 md:hidden lg:hidden" src="user.svg" alt="User Logo" />
-                            </Link>
-                        </div>
-                        <div className="h-full px-3 flex justify-center items-center hover:bg-(--color-main2) transition duration-300 ease-in-out cursor-pointer">
                             <Link to="/roomdetail">
                                 <p className="text-center hidden md:flex lg:flex">Availability</p>
-                                <img className="text-center w-10 md:hidden lg:hidden" src="room-service.svg" alt="Avalability Logo" />
+                                <img className="text-center w-10 md:hidden lg:hidden" src="bed.svg" alt="Avalability Logo" />
                             </Link>
                         </div>
                         <div className="h-full px-3 flex justify-center items-center hover:bg-(--color-main2) transition duration-300 ease-in-out cursor-pointer">
@@ -37,8 +31,14 @@ export default function Navbar ({ logout })
                             </Link>
                         </div>
                         <div className="h-full px-3 flex justify-center items-center hover:bg-(--color-main2) transition duration-300 ease-in-out cursor-pointer">
+                            <Link to="/user">
+                                <p className="text-center hidden md:flex lg:flex">User</p>
+                                <img className="text-center w-7.5 md:hidden lg:hidden" src="user.svg" alt="User Logo" />
+                            </Link>
+                        </div>
+                        <div className="h-full px-3 flex justify-center items-center hover:bg-(--color-main2) transition duration-300 ease-in-out cursor-pointer">
                             <Link to="/contactus">
-                                <p className="text-center hidden md:flex lg:flex">Contact Us</p>
+                                <p className="text-center hidden md:flex lg:flex">Contact</p>
                                 <img className="text-center w-6.25 md:hidden lg:hidden" src="contact-us.svg" alt="Contact Logo" />
                             </Link>
                         </div>
