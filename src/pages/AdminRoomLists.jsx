@@ -64,7 +64,6 @@ export default function AdminRoomLists() {
 
 
   // FILTER LOGIC - ตรรกะสำหรับกรองข้อมูล
-  console.log(rooms);
 
   const filteredRooms = rooms.filter(room => {
     // ตรวจสอบว่าเลขห้องหรือชื่อผู้เข้าพักตรงกับคำค้นหาหรือไม่
@@ -84,7 +83,6 @@ export default function AdminRoomLists() {
   const fetchRooms = async () => {
       try {
         const response = await axios.get('http://localhost:3000/api/v1/rooms/');
-        console.log(response)
 
         if (response.data){
           setRooms(response.data.data);
@@ -111,20 +109,30 @@ export default function AdminRoomLists() {
 
   // ฟังก์ชันบันทึกการแก้ไข
   const handleSave = async () => {
-    try {
-      console.log(`roomNumber: ${editingRoom.roomNumber}`)
-      await axios.patch(`http://localhost:3000/api/v1/rooms/${editingRoom.roomNumber}`, editingRoom)
+      try {
+        setLoading(true);
 
-      // อัพเดทข้อมูลห้องในรายการ และใช้ .map() เพื่อวนลูปและเปลี่ยนข้อมูลห้องที่มี id ตรงกัน
-      setRooms(rooms.map(room =>
-        room.roomNumber === editingRoom.roomNumber ? editingRoom : room
-      ));
-      // ปิด dialog พร้อมล้างข้อมูลห้องที่กำลังแก้ไข
-      setIsDialogOpen(false);
-      setEditingRoom(null);
-    } catch (err) {
-      console.error("Error editing rooms data:", err);
-      alert("Failed to Edit the data")
+        await axios.patch(
+          `http://localhost:3000/api/v1/rooms/${editingRoom.roomNumber}`, 
+          editingRoom
+        );
+
+        // อัพเดทข้อมูลห้องในรายการ และใช้ .map() เพื่อวนลูปและเปลี่ยนข้อมูลห้องที่มี id ตรงกัน
+        setRooms(rooms.map(room =>
+          room.roomNumber === editingRoom.roomNumber ? editingRoom : room
+        ));
+
+        // ปิด dialog พร้อมล้างข้อมูลห้องที่กำลังแก้ไข
+        setIsDialogOpen(false);
+        setEditingRoom(null);
+
+        console.log("Update successful and UI refreshed");
+
+      } catch (err) {
+        console.error("Error editing rooms data:", err);
+        alert("Failed to Edit the data")
+      } finally {
+        setLoading(false);
     }
   };
 
@@ -269,7 +277,7 @@ export default function AdminRoomLists() {
                   <th className="px-4 py-3 text-left text-sm font-medium">Floor</th>
                   <th className="px-4 py-3 text-left text-sm font-medium">Status</th>
                   <th className="px-4 py-3 text-left text-sm font-medium">Room Rate</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Guest</th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">Guest ID</th>
                   <th className="px-4 py-3 text-left text-sm font-medium">Notes</th>
                   <th className="px-4 py-3 text-left text-sm font-medium">Actions</th>
                 </tr>
@@ -288,7 +296,7 @@ export default function AdminRoomLists() {
                       </span>
                     </td>
                     <td className="px-4 py-3">฿{room.roomRate}</td>
-                    <td className="px-4 py-3">{room.guest || '-'}</td>
+                    <td className="px-4 py-3">{room.currentGuest ? `userID: ${room.currentGuest}` : '-'}</td>
                     <td className="px-4 py-3 text-sm text-muted-foreground max-w-xs truncate">
                       {room.notes || '-'}
                     </td>
@@ -375,10 +383,10 @@ export default function AdminRoomLists() {
 
               {/* ใส่ชื่อผู้เข้าพัก */}
               <div>
-                <Label className="pb-2">Guest Name</Label>
+                <Label className="pb-2">Guest ID</Label>
                 <Input
-                  value={editingRoom.guest || ''}
-                  onChange={(e) => setEditingRoom({ ...editingRoom, guest: e.target.value })}
+                  value={editingRoom.currentGuest || ''}
+                  onChange={(e) => setEditingRoom({ ...editingRoom, currentGuest: e.target.value })}
                   placeholder="Leave empty if no guest"
                 />
               </div>
