@@ -1,11 +1,12 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import UserComponent from "@/components/User-component";
-import { useOutletContext } from "react-router-dom";
+import { AuthContext } from "@/contexts/AuthContext";
+import { useContext } from "react";
 
 export default function User ()
 {
-    const { logout, user} = useOutletContext();
+    const { logout, user} = useContext(AuthContext);
 
     return (
         <div>

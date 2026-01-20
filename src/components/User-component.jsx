@@ -1,25 +1,91 @@
+import { useContext, useEffect, useState } from 'react';
+import axios from 'axios';
 import UserCard from "./User-card";
+import { AuthContext } from '@/contexts/AuthContext';
 
-export default function UserComponent() {
+export default function UserComponent()
+{
+  const { user, API, fetchUser } = useContext(AuthContext);
+  const [bookings, setBookings] = useState([]);
+  const [editId, setEditId] = useState(null);
+  const [editForm, setEditForm] = useState({
+    firstname: "",
+    lastname: "",
+    imagelink: "",
+    email: "",
+    detail: "",
+  });
+
+  const handleEditChange = (e) => {
+    setEditForm({ ...editForm, [e.target.name]: e.target.value });
+  };
+
+  const handleEdit = (user) => {
+    setEditId(user._id);
+    setEditForm({
+      firstname: user.firstname || "",
+      lastname: user.lastname || "",
+      imagelink: user.imagelink || "",
+      email: user.email || "",
+      detail: user.detail || "",
+    });
+  };
+
+  const handleEditSave = async (id) => {
+    try {
+      await axios.patch(`${API}/users/${id}`, editForm, {withCredentials: true});
+      await fetchUser();
+      setEditId(null);
+    } catch (error) {
+      console.error("Error updating user:", error);
+      alert(error.response?.data?.message || "Failed to update user");
+    }
+  };
+
+  const handleEditCancel = () => {
+    setEditId(null);
+  };
+
+  useEffect(() => {
+  if (!user) return;
+
+  const fetchBookings = async () => {
+    try {
+      const res = await axios.get(
+        `${API}/bookings/my-bookings`,
+        { withCredentials: true }
+      );
+      setBookings(res.data.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  fetchBookings();
+}, [user, API]);
+
+
   return (
     <div className="w-full h-full flex flex-col justify-center items-center font-earn lg:flex-row lg:justify-center lg:items-stretch">
       <div className="w-[90%] lg:w-[25%] bg-(--color-main3) py-10 mt-10 lg:mb-10 gap-10 flex flex-col justify-center items-center text-(--color-main12)">
         <div className="w-full flex justify-end pr-10">
-          <div className="flex justify-center items-center hover:bg-(--color-main2) transition duration-300 ease-in-out rounded-full object-cover aspect-square w-9">
-            <a href="#">
-              <img
-                src="gear-settings.svg"
-                alt="gear logo"
-                width="30"
-                height="30"
-              />
-            </a>
-          </div>
+          <button
+            onClick={() => handleEdit(user)}
+            className="flex justify-center items-center hover:bg-(--color-main2) transition duration-300 ease-in-out rounded-full object-cover aspect-square w-9"
+            title="Edit user info"
+          >
+            <img
+              src="gear-settings.svg"
+              alt="gear logo"
+              width="30"
+              height="30"
+            />
+          </button>
         </div>
         <div className="w-[90%] flex flex-col justify-center items-center">
           <div>
             <img
-              src="images/users-portrait.jpg"
+              src={user?.imagelink}
               alt="User Portrait"
               width="175"
               height="175"
@@ -27,20 +93,20 @@ export default function UserComponent() {
             />
           </div>
           <div className="w-[90%] flex flex-col justify-center items-start mt-10 text-xl text-shadow-2xs">
-            <p>
+            <p className="text-xl">
               <span className="font-semibold">First name: </span>
-              <span className="ml-2">Jane</span>
+              <span className="ml-2">{user?.firstname || "John"}</span>
             </p>
-            <p className="mt-2">
+            <p className="mt-2 text-xl">
               <span className="font-semibold">Last name: </span>
-              <span className="ml-2">Doe</span>
+              <span className="ml-2">{user?.lastname || "Doe"}</span>
             </p>
-            <p className="mt-2">
+            <p className="mt-2 text-xl">
               <span className="font-semibold">Email: </span>
-              <span className="ml-2">Janedoe@gmail.com</span>
+              <span className="ml-2">{user?.email || "johndoe@example.com"}</span>
             </p>
             <p className="mt-5 text-center">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Inventore consequuntur itaque dolorem quae ab iure?
+              {user?.detail || "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae eveniet nulla iure nam odit animi!"}
             </p>
           </div>
         </div>
@@ -63,22 +129,7 @@ export default function UserComponent() {
           </div>
           <div className="md:flex md:flex-col md:gap-y-3">
             <UserCard
-              imagePath="#"
-              imageAlt="Image room 1"
-              roomName="Room 1"
-              checkIn="checkIn-1"
-              duration="Duration-1"
-              guests="Guest-1"
-              price="1000"
-            />
-            <UserCard
-              imagePath="#"
-              imageAlt="Image room 2"
-              roomName="Room 2"
-              checkIn="checkIn-2"
-              duration="Duration-2"
-              guests="Guest-2"
-              price="1500"
+              bookings={bookings}
             />
           </div>
         </div>
@@ -106,6 +157,80 @@ export default function UserComponent() {
           </div>
         </div>
       </div>
+
+      {/* Edit Modal */}
+      {editId && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+            <h2 className="text-2xl font-bold mb-4 text-gray-800">Edit User Information</h2>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1">First Name</label>
+                <input
+                  type="text"
+                  name="firstname"
+                  value={editForm.firstname}
+                  onChange={handleEditChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-(--color-main3)"
+                  placeholder="Enter first name"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1">Last Name</label>
+                <input
+                  type="text"
+                  name="lastname"
+                  value={editForm.lastname}
+                  onChange={handleEditChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-(--color-main3)"
+                  placeholder="Enter last name"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1">Image Link</label>
+                <input
+                  type="text"
+                  name="imagelink"
+                  value={editForm.imagelink}
+                  onChange={handleEditChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-(--color-main3)"
+                  placeholder="Enter image URL"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1">Detail</label>
+                <textarea
+                  name="detail"
+                  value={editForm.detail}
+                  onChange={handleEditChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-(--color-main3) resize-none"
+                  placeholder="Enter user details"
+                  rows="4"
+                />
+              </div>
+            </div>
+
+            <div className="flex gap-3 mt-6">
+              <button
+                onClick={() => handleEditSave(editId)}
+                className="flex-1 bg-(--color-main3) hover:bg-(--color-main2) text-white font-semibold py-2 px-4 rounded-md transition duration-300"
+              >
+                Save Changes
+              </button>
+              <button
+                onClick={handleEditCancel}
+                className="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-md transition duration-300"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

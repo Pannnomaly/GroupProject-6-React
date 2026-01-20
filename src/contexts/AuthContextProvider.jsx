@@ -26,6 +26,20 @@ export default function AuthContextProvider({ children }) {
     checkAuth();
   }, [API]);
 
+  const fetchUser = async () => {
+  try {
+    const response = await axios.get(
+      `${API}/users/auth/cookie/me`,
+      { withCredentials: true }
+    );
+    setUser(response.data.user);
+  } catch (error) {
+    console.error(error);
+    setUser(null);
+  }
+};
+
+
   const login = async ({ email, password }) => {
     try {
       const response = await axios.post(
@@ -59,7 +73,7 @@ export default function AuthContextProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ API, authLoading, user, login, logout }}>
+    <AuthContext.Provider value={{ API, authLoading, user, login, logout, fetchUser }}>
       {children}
     </AuthContext.Provider>
   );
