@@ -27,7 +27,7 @@ export default function Modal({ isModalOpen, handleCloseModal, room, bookingDate
       roomPricePerNight: room.price,
       totalPrice: totalPrice, 
       formattedTotalPrice: `${totalPrice.toLocaleString()} THB`,
-      hotelImage: room.image,
+      hotelImage: room.imagelink,
       roomDetails: room, 
     };
 

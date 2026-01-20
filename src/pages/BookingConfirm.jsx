@@ -1,4 +1,4 @@
-import { Link, useLocation, Navigate, useNavigate, useOutletContext } from 'react-router-dom';
+import { useLocation, Navigate, useNavigate, useOutletContext } from 'react-router-dom';
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
 import BackButton from '@/components/confirmation/BackButton';
@@ -12,18 +12,16 @@ import ConfirmationFooter from '@/components/confirmation/ConfirmationFooter';
 
 const BookingConfirm = () => {
 
-  const { logout, user} = useOutletContext();
+  const { logout, user } = useOutletContext();
   const location = useLocation();
   const navigate = useNavigate();
   const data = location.state;
 
-  // Protect the route: if no data passed (e.g., direct access), redirect to home
   if (!data) {
      return <Navigate to="/" replace />;
   }
 
   const handleFinish = () => {
-    // Logic for finishing the process, e.g., print or go home
     alert("Booking Successfully Confirmed!");
     navigate("/");
   };
@@ -44,7 +42,8 @@ const BookingConfirm = () => {
 
               <div className="p-8 space-y-8">
                 <GuestStayDetails
-                  guestName={data.guestName}
+                  firstname={data.firstname}
+                  lastname={data.lastname}
                   checkIn={data.checkIn}
                   checkOut={data.checkOut}
                   guestCount={data.guestCount}

@@ -1,10 +1,11 @@
-const GuestStayDetails = ({ guestName, checkIn, checkOut, guestCount, nights }) => {
+const GuestStayDetails = ({ firstname, lastname, checkIn, checkOut, guestCount, nights }) => {
+  
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
           <h3 className="text-l font-medium text-gray-500">Name:</h3>
-          <p className="text-m font-medium">{guestName}</p>
+          <p className="text-m font-medium">{firstname} {lastname}</p>
         </div>
         <div>
           <h3 className="text-l font-medium text-gray-500">Check in:</h3>

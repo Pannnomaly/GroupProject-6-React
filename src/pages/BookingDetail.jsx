@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate, useLocation, Navigate, useOutletContext } from 'react-router-dom';
+import axios from 'axios';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import GuestDetailsForm from '@/components/booking/GuestDetailsForm';
@@ -10,15 +11,10 @@ import HotelInfo from '@/components/booking/HotelInfo';
  
 export default function BookingDetail() {
 
-  const { logout, user} = useOutletContext();
+  const { logout, user, API } = useOutletContext();
   const navigate = useNavigate();
   const location = useLocation();
   const bookingData = location.state;
-
-  // Protect route
-  if (!bookingData) {
-      return <Navigate to="/" replace />;
-  }
 
   const [formData, setFormData] = useState({
     title: 'Mr.',
@@ -35,33 +31,73 @@ export default function BookingDetail() {
     cardExpiry: '',
     cardCVV: ''
   });
+
+  // Protect route
+  if (!bookingData) {
+      return <Navigate to="/" replace />;
+  }
  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Combine bookingData (from Modal) + formData (from this page)
-    const finalReservationData = {
-        confirmationNumber: `BK${Math.floor(Math.random() * 100000)}`,
-        guestName: `${formData.title} ${formData.firstName} ${formData.lastName}`,
-        checkIn: bookingData.checkIn,
-        checkOut: bookingData.checkOut,
-        guestCount: bookingData.guestCount,
-        nights: bookingData.nights,
-        roomType: bookingData.roomType,
-        amount: bookingData.formattedTotalPrice,
-        specialRequest: formData.specialRequests,
-        hotelAddress: 'MonkeyDB Hotel @BKK, 123 Rama1 Road, Pathumwan, Bangkok, 10330 Thailand',
-        hotelImage: bookingData.hotelImage,
-        paymentMethod: formData.paymentMethod
-    };
+    // 1. Check if user is logged in (Backend requires userId)
+    if (!user) {
+        alert("Please login to complete your booking.");
+        navigate("/login");
+        return;
+    }
 
-    // Navigate to confirmation
-    navigate('/bookingconfirm', { state: finalReservationData });
+    try {
+        // 2. Prepare payload for Backend
+        const payload = {
+            userId: user._id,
+            roomId: bookingData.roomDetails._id, // Ensure Modal.jsx passed the full room object
+            checkInDate: new Date(bookingData.checkIn),
+            checkOutDate: new Date(bookingData.checkOut),
+            firstname: formData.firstName,
+            lastname: formData.lastName,
+            email: formData.email,
+            phone: formData.phone,
+            specialRequest: formData.specialRequests
+        };
+
+        // 3. Send to Express Backend
+        const response = await axios.post(`${API}/bookings`, payload, {
+            withCredentials: true
+        });
+
+        if (response.data.success || response.status === 201) {
+            const confirmedData = response.data.data;
+
+            // 4. Navigate to confirmation with REAL data from backend
+            const finalReservationData = {
+                confirmationNumber: confirmedData.confirmationNumber,
+                firstname: confirmedData.firstname,
+                lastname: confirmedData.lastname,
+                checkIn: new Date(confirmedData.checkInDate).toDateString(),
+                checkOut: new Date(confirmedData.checkOutDate).toDateString(),
+                guestCount: bookingData.guestCount, // Visual data not stored in DB
+                nights: confirmedData.nights,
+                roomType: bookingData.roomType,
+                amount: `THB ${confirmedData.pricing.totalAmount.toLocaleString()}`,
+                specialRequest: confirmedData.specialRequest,
+                hotelAddress: 'MonkeyDB Hotel @BKK, 123 Rama1 Road, Pathumwan, Bangkok, 10330 Thailand',
+                hotelImage: bookingData.hotelImage,
+                paymentMethod: formData.paymentMethod
+            };
+
+            navigate('/bookingconfirm', { state: finalReservationData });
+        }
+
+    } catch (error) {
+        console.error("Booking Error:", error);
+        alert(error.response?.data?.message || "Failed to create booking");
+    }
   };
  
   return (
