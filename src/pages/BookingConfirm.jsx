@@ -62,9 +62,9 @@ const BookingConfirm = () => {
                 <div className="flex justify-center mt-8">
                     <button 
                       onClick={handleFinish} 
-                      className="w-full max-w-xs bg-(--color-main3) hover:bg-blue-700 text-lg text-white font-semibold py-3 px-6 transition-colors duration-300"
+                      className="w-full max-w-xs bg-(--color-main3) hover:bg-(--color-main2) text-lg text-white font-semibold py-3 px-6 transition-colors duration-300"
                     >
-                        Finish
+                        Confirmed
                     </button>
                 </div>
               </div>
