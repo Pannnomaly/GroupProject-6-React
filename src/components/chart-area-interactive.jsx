@@ -42,76 +42,74 @@ const chartConfig = {
 }
 
 export function ChartAreaInteractive() {
-  const [timeRange, setTimeRange] = useState("7d")
+  const [timeRange, setTimeRange] = useState("90d")
 
   const { API } = useOutletContext();
   const [rawBookings, setRawBookings] = useState([]); // State for DB data that we gonna fetch
   const [isLoading, setIsLoading] = useState(true);
 
-  // create ChartData Variable and Format DB data into Chart-format then save it
-  const chartData = useMemo(() => {
-    const dailyData = {};
+  useEffect(() => {
+      const fetchBookings = async () => {
+        try {
+          // ใช้ axios ดึงข้อมูลตามปกติ
+          const response = await axios.get(`${API}/bookings`);
 
-    rawBookings.forEach((booking) => {
-      // ดึงเฉพาะวันที่ (YYYY-MM-DD) แปลง format เอาแค่ YYYY-MM-DD
-      const dateKey = new Date(booking.checkInDate).toISOString().split('T')[0];
+          if (response.data.success) {
+            const allData = response.data.data;
 
-      // ถ้ายังไม่มี date นั้นๆเก็บอยู่ ให้สร้างใหม่
-      if (!dailyData[dateKey]) {
-        dailyData[dateKey] = { date: dateKey, booking: 0, revenue: 0 };
-      }
+            // --- จุดที่แก้ไข: กรองข้อมูล "ทุกตัว" ใน Array ---
+            // ตรวจสอบสถานะของแต่ละ item ว่าไม่ใช่ pending และไม่ใช่ cancelled
+            const filteredData = allData.filter((item) =>
+              item.status !== "pending" && item.status !== "cancelled"
+            );
 
-      // เพิ่มจำนวนการจองในวันนั้น
-      dailyData[dateKey].booking += 1;
-      // รวมรายได้จาก pricing.totalAmount
-      dailyData[dateKey].revenue += booking.pricing.totalAmount;
-    });
+            // นำข้อมูลที่กรองแล้ว (เหลือแค่ตัวที่จ่ายเงินแล้ว/เช็คเอาท์แล้ว) มาคำนวณยอด
+            const groupedData = filteredData.reduce((acc, curr) => {
+              const date = new Date(curr.checkInDate).toISOString().split('T')[0];
+              const revenue = curr.pricing?.totalAmount || 0;
 
-    // แปลง object เป็น array และเรียงลำดับตามวันที่เตรียมให้ chart อ่าน
-    return Object.values(dailyData).sort((a, b) => new Date(a.date) - new Date(b.date));
+              if (!acc[date]) {
+                acc[date] = { date, booking: 0, revenue: 0 };
+              }
 
-  }, [rawBookings]);
+              acc[date].booking += 1;
+              acc[date].revenue += revenue;
+              return acc;
+            }, {});
 
+            const sortedData = Object.values(groupedData).sort(
+              (a, b) => new Date(a.date) - new Date(b.date)
+            );
 
-  // ส่วนการกรองกราฟที่จะแสดง
-  const filteredData = chartData.filter((item) => {
+            setRawBookings(sortedData);
+          }
+        } catch (error) {
+          console.error("Error fetching bookings:", error);
+        }
+      };
+
+      if (API) fetchBookings();
+    }, [API]);
+
+  // Filtered by date
+  const filteredData = rawBookings.filter((item) => {
     const date = new Date(item.date) // วันที่จากข้อมูล (UTC 00:00)
 
     const startDate = new Date()
 
-    let daysToSubtract = 7
-    if (timeRange === "90d") daysToSubtract = 90
-    else if (timeRange === "30d") daysToSubtract = 30
+    let daysToSubtract = 90
+    if (timeRange === "30d") daysToSubtract = 30
+    else if (timeRange === "7d") daysToSubtract = 7
 
     startDate.setDate(startDate.getDate() - daysToSubtract)
     // ตรวจสอบค่าใน Console ว่า startDate ของแต่ละ Option คือวันไหน?
     // console.log(`Range: ${timeRange}, Start: ${startDate.toDateString()}, Item: ${date.toDateString()}`);
-    console.log("เปรียบเทียบ:", item.date, "กับ", startDate.toISOString().split('T')[0]);
 
     // ถ้าค่ามากกว่า startDate ที่กำหนดย้อนหลังไป ให้แสดงทั้งหมด
     return date >= startDate
   })
 
-  // Fetch data from API
-  useEffect(() => {
-    const fetchBookings = async () => {
-      try {
-        setIsLoading(true);
 
-        const response = await axios.get(`${API}/bookings`);
-        if (response.data.success) {
-          setRawBookings(response.data.data);
-        }
-
-      } catch (error) {
-        console.error("Error fetching bookings:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchBookings();
-  }, [API]);
 
 
   return (
