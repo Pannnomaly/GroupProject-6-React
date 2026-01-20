@@ -16,6 +16,8 @@ export default function UserComponent()
     detail: "",
   });
 
+  console.log(bookings);
+
   const handleEditChange = (e) => {
     setEditForm({ ...editForm, [e.target.name]: e.target.value });
   };
@@ -127,7 +129,7 @@ export default function UserComponent()
               Booking History
             </h3>
           </div>
-          <div className="md:flex md:flex-col md:gap-y-3">
+          <div>
             <UserCard
               bookings={bookings}
             />
