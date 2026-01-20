@@ -6,7 +6,7 @@ import { AuthContext } from "../contexts/AuthContext.jsx";
 
 export default function LayoutAdmin ()
 {
-    const { logout } = useContext(AuthContext);
+    const { logout, API } = useContext(AuthContext);
 
     return (
         <div className="min-h-screen">
@@ -15,7 +15,7 @@ export default function LayoutAdmin ()
                 <div className="mt-6 ml-6">
                     <SidebarTrigger />
                 </div>
-                <Outlet context={{ logout }} />
+                <Outlet context={{ API, logout }} />
             </SidebarProvider>
         </div>
     );

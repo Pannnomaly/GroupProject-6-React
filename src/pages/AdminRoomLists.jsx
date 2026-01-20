@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {Edit, Search, Plus } from 'lucide-react';
+import { useOutletContext } from "react-router-dom";
 
 import {
   Card,
@@ -40,7 +41,7 @@ const statusColors = {
 
 export default function AdminRoomLists() {
 
-  // STATE MANAGEMENT - จัดการข้อมูลและสถานะต่างๆ
+  const { API } = useOutletContext();
 
   // เก็บข้อมูลห้องพักทั้งหมด (ใช้ useState เพื่อให้สามารถอัพเดทข้อมูลได้)
   const [rooms, setRooms] = useState([]);
@@ -82,7 +83,7 @@ export default function AdminRoomLists() {
 
   const fetchRooms = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/v1/rooms/');
+        const response = await axios.get(`${API}/rooms/`);
 
         if (response.data){
           setRooms(response.data.data);
@@ -113,7 +114,7 @@ export default function AdminRoomLists() {
         setLoading(true);
 
         await axios.patch(
-          `http://localhost:3000/api/v1/rooms/${editingRoom.roomNumber}`, 
+          `${API}/rooms/${editingRoom.roomNumber}`, 
           editingRoom
         );
 

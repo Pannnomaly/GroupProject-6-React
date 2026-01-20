@@ -1,5 +1,7 @@
-import { useState } from 'react';
 import { Area, AreaChart, CartesianGrid, XAxis, Area as RechartsArea, YAxis } from "recharts"
+import React, { useState, useEffect, useMemo } from 'react';
+import axios from 'axios';
+import { useOutletContext } from "react-router-dom";
 
 import {
   Card,
@@ -23,99 +25,6 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-const chartData = [
-  { date: "2024-04-01", booking: 22, revenue:2200},
-  { date: "2024-04-02", booking: 97, revenue:3000},
-  { date: "2024-04-03", booking: 16, revenue:7200},
-  { date: "2024-04-04", booking: 24, revenue:2200},
-  { date: "2024-04-05", booking: 37, revenue:3200},
-  { date: "2024-04-06", booking: 30, revenue:1200},
-  { date: "2024-04-07", booking: 24, revenue:5200},
-  { date: "2024-04-08", booking: 40, revenue:9200},
-  { date: "2024-04-09", booking: 59, revenue:3000},
-  { date: "2024-04-10", booking: 26, revenue:1200},
-  { date: "2024-04-11", booking: 32, revenue:7200},
-  { date: "2024-04-12", booking: 29, revenue:2200},
-  { date: "2024-04-13", booking: 34, revenue:2200},
-  { date: "2024-04-14", booking: 13, revenue:7200},
-  { date: "2024-04-15", booking: 12, revenue:200},
-  { date: "2024-04-16", booking: 13, revenue:8200},
-  { date: "2024-04-17", booking: 44, revenue:6200},
-  { date: "2024-04-18", booking: 36, revenue:4200},
-  { date: "2024-04-19", booking: 24, revenue:3200},
-  { date: "2024-04-20", booking: 89, revenue:3000},
-  { date: "2024-04-21", booking: 13, revenue:7200},
-  { date: "2024-04-22", booking: 22, revenue:4200},
-  { date: "2024-04-23", booking: 13, revenue:8200},
-  { date: "2024-04-24", booking: 38, revenue:7200},
-  { date: "2024-04-25", booking: 21, revenue:5200},
-  { date: "2024-04-26", booking: 75, revenue:3000},
-  { date: "2024-04-27", booking: 38, revenue:3200},
-  { date: "2024-04-28", booking: 12, revenue:2200},
-  { date: "2024-04-29", booking: 31, revenue:5200},
-  { date: "2024-04-30", booking: 45, revenue:4200},
-  { date: "2024-05-01", booking: 16, revenue:5200},
-  { date: "2024-05-02", booking: 29, revenue:3200},
-  { date: "2024-05-03", booking: 24, revenue:7200},
-  { date: "2024-05-04", booking: 38, revenue:5200},
-  { date: "2024-05-05", booking: 48, revenue:1200},
-  { date: "2024-05-06", booking: 49, revenue:8200},
-  { date: "2024-05-07", booking: 38, revenue:8200},
-  { date: "2024-05-08", booking: 14, revenue:9200},
-  { date: "2024-05-09", booking: 22, revenue:7200},
-  { date: "2024-05-10", booking: 29, revenue:3200},
-  { date: "2024-05-11", booking: 33, revenue:5200},
-  { date: "2024-05-12", booking: 19, revenue:7200},
-  { date: "2024-05-13", booking: 19, revenue:7200},
-  { date: "2024-05-14", booking: 44, revenue:8200},
-  { date: "2024-05-15", booking: 47, revenue:3200},
-  { date: "2024-05-16", booking: 33, revenue:8200},
-  { date: "2024-05-17", booking: 49, revenue:9200},
-  { date: "2024-05-18", booking: 31, revenue:5200},
-  { date: "2024-05-19", booking: 23, revenue:5200},
-  { date: "2024-05-20", booking: 17, revenue:7200},
-  { date: "2024-05-21", booking: 82, revenue:3000},
-  { date: "2024-05-22", booking: 81, revenue:3000},
-  { date: "2024-05-23", booking: 25, revenue:2200},
-  { date: "2024-05-24", booking: 29, revenue:4200},
-  { date: "2024-05-25", booking: 20, revenue:1200},
-  { date: "2024-05-26", booking: 21, revenue:3200},
-  { date: "2024-05-27", booking: 42, revenue:2000},
-  { date: "2024-05-28", booking: 23, revenue:3200},
-  { date: "2024-05-29", booking: 78, revenue:3000},
-  { date: "2024-05-30", booking: 34, revenue:200},
-  { date: "2024-05-31", booking: 17, revenue:8200},
-  { date: "2024-06-01", booking: 17, revenue:8200},
-  { date: "2024-06-02", booking: 47, revenue:2000},
-  { date: "2024-06-03", booking: 10, revenue:3200},
-  { date: "2024-06-04", booking: 43, revenue:9200},
-  { date: "2024-06-05", booking: 88, revenue:3000},
-  { date: "2024-06-06", booking: 29, revenue:4200},
-  { date: "2024-06-07", booking: 32, revenue:3200},
-  { date: "2024-06-08", booking: 38, revenue:5200},
-  { date: "2024-06-09", booking: 43, revenue:8200},
-  { date: "2024-06-10", booking: 15, revenue:5200},
-  { date: "2024-06-11", booking: 92, revenue:3000},
-  { date: "2024-06-12", booking: 49, revenue:2200},
-  { date: "2024-06-13", booking: 81, revenue:3000},
-  { date: "2024-06-14", booking: 42, revenue:6200},
-  { date: "2024-06-15", booking: 30, revenue:7200},
-  { date: "2024-06-16", booking: 37, revenue:1200},
-  { date: "2024-06-17", booking: 47, revenue:5200},
-  { date: "2024-06-18", booking: 10, revenue:7200},
-  { date: "2024-06-19", booking: 34, revenue:1200},
-  { date: "2024-06-20", booking: 40, revenue:8200},
-  { date: "2024-06-21", booking: 16, revenue:9200},
-  { date: "2024-06-22", booking: 31, revenue:7200},
-  { date: "2024-06-23", booking: 48, revenue:2000},
-  { date: "2024-06-24", booking: 13, revenue:2200},
-  { date: "2024-06-25", booking: 14, revenue:1200},
-  { date: "2024-06-26", booking: 43, revenue:4200},
-  { date: "2024-06-27", booking: 44, revenue:8200},
-  { date: "2024-06-28", booking: 14, revenue:9200},
-  { date: "2024-06-29", booking: 10, revenue:3200},
-  { date: "2024-06-30", booking: 44, revenue:6200},
-]
 
 // การตั้งค่า Config (ตัด satisfies ChartConfig ออก)
 const chartConfig = {
@@ -133,22 +42,77 @@ const chartConfig = {
 }
 
 export function ChartAreaInteractive() {
-  const [timeRange, setTimeRange] = useState("90d")
+  const [timeRange, setTimeRange] = useState("7d")
 
-  // ส่วนการกรองข้อมูล
+  const { API } = useOutletContext();
+  const [rawBookings, setRawBookings] = useState([]); // State for DB data that we gonna fetch
+  const [isLoading, setIsLoading] = useState(true);
+
+  // create ChartData Variable and Format DB data into Chart-format then save it
+  const chartData = useMemo(() => {
+    const dailyData = {};
+
+    rawBookings.forEach((booking) => {
+      // ดึงเฉพาะวันที่ (YYYY-MM-DD) แปลง format เอาแค่ YYYY-MM-DD
+      const dateKey = new Date(booking.checkInDate).toISOString().split('T')[0];
+
+      // ถ้ายังไม่มี date นั้นๆเก็บอยู่ ให้สร้างใหม่
+      if (!dailyData[dateKey]) {
+        dailyData[dateKey] = { date: dateKey, booking: 0, revenue: 0 };
+      }
+
+      // เพิ่มจำนวนการจองในวันนั้น
+      dailyData[dateKey].booking += 1;
+      // รวมรายได้จาก pricing.totalAmount
+      dailyData[dateKey].revenue += booking.pricing.totalAmount;
+    });
+
+    // แปลง object เป็น array และเรียงลำดับตามวันที่เตรียมให้ chart อ่าน
+    return Object.values(dailyData).sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  }, [rawBookings]);
+
+
+  // ส่วนการกรองกราฟที่จะแสดง
   const filteredData = chartData.filter((item) => {
-    const date = new Date(item.date)
-    const referenceDate = new Date("2024-06-30")
-    let daysToSubtract = 90
-    if (timeRange === "30d") {
-      daysToSubtract = 30
-    } else if (timeRange === "7d") {
-      daysToSubtract = 7
-    }
-    const startDate = new Date(referenceDate)
+    const date = new Date(item.date) // วันที่จากข้อมูล (UTC 00:00)
+
+    const startDate = new Date()
+
+    let daysToSubtract = 7
+    if (timeRange === "90d") daysToSubtract = 90
+    else if (timeRange === "30d") daysToSubtract = 30
+
     startDate.setDate(startDate.getDate() - daysToSubtract)
+    // ตรวจสอบค่าใน Console ว่า startDate ของแต่ละ Option คือวันไหน?
+    // console.log(`Range: ${timeRange}, Start: ${startDate.toDateString()}, Item: ${date.toDateString()}`);
+    console.log("เปรียบเทียบ:", item.date, "กับ", startDate.toISOString().split('T')[0]);
+
+    // ถ้าค่ามากกว่า startDate ที่กำหนดย้อนหลังไป ให้แสดงทั้งหมด
     return date >= startDate
   })
+
+  // Fetch data from API
+  useEffect(() => {
+    const fetchBookings = async () => {
+      try {
+        setIsLoading(true);
+
+        const response = await axios.get(`${API}/bookings`);
+        if (response.data.success) {
+          setRawBookings(response.data.data);
+        }
+
+      } catch (error) {
+        console.error("Error fetching bookings:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchBookings();
+  }, [API]);
+
 
   return (
     <Card className="pt-0">
@@ -156,7 +120,7 @@ export function ChartAreaInteractive() {
         <div className="grid flex-1 gap-1">
           <CardTitle>Total Booking</CardTitle>
           <CardDescription>
-            Showing total bookings for the last {timeRange === "90d" ? "3 months" : timeRange === "30d" ? "30 days" : "7 days"}
+            Showing total booking from the last {timeRange === "90d" ? "3 months" : timeRange === "30d" ? "30 days" : "7 days"} to latest Booking
           </CardDescription>
         </div>
         <Select value={timeRange} onValueChange={setTimeRange}>
@@ -182,7 +146,7 @@ export function ChartAreaInteractive() {
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
         <ChartContainer
           config={chartConfig}
-          className="aspect-auto h-62.5 w-full"
+          className="aspect-auto h-112.5 w-full"
         >
           <AreaChart data={filteredData}>
             <defs>
