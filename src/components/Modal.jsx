@@ -3,7 +3,7 @@ import { format } from "date-fns";
 
 export default function Modal({ isModalOpen, handleCloseModal, room, bookingDate, guestData }) {
   const navigate = useNavigate();
-  
+
   if (!isModalOpen || !room) return null;
 
   const nights =
@@ -15,16 +15,16 @@ export default function Modal({ isModalOpen, handleCloseModal, room, bookingDate
 
   const totalAdults = guestData ? guestData.reduce((acc, curr) => acc + curr.adults, 0) : 2;
   const totalChildren = guestData ? guestData.reduce((acc, curr) => acc + curr.children, 0) : 0;
-  const guestCountStr = `${totalAdults} Adults${totalChildren > 0 ? `, ${totalChildren} Children` : ""}`;
+  const guestCountStr = `${totalAdults} Adult(s)${totalChildren > 0 ? `, ${totalChildren} Children` : ""}`;
 
   const handleProceed = () => {
     const partialReservationData = {
       checkIn: bookingDate.from ? format(bookingDate.from, "dd-MMM-yyyy") : "-",
       checkOut: bookingDate.to ? format(bookingDate.to, "dd-MMM-yyyy") : "-",
       guestCount: guestCountStr,
-      nights: `${nights} nights`,
+      nights: `${nights} night(s)`,
       roomType: room.name,
-      roomPricePerNight: room.price,
+      roomPricePerNight: room.roomRate,
       totalPrice: totalPrice, 
       formattedTotalPrice: `${totalPrice.toLocaleString()} THB`,
       hotelImage: room.imagelink,
@@ -83,7 +83,7 @@ export default function Modal({ isModalOpen, handleCloseModal, room, bookingDate
                   <span className="font-medium">{nights} Night(s)</span>
                 </div>
                 <div className="flex justify-between border-b border-gray-200 pb-2">
-                  <span>Guests</span>
+                  <span>{`Guest(s)`}</span>
                   <span className="font-medium">{guestCountStr}</span>
                 </div>
               </div>

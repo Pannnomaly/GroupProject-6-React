@@ -147,7 +147,7 @@ export default function BookingDetail() {
                           <span className="font-medium">{bookingData.nights}</span>
                       </div>
                       <div className="flex justify-between">
-                          <span className="text-gray-600">Guests</span>
+                          <span className="text-gray-600">{`Guest(s)`}</span>
                           <span className="font-medium">{bookingData.guestCount}</span>
                       </div>
                   </div>

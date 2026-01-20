@@ -61,7 +61,7 @@ export default function Bar({ bookingDate, setBookingDate, guestData, setGuestDa
               <button className="flex items-center gap-2 px-4 py-2 hover:bg-(--color-main4) bg-(--color-main3) text-white min-w-50">
                 <Users className="h-4 w-4 text-white text-shadow-md hover:text-(--color-main6)" />
                 <span className="font-medium text-white text-shadow-md hover:text-(--color-main6)">
-                  {guestData.length} Room, {totalGuests} Guests
+                  {guestData.length} Room, {totalGuests} {`Guest(s)`}
                 </span>
               </button>
             </PopoverTrigger>
@@ -188,7 +188,7 @@ export default function Bar({ bookingDate, setBookingDate, guestData, setGuestDa
               <button className="flex items-center gap-2  px-6 py-2 bg-(--color-main3) hover:bg-(--color-main4)  min-w-50">
                 <Users className="h-4 w-4 text-white text-shadow-md hover:text-(--color-main6)" />
                 <span className="font-medium text-white text-shdow-md hover:text-(--color-main6)">
-                  {guestData.length} Room, {totalGuests} Guests
+                  {guestData.length} Room, {totalGuests} {`Guest(s)`}
                 </span>
               </button>
             </PopoverTrigger>
