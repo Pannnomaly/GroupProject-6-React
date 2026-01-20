@@ -20,7 +20,7 @@ export const useSliderImages = () => {
       coverflowEffect: {
         rotate: 0,
         stretch: -20,
-        depth: 200,
+        depth: 0,
         modifier: 1,
         slideShadows: true,
       },

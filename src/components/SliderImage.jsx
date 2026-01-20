@@ -11,24 +11,24 @@ export default function SliderImage() {
             {/* <!-- Slide 1 --> */}
             <div className="swiper-slide">
               <img
-                src="singlebed.jpg"
-                className="w-[80%] h-64 object-cover shadow-lg mx-auto transition-transform duration-500 hover:scale-105"
+                src="https://res.cloudinary.com/dhggmrfe1/image/upload/v1768890144/tw_x1bxue.jpg"
+                className="w-[80%] h-82 object-cover shadow-lg mx-auto transition-transform duration-500 hover:scale-105"
               />
             </div>
 
             {/* <!-- Slide 2 --> */}
             <div className="swiper-slide">
               <img
-                src= "https://res.cloudinary.com/dhggmrfe1/image/upload/v1767020569/olexandr-ignatov-w72a24brINI-unsplash_1_pvofpl.jpg"
-                className="w-[80%] h-64 object-cover shadow-lg mx-auto transition-transform duration-500 hover:scale-105"
+                src= "https://res.cloudinary.com/dhggmrfe1/image/upload/v1768890144/dbl_gubta7.jpg"
+                className="w-[80%] h-82 object-cover shadow-lg mx-auto transition-transform duration-500 hover:scale-105"
               />
             </div>
 
             {/* <!-- Slide 3 --> */}
             <div className="swiper-slide">
               <img
-                src="https://res.cloudinary.com/dhggmrfe1/image/upload/v1767020403/227707266_qoqdcw.png"
-                className="w-[80%] h-64 object-cover shadow-lg mx-auto transition-transform duration-500 hover:scale-105"
+                src="https://res.cloudinary.com/dhggmrfe1/image/upload/v1768890144/sgl_qdxkqv.jpg"
+                className="w-[80%] h-82 object-cover shadow-lg mx-auto transition-transform duration-500 hover:scale-105"
               />
             </div>
           </div>
