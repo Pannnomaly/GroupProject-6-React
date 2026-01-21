@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link, useOutletContext } from "react-router-dom";
+import { Link, useNavigate, useOutletContext } from "react-router-dom";
 
 const Registration = () => {
   const { API } = useOutletContext();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
@@ -22,6 +23,8 @@ const Registration = () => {
         email: "",
         password: "",
       });
+
+      navigate("/login");
     } catch (error) {
       console.error(error);
     }
