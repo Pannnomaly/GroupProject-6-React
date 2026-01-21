@@ -1,6 +1,9 @@
 import { LayoutDashboard, Bed, NotebookPen, User } from "lucide-react"
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarSeparator } from "./ui/sidebar"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { Button } from "./ui/button"
+import { useContext } from "react"
+import { AuthContext } from "../contexts/AuthContext.jsx"
 
 // Menu items.
 const items = [
@@ -10,23 +13,39 @@ const items = [
     icon: LayoutDashboard,
   },
   {
-    title: "Room Lists",
-    url: "#",
+    title: "Room Management",
+    url: "../adminroomlists",
     icon: Bed,
   },
   {
-    title: "Booking",
-    url: "#",
-    icon: NotebookPen,
+    title: "Booking Management",
+    url: "../adminbookingmanagement",
+    icon: NotebookPen
+  },
+  {
+    title: "User Management",
+    url: "../adminusermanagement",
+    icon: User,
   },
 ]
 
 export default function SideBar() {
 
+    const { logout, user } = useContext(AuthContext);
+
+    const navigate = useNavigate();
+
+    const handleNavigate = () => {
+        logout();
+        navigate("/");
+    };
+
     return (
         <Sidebar>
             <SidebarHeader>
-                <img className="size-fit" src="hotel-logo.png" alt="" />
+                <Link to="/">
+                    <img className="size-fit" src="hotel-logo.png" alt="" />
+                </Link>
             </SidebarHeader>
             <SidebarContent>
                 <SidebarGroup>
@@ -53,9 +72,12 @@ export default function SideBar() {
                         <SidebarMenuButton asChild>
                             <Link to="../admin">
                                 <User />
-                                <span>Joe Dorn</span>
+                                <span>{user.firstname} {user.lastname}</span>
                             </Link>
                         </SidebarMenuButton>
+                            <SidebarMenuButton asChild>
+                                <Button onClick={handleNavigate} variant="destructive" className="my-5 transition duration-300 ease-in-out cursor-pointer">Log out</Button>
+                            </SidebarMenuButton>
                     </SidebarMenuItem>
                 </SidebarMenu>
             </SidebarFooter>

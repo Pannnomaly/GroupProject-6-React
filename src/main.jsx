@@ -1,4 +1,4 @@
-import { StrictMode } from 'react';
+// import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
@@ -18,7 +18,12 @@ import Admin from './pages/Admin';
 import Explore from './pages/ExploreDetail';
 import LayoutAdmin from './components/LayoutAdmin';
 import ForgetPassword from './pages/ForgetPassword';
-import AsideAdmin from './pages/AsideAdmin';
+import AdminRoomLists from './pages/AdminRoomLists';
+import AuthContextProvider from './contexts/AuthContextProvider.jsx';
+import AdminRoute from "./components/adminRoutes.jsx";
+import AdminBookingManagement from './pages/AdminBookingManagement';
+
+import AdminUserManagement from './pages/AdminUserManagement';
 
 const router = createBrowserRouter([
   {
@@ -42,11 +47,18 @@ const router = createBrowserRouter([
         ],
       },
       {
-        element: <LayoutAdmin />,
+        element: <AdminRoute />,
         children: [
-          { path: "asideadmin", element: <AsideAdmin /> },
-          { path: "admindashboard", element: <AdminDashboard /> },
-          { path: "admin", element: <Admin/> },
+          {
+            element: <LayoutAdmin />,
+            children: [
+              { path: "admindashboard", element: <AdminDashboard /> },
+              { path: "adminroomlists", element: <AdminRoomLists />},
+              { path: "adminbookingmanagement", element: <AdminBookingManagement />},
+              { path: "admin", element: <Admin/> },
+              { path: "adminusermanagement", element: <AdminUserManagement /> },
+            ],
+          },
         ],
       },
     ],
@@ -54,7 +66,7 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  <AuthContextProvider>
     <RouterProvider router={router} />
-  </StrictMode>
+  </ AuthContextProvider>
 );

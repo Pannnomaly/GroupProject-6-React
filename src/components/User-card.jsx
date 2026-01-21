@@ -1,35 +1,80 @@
-export default function UserCard({ imagePath, imageAlt, roomName, checkIn, duration, guests, price }) {
+import { format } from "date-fns";
+
+export default function UserCard({ bookings, onCancel }) {
+  const formatDate = (dateString) => {
+    if (!dateString) return "yyyy-mm-dd";
+    return format(new Date(dateString), "dd/MM/yyyy");
+  };
   return (
-    <div className="flex items-center gap-x-10 p-3 hover:bg-(--color-main4) transition duration-300 ease-in-out">
-      <div>
-        <img
-          src={imagePath}
-          alt={imageAlt}
-          width="200px"
-          height="200px"
-          className="shadow-(--box-shadow)"
-        />
-      </div>
-      <div className="flex flex-col gap-y-0.5">
-        <div>
-          <p className="text-2xl font-semibold">{roomName ? roomName : "Room data"}</p>
+    <div className="md:flex md:flex-col md:gap-y-3">
+      {bookings.map((booking) => (
+        <div key={booking?._id} className="flex">
+          <div className="w-full flex flex-col justify-between md:flex-row items-center gap-x-15 p-3 hover:bg-(--color-main5) border-b-2 mb-2 text-shadow-2xs transition duration-300 ease-in-out">
+            <div className="flex">
+              <div>
+                <img
+                  src={booking?.roomId?.imagelink}
+                  width="175"
+                  className="shadow-(--box-shadow) object-cover aspect-square"
+                />
+              </div>
+              <div className="flex flex-col gap-y-0.5 ml-12 justify-center">
+                <div className="flex items-center gap-x-3">
+                  <p className="text-2xl  text-(--color-main7) font-semibold ">
+                    {booking?.roomId?.roomNumber
+                      ? booking?.roomId?.roomNumber
+                      : "101"}
+                  </p>
+                  <p className="text-lg font-lg text-(--color-main7) mt-1.25">
+                    {`(${
+                      booking?.roomId?.type ? booking?.roomId?.type : "single"
+                    })`}
+                  </p>
+                </div>
+                <div>
+                  <span className="font-semibold text-lg text-(--color-main6)">
+                    Check in:{" "}
+                  </span>
+                  <span className="text-(--color-main6)">
+                    {formatDate(booking?.checkInDate)
+                      ? formatDate(booking?.checkInDate)
+                      : "yyyy-mm-dd"}
+                  </span>
+                </div>
+                <div>
+                  <span className="font-semibold text-lg text-(--color-main6)">
+                    Check out:{" "}
+                  </span>
+                  <span className="text-(--color-main6)">
+                    {formatDate(booking?.checkOutDate)
+                      ? formatDate(booking?.checkOutDate)
+                      : "yyyy-mm-dd"}
+                  </span>
+                </div>
+                <div>
+                  <span className="font-semibold text-lg text-(--color-main6)">
+                    {`Night(s)`}:{" "}
+                  </span>
+                  <span className="text-(--color-main6)">
+                    {booking?.nights ? booking?.nights : "1"}
+                  </span>
+                </div>
+                <div>
+                  <p className="font-semibold text-lg text-(--color-main6)">
+                    THB{" "}
+                    {booking?.pricing?.totalAmount
+                      ? booking?.pricing?.totalAmount
+                      : "0"}{" "}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="px-4 py-2 bg-(--color-main2) hover:bg-(--color-main9) text-white font-semibold transition duration-300 cursor-pointer">
+              <button onClick={() => onCancel(booking.confirmationNumber)} className="cursor-pointer">Cancel</button>
+            </div>
+          </div>
         </div>
-        <div>
-          <span className="font-semibold text-lg">Check in: </span>
-          <span>{checkIn ? checkIn : "Today"}</span>
-        </div>
-        <div>
-          <span className="font-semibold text-lg">Duration: </span>
-          <span>{duration ? duration : "Short"}</span>
-        </div>
-        <div>
-          <span className="font-semibold text-lg">Guests: </span>
-          <span>{guests ? guests : "0"}</span>
-        </div>
-        <div>
-          <p className="font-semibold text-lg">$ {price ? price : "0"} USD</p>
-        </div>
-      </div>
+      ))}
     </div>
   );
 }

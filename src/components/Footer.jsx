@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-        <footer className="h-16 flex flex-col items-center justify-between bg-[#635F58] text-(--color-main11) shadow-(--box-shadow) font-medium font-earn md:h-20 lg:h-70">
+        <footer className="h-16 flex flex-col items-center justify-between bg-(--color-main3) text-(--color-main11) shadow-(--box-shadow) font-medium font-earn md:h-20 lg:h-70">
             <div className="items-start justify-around pt-8 w-11/12 h-full text-lg hidden lg:flex">
                 <div className="my-auto">
                     <div>
@@ -11,44 +11,44 @@ export default function Footer() {
                         </Link>
                     </div>
                 </div>
-                <div className="flex flex-col justify-center">
+                <div className="flex flex-col justify-center text-shadow-md">
                     <div>
                         <p className="font-bold text-lg">SITE MAP</p>
                     </div>
-                    <div className="pt-2 gap-5 flex flex-col">
-                        <div className="hover:bg-(--color-main2) rounded-lg transition duration-300 ease-in-out">
+                    <div className="pt-2 gap-2 flex flex-col">
+                        <div className="hover:bg-(--color-main2) px-0.5 py-1 transition duration-300 ease-in-out">
                             <Link to="/user">
                                 <p className="text-lg">User</p>
                             </Link>
                         </div>
-                        <div className="hover:bg-(--color-main2) rounded-lg transition duration-300 ease-in-out">
+                        <div className="hover:bg-(--color-main2) px-0.5 py-1 transition duration-300 ease-in-out">
                             <Link to="/roomdetail">
                                 <p className="text-lg">Availability</p>
                             </Link>
                         </div>
-                        <div className="hover:bg-(--color-main2) rounded-lg transition duration-300 ease-in-out">
+                        <div className="hover:bg-(--color-main2) px-0.5 py-1 transition duration-300 ease-in-out">
                             <Link to="/contactus">
                                 <p className="text-lg">Contact Us</p>
                             </Link>
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col justify-center">
+                <div className="flex flex-col justify-center text-shadow-md">
                     <div>
                         <p className="font-bold text-lg">SOCIALS</p>
                     </div>
-                <div className="pt-2 gap-5 flex flex-col">
-                    <div className="hover:bg-(--color-main2) rounded-lg transition duration-300 ease-in-out">
+                <div className="pt-2 gap-2 flex flex-col">
+                    <div className="hover:bg-(--color-main2) px-0.5 py-1 transition duration-300 ease-in-out">
                         <Link to="/">
                             <p className="text-lg">Facebook</p>
                         </Link>
                     </div>
-                    <div className="hover:bg-(--color-main2) rounded-lg transition duration-300 ease-in-out">
+                    <div className="hover:bg-(--color-main2) px-0.5 py-1 transition duration-300 ease-in-out">
                         <Link to="/">
                             <p className="text-lg">Instagram</p>
                         </Link>
                     </div>
-                    <div className="hover:bg-(--color-main2) rounded-lg transition duration-300 ease-in-out">
+                    <div className="hover:bg-(--color-main2) px-0.5 py-1 transition duration-300 ease-in-out">
                         <Link to="/">
                             <p className="text-lg">Twitter</p>
                         </Link>

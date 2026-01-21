@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import {
   FaMapMarkerAlt,
   FaPhone,
@@ -9,37 +11,48 @@ import {
   FaLinkedinIn,
 } from "react-icons/fa";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import axios from "axios";
+import { useOutletContext } from "react-router-dom";
+
+const contactSchema = z.object({
+  name: z.string().min(2, { message: "Name must be at least 2 characters" }),
+  email: z.string().email({ message: "Invalid email address" }),
+  subject: z.string().min(1, { message: "Subject is required" }),
+  message: z.string().min(1, { message: "Message is required" }),
+});
 
 export default function ContactUs() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
+
+  const { logout, user} = useOutletContext();
+  const { API } = useOutletContext();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm({
+    resolver: zodResolver(contactSchema),
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form submitted:", formData);
-    // Add your form submission logic here
+  const onSubmit = async (data) => {
+    try {
+      await axios.post(`${API}/contacts`, data);
+      reset();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <div className="min-h-screen flex flex-col font-earn ">
-      <Navbar />
+      <Navbar logout={logout} user={user}/>
 
-      <div className="flex-grow">
+      <div className="grow text-shadow-2xs">
         {/* Contact Form and Info Section */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900">Contact Us</h2>
-            <p className="mt-4 text-lg text-gray-600">
+            <h2 className="text-3xl font-bold text-(--color-main7)">Contact Us</h2>
+            <p className="mt-4 text-lg text-(--color-main6)">
               We'd love to hear from you. Send us a message and we'll respond as
               soon as possible.
             </p>
@@ -48,88 +61,81 @@ export default function ContactUs() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
             <div className="bg-white border-2 shadow-lg p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">
+              <h3 className="text-2xl font-bold text-(--color-main7) mb-6">
                 Send Us a Message
               </h3>
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 <div>
                   <label
                     htmlFor="name"
-                    className="block text-sm font-medium text-gray-700 mb-1"
+                    className="block text-sm font-medium text-(--color-main7) mb-1"
                   >
                     Your Name
                   </label>
                   <input
                     type="text"
                     id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                    required
+                    className={`w-full px-4 py-2 border focus:ring-blue-500 focus:border-blue-500 ${errors.name ? "border-red-500" : "border-gray-300"}`}
+                    {...register("name")}
                   />
+                  {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
                 </div>
 
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium text-gray-700 mb-1"
+                    className="block text-sm font-medium text-(--color-main7) mb-1"
                   >
                     Email Address
                   </label>
                   <input
                     type="email"
                     id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300  focus:ring-blue-500 focus:border-blue-500"
-                    required
+                    className={`w-full px-4 py-2 border focus:ring-blue-500 focus:border-blue-500 ${errors.email ? "border-red-500" : "border-gray-300"}`}
+                    {...register("email")}
                   />
+                  {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
                 </div>
 
                 <div>
                   <label
                     htmlFor="subject"
-                    className="block text-sm font-medium text-gray-700 mb-1"
+                    className="block text-sm font-medium text-(--color-main7) mb-1"
                   >
                     Subject
                   </label>
                   <input
                     type="text"
                     id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300  focus:ring-blue-500 focus:border-blue-500"
-                    required
+                    className={`w-full px-4 py-2 border focus:ring-blue-500 focus:border-blue-500 ${errors.subject ? "border-red-500" : "border-gray-300"}`}
+                    {...register("subject")}
                   />
+                  {errors.subject && <p className="text-red-500 text-sm mt-1">{errors.subject.message}</p>}
                 </div>
 
                 <div>
                   <label
                     htmlFor="message"
-                    className="block text-sm font-medium text-gray-700 mb-1"
+                    className="block text-sm font-medium text-(--color-main7) mb-1"
                   >
                     Your Message
                   </label>
                   <textarea
                     id="message"
-                    name="message"
                     rows="5"
-                    value={formData.message}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300  focus:ring-blue-500 focus:border-blue-500"
-                    required
+                    className={`w-full px-4 py-2 border focus:ring-blue-500 focus:border-blue-500 ${errors.message ? "border-red-500" : "border-gray-300"}`}
+                    {...register("message")}
                   ></textarea>
+                  {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message.message}</p>}
                 </div>
 
                 <div>
                   <button
                     type="submit"
-                    className="w-full  bg-(--color-main3) hover:bg-(--color-main2) text-white py-3 px-6 focus:outline-none focus:ring-2 focus:ring-offset transition-colors"
+                    disabled={isSubmitting}
+                    className="w-full  bg-(--color-main3) hover:bg-(--color-main2) text-white py-3 px-6 focus:outline-none focus:ring-2 focus:ring-offset transition-colors disabled:opacity-70"
                   >
-                    Send Message
+                    {isSubmitting ? "Sending..." : "Send Message"}
                   </button>
                 </div>
               </form>
@@ -152,45 +158,45 @@ export default function ContactUs() {
               {/* Contact Information */}
               <div className="space-y-6">
                 <div className="flex items-start">
-                  <div className="flex-shrink-0 bg-(--color-main3) p-3 rounded-full">
+                  <div className="shrink-0 bg-(--color-main3) p-3 rounded-full">
                     <FaMapMarkerAlt className="text-white" size={20} />
                   </div>
                   <div className="ml-4">
-                    <h3 className="text-lg font-medium text-gray-900">
+                    <h3 className="text-lg font-medium text-(--color-main7)">
                       Our Location
                     </h3>
-                    <p className="mt-1 text-gray-600">
+                    <p className="mt-1 text-(--color-main6)">
                       123 Hotel Street, Bangkok 10110, Thailand
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-start">
-                  <div className="flex-shrink-0 bg-(--color-main3) p-3 rounded-full">
+                  <div className="shrink-0 bg-(--color-main3) p-3 rounded-full">
                     <FaPhone className="text-white" size={18} />
                   </div>
                   <div className="ml-4">
-                    <h3 className="text-lg font-medium text-gray-900">
+                    <h3 className="text-lg font-medium text-(--color-main7)">
                       Phone Number
                     </h3>
-                    <p className="mt-1 text-gray-600">+66 2 123 4567</p>
+                    <p className="mt-1 text-(--color-main6)">+66 2 123 4567</p>
                   </div>
                 </div>
 
                 <div className="flex items-start">
-                  <div className="flex-shrink-0 bg-(--color-main3) p-3 rounded-full">
+                  <div className="shrink-0 bg-(--color-main3) p-3 rounded-full">
                     <FaEnvelope className="text-white" size={18} />
                   </div>
                   <div className="ml-4">
-                    <h3 className="text-lg font-medium text-gray-900">
+                    <h3 className="text-lg font-medium text-(--color-main7)">
                       Email Address
                     </h3>
-                    <p className="mt-1 text-gray-600">info@monkeydbhotel.com</p>
+                    <p className="mt-1 text-(--color-main6)">info@monkeydbhotel.com</p>
                   </div>
                 </div>
 
                 <div className="pt-2">
-                  <h3 className="text-lg font-medium text-gray-900 mb-4">
+                  <h3 className="text-lg font-medium text-(--color-main7) mb-4">
                     Follow Us
                   </h3>
                   <div className="flex space-x-4">

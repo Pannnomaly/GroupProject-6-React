@@ -1,43 +1,47 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { format } from "date-fns";
-import { Calendar as CalendarIcon, Plus, Minus, Users, Trash2 } from "lucide-react";
+import { format, startOfDay, isBefore } from "date-fns";
+import { CalendarIcon, Users, Trash2 } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 import GuestControl from "@/components/GuestControl";
+import { AuthContext } from "@/contexts/AuthContext";
 
-export default function Bar({ bookingDate, setBookingDate }) {
-  const [rooms, setRooms] = useState([{ id: 1, adults: 2, children: 0, infants: 0 }]);
+export default function Bar({ bookingDate, setBookingDate, guestData, setGuestData }) {
+  const { authLoading, user } = useContext(AuthContext);
 
-  const totalGuests = rooms.reduce(
+  // State to control popover open/close
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const [isMobilePopoverOpen, setIsMobilePopoverOpen] = useState(false);
+
+  const totalGuests = guestData.reduce(
     (acc, curr) => acc + curr.adults + curr.children + curr.infants,
-    0
+    0,
   );
 
-  const addRoom = () => {
-    setRooms([...rooms, { id: Date.now(), adults: 1, children: 0, infants: 0 }]);
+  const addGuests = () => {
+    setGuestData([...guestData, { id: Date.now(), adults: 1, children: 0, infants: 0 }]);
   };
 
-  const updateRoom = (index, field, value) => {
-    const newRooms = [...rooms];
-    newRooms[index][field] = value;
-    setRooms(newRooms);
+  const updateGuests = (index, field, value) => {
+    const newGuests = [...guestData];
+    newGuests[index][field] = value;
+    setGuestData(newGuests);
   };
 
-  const removeRoom = (id) => {
-    if (rooms.length > 1) {
-      setRooms(rooms.filter((room) => room.id !== id));
+  const removeGuests = (id) => {
+    if (guestData.length > 1) {
+      setGuestData(guestData.filter((room) => room.id !== id));
     }
   };
 
-  // ฟังก์ชันช่วยแสดงข้อความบนปุ่ม
   const getDateDisplay = () => {
     if (bookingDate?.from) {
       if (bookingDate.to) {
         return `${format(bookingDate.from, "dd MMM yyyy")} - ${format(
           bookingDate.to,
-          "dd MMM yyyy"
+          "dd MMM yyyy",
         )}`;
       }
       return format(bookingDate.from, "dd MMM");
@@ -52,12 +56,12 @@ export default function Bar({ bookingDate, setBookingDate }) {
       <section className="md:hidden flex justify-center w-full mt-10 px-4 font-earn">
         <div className="bg-white shadow-xl border-2 flex flex-col gap-4 px-4 py-5 w-full max-w-md">
           {/* <!-- Guests --> */}
-          <Popover>
+          <Popover open={isMobilePopoverOpen} onOpenChange={setIsMobilePopoverOpen}>
             <PopoverTrigger asChild>
-              <button className="flex items-center gap-2 border border-gray-300 px-4 py-2 hover:bg-gray-50 bg-[white] min-w-50">
-                <Users className="h-4 w-4 text-gray-600" />
-                <span className="font-medium text-gray-700">
-                  {rooms.length} Room, {totalGuests} Guests
+              <button className="flex items-center gap-2 px-4 py-2 hover:bg-(--color-main4) bg-(--color-main3) text-white min-w-50">
+                <Users className="h-4 w-4 text-white text-shadow-md hover:text-(--color-main6)" />
+                <span className="font-medium text-white text-shadow-md hover:text-(--color-main6)">
+                  {guestData.length} Room, {totalGuests} {`Guest(s)`}
                 </span>
               </button>
             </PopoverTrigger>
@@ -67,18 +71,17 @@ export default function Bar({ bookingDate, setBookingDate }) {
               align="start"
             >
               <div className="p-4 space-y-6">
-                {rooms.map((room, index) => (
+                {guestData.map((data, index) => (
                   <div
-                    key={room.id}
+                    key={data.id}
                     className="relative space-y-4 pb-4 border-b border-gray-100 last:border-0"
                   >
                     <div className="flex justify-between items-center">
                       <div className="text-sm font-bold text-gray-800">Room {index + 1}</div>
 
-                      {/* ปุ่มลบห้อง: จะแสดงก็ต่อเมื่อมีมากกว่า 1 ห้อง */}
-                      {rooms.length > 1 && (
+                      {guestData.length > 1 && (
                         <button
-                          onClick={() => removeRoom(room.id)}
+                          onClick={() => removeGuests(data.id)}
                           className="text-gray-400 hover:text-red-500 transition-colors"
                         >
                           <Trash2 className="h-4 w-4" />
@@ -86,41 +89,41 @@ export default function Bar({ bookingDate, setBookingDate }) {
                       )}
                     </div>
 
-                    {/* Row: Adults */}
                     <GuestControl
                       label="Adults"
                       subLabel="Ages 13 or more"
-                      value={room.adults}
+                      value={data.adults}
                       min={1}
-                      onUpdate={(val) => updateRoom(index, "adults", val)}
+                      onUpdate={(val) => updateGuests(index, "adults", val)}
                     />
 
-                    {/* Row: Children */}
                     <GuestControl
                       label="Children"
                       subLabel="Ages 2 - 12"
-                      value={room.children}
-                      onUpdate={(val) => updateRoom(index, "children", val)}
+                      value={data.children}
+                      onUpdate={(val) => updateGuests(index, "children", val)}
                     />
 
-                    {/* Row: Infants */}
                     <GuestControl
                       label="Infants"
                       subLabel="Under 2"
-                      value={room.infants}
-                      onUpdate={(val) => updateRoom(index, "infants", val)}
+                      value={data.infants}
+                      onUpdate={(val) => updateGuests(index, "infants", val)}
                     />
                   </div>
                 ))}
 
                 <div className="pt-4 border-t border-gray-100 flex flex-col gap-3">
                   <button
-                    onClick={addRoom}
-                    className="text-cyan-700 font-semibold border border-cyan-700 py-2 hover:bg-cyan-50 transition-colors"
+                    onClick={addGuests}
+                    className="text-cyan-700 font-semibold border border-(--color-main3) py-2 hover:bg-cyan-50 transition-colors"
                   >
                     Add additional room
                   </button>
-                  <button className="bg-[#005582] text-white font-bold py-2 rounded-sm">
+                  <button
+                    onClick={() => setIsMobilePopoverOpen(false)}
+                    className="bg-(--color-main2) text-white font-bold py-2"
+                  >
                     Done
                   </button>
                 </div>
@@ -144,6 +147,7 @@ export default function Bar({ bookingDate, setBookingDate }) {
                   selected={bookingDate}
                   onSelect={setBookingDate}
                   numberOfMonths={2}
+                  disabled={(date) => isBefore(date, startOfDay(new Date()))}
                 />
               </PopoverContent>
             </Popover>
@@ -152,7 +156,17 @@ export default function Bar({ bookingDate, setBookingDate }) {
           <div className="flex justify-between items-center w-full">
             <Link to="/login">
               <button className="px-4 py-3 hover:bg-gray-100 font-medium w-full text-left">
-                Sign in / Register
+                {authLoading ? (
+                  <span className="text-base">Checking auth session. . .</span>
+                ) : user ? (
+                  <>
+                    <span className="text-base text-(--color-main6)">
+                      Logged in as <span>{user.firstname}</span>
+                    </span>
+                  </>
+                ) : (
+                  "Login / Register"
+                )}
               </button>
             </Link>
             <img
@@ -165,17 +179,16 @@ export default function Bar({ bookingDate, setBookingDate }) {
         </div>
       </section>
 
-      {/* <!-- Sign In and Register Bar --> */}
       {/* <!-- Desktop --> */}
       <section className="hidden md:flex justify-center w-full mt-10 px-4 font-earn">
         <div className="bg-white  shadow-xl border-2 flex items-center gap-4 px-6 py-3 w-full max-w-4xl">
           {/* <!-- Guests --> */}
-          <Popover>
+          <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
             <PopoverTrigger asChild>
-              <button className="flex items-center gap-2  px-6 py-2 bg-[#134A5F] hover:bg-gray-400  min-w-50">
-                <Users className="h-4 w-4 text-white hover:text-[#6D6767]" />
-                <span className="font-medium text-white hover:text-[#6D6767]">
-                  {rooms.length} Room, {totalGuests} Guests
+              <button className="flex items-center gap-2  px-6 py-2 bg-(--color-main3) hover:bg-(--color-main4)  min-w-50">
+                <Users className="h-4 w-4 text-white text-shadow-md hover:text-(--color-main6)" />
+                <span className="font-medium text-white text-shdow-md hover:text-(--color-main6)">
+                  {guestData.length} Room, {totalGuests} {`Guest(s)`}
                 </span>
               </button>
             </PopoverTrigger>
@@ -185,18 +198,17 @@ export default function Bar({ bookingDate, setBookingDate }) {
               align="start"
             >
               <div className="p-4 space-y-6">
-                {rooms.map((room, index) => (
+                {guestData.map((data, index) => (
                   <div
-                    key={room.id}
+                    key={data.id}
                     className="relative space-y-4 pb-4 border-b border-gray-100 last:border-0"
                   >
                     <div className="flex justify-between items-center">
                       <div className="text-sm font-bold text-gray-800">Room {index + 1}</div>
 
-                      {/* ปุ่มลบห้อง: จะแสดงก็ต่อเมื่อมีมากกว่า 1 ห้อง */}
-                      {rooms.length > 1 && (
+                      {guestData.length > 1 && (
                         <button
-                          onClick={() => removeRoom(room.id)}
+                          onClick={() => removeGuests(data.id)}
                           className="text-gray-400 hover:text-red-500 transition-colors"
                         >
                           <Trash2 className="h-4 w-4" />
@@ -204,41 +216,41 @@ export default function Bar({ bookingDate, setBookingDate }) {
                       )}
                     </div>
 
-                    {/* Row: Adults */}
                     <GuestControl
                       label="Adults"
                       subLabel="Ages 13 or more"
-                      value={room.adults}
+                      value={data.adults}
                       min={1}
-                      onUpdate={(val) => updateRoom(index, "adults", val)}
+                      onUpdate={(val) => updateGuests(index, "adults", val)}
                     />
 
-                    {/* Row: Children */}
                     <GuestControl
                       label="Children"
                       subLabel="Ages 2 - 12"
-                      value={room.children}
-                      onUpdate={(val) => updateRoom(index, "children", val)}
+                      value={data.children}
+                      onUpdate={(val) => updateGuests(index, "children", val)}
                     />
 
-                    {/* Row: Infants */}
                     <GuestControl
                       label="Infants"
                       subLabel="Under 2"
-                      value={room.infants}
-                      onUpdate={(val) => updateRoom(index, "infants", val)}
+                      value={data.infants}
+                      onUpdate={(val) => updateGuests(index, "infants", val)}
                     />
                   </div>
                 ))}
 
                 <div className="pt-4 border-t border-gray-100 flex flex-col gap-3">
                   <button
-                    onClick={addRoom}
-                    className="text-black font-semibold border border-cyan-700 py-2 hover:bg-cyan-50 transition-colors"
+                    onClick={addGuests}
+                    className="text-black font-semibold border border-(--color-main3) py-2 hover:bg-cyan-50 transition-colors"
                   >
                     Add additional room
                   </button>
-                  <button className="bg-[#005582] text-white font-bold py-2 rounded-sm">
+                  <button
+                    onClick={() => setIsPopoverOpen(false)}
+                    className="bg-(--color-main2) text-white font-bold py-2"
+                  >
                     Done
                   </button>
                 </div>
@@ -261,6 +273,7 @@ export default function Bar({ bookingDate, setBookingDate }) {
                   selected={bookingDate}
                   onSelect={setBookingDate}
                   numberOfMonths={2}
+                  disabled={(date) => isBefore(date, startOfDay(new Date()))}
                 />
               </PopoverContent>
             </Popover>
@@ -269,7 +282,17 @@ export default function Bar({ bookingDate, setBookingDate }) {
           <div className="flex justify-between">
             <Link to="/login">
               <button className="ml-auto px-4 py-2 hover:bg-gray-100 font-medium">
-                Sign in / Register
+                {authLoading ? (
+                  <span className="text-base">Checking auth session. . .</span>
+                ) : user ? (
+                  <>
+                    <span className="text-base">
+                      Logged in as <span>{user.firstname}</span>
+                    </span>
+                  </>
+                ) : (
+                  "Login / Register"
+                )}
               </button>
             </Link>
             <img
