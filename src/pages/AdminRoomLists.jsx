@@ -61,7 +61,18 @@ export default function AdminRoomLists() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   // สร้าง Room
   const [addingRoom, setAddingRoom] = useState(null);
-  const [isDialogOpen2, setIsDialogOpen2] = useState(false);
+  const [isAddRoomDialogOpen, setIsAddRoomDialogOpen] = useState(false);
+  const [newRoom, setNewRoom] = useState({
+    roomNumber: '',
+    type: 'Single',
+    floor: 1,
+    roomRate: '',
+    imagelink: '',
+    size: '',
+    additional1: '',
+    additional2: '',
+    additional3: ''
+  });
 
 
   // FILTER LOGIC - ตรรกะสำหรับกรองข้อมูล
@@ -102,26 +113,35 @@ export default function AdminRoomLists() {
   }, []);
 
   // ฟังก์ชันเมื่อกดปุ่มแก้ไขห้อง
-  const handleEdit = (room) => {
-    // คัดลอกข้อมูลห้องที่จะแก้ไข (ใช้ spread operator เพื่อไม่ให้แก้ไขข้อมูลต้นฉบับโดยตรง) และเปิด dialog สำหรับแก้ไข
-    setEditingRoom({...room});
+  const handleRoomEdit = (room) => {
+    // สร้างตัวแปรใหม่เพื่อเก็บค่าที่ทำความสะอาดแล้ว
+    const cleanedData = {
+      ...room,
+      // ถ้ามีค่า size ให้ดึงเอาเฉพาะตัวเลขออกมา
+      size: room.size ? room.size.replace(" m²", "") : ""
+    };
+    // คัดลอกข้อมูลห้องที่จะแก้ไข (ใช้ spread operator เพื่อไม่ให้แก้ไขข้อมูลต้นฉบับโดยตรง)
+    // และเปิด dialog สำหรับแก้ไข
+    setEditingRoom({...cleanedData});
     setIsDialogOpen(true);
   };
 
   // ฟังก์ชันบันทึกการแก้ไข
   const handleSave = async () => {
       try {
+          const prepNewRoomData = {
+          ...editingRoom,
+          size: `${editingRoom.size} m²` // แปลงจาก 25 เป็น "25 m²" ที่นี่
+        }
         setLoading(true);
 
         await axios.patch(
-          `${API}/rooms/${editingRoom.roomNumber}`, 
-          editingRoom
+          `${API}/rooms/${editingRoom.roomNumber}`,
+          prepNewRoomData
         );
 
         // อัพเดทข้อมูลห้องในรายการ และใช้ .map() เพื่อวนลูปและเปลี่ยนข้อมูลห้องที่มี id ตรงกัน
-        setRooms(rooms.map(room =>
-          room.roomNumber === editingRoom.roomNumber ? editingRoom : room
-        ));
+        await fetchRooms();
 
         // ปิด dialog พร้อมล้างข้อมูลห้องที่กำลังแก้ไข
         setIsDialogOpen(false);
@@ -141,11 +161,67 @@ export default function AdminRoomLists() {
   // เมื่อกดปุ่ม add new room
   const handleEditCreateRoom = () => {
     setAddingRoom(true);
-    setIsDialogOpen2(true);
+    setIsAddRoomDialogOpen(true);
   };
-  // เมื่อบันทึก new room
-  const handleSaveRoom = () => {};
 
+  // เมื่อบันทึก new room
+  const handleSaveRoom = async () => {
+    try {
+      setLoading(true);
+      // ส่งข้อมูล newRoom ทั้ง Object ไปที่ Backend
+
+      const prepNewRoomData = {
+        ...newRoom,
+        size: `${newRoom.size} m²` // แปลงจาก 25 เป็น "25 m²" ที่นี่
+      }
+
+      const response = await axios.post(`${API}/rooms/`, prepNewRoomData);
+
+      if (response.data.success) {
+        // ปิด Dialog และล้างฟอร์ม
+        setIsAddRoomDialogOpen(false);
+        setNewRoom({
+          roomNumber: '',
+          type: 'Single',
+          floor: 1,
+          roomRate: '',
+          imagelink: '',
+          size: '',
+          additional1: '',
+          additional2: '',
+          additional3: ''
+       });
+
+        // อัปเดต State rooms by fetching from api again เพื่อให้ UI แสดงห้องใหม่ทันที
+        await fetchRooms();
+        alert("Room added successfully!");
+      }
+    } catch (err) {
+      console.error("Error adding room:", err);
+      alert(err.response?.data?.message || "Failed to add room");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // เมื่อกดปุ่มลบห้อง
+  const handleDeleteRoom = async () => {
+  if (!window.confirm("Are you sure you want to delete this room? This action cannot be undone.")) return;
+
+  try {
+    // สมมติว่า Backend ใช้ห้องเลขที่ในการลบ หรือใช้ ID
+    const response = await axios.delete(`${API}/rooms/${editingRoom.roomNumber}`);
+
+    if (response.data.success) {
+      setIsDialogOpen(false); // ปิด Dialog
+      fetchRooms();           // ดึงข้อมูลใหม่มาโชว์ (ห้องที่ลบไปจะหายไป)
+      alert("Room deleted successfully");
+    }
+  } catch (err) {
+    console.error("Delete error:", err);
+    alert(err.response?.data?.message || "Failed to delete room");
+  }
+};
   // ============================================
   // นับจำนวนห้องแต่ละ Status
   // ============================================
@@ -161,9 +237,7 @@ export default function AdminRoomLists() {
   if (loading) return <div className="p-10 text-center">Loading rooms...</div>;
   if (error) return <div className="p-10 text-center text-red-500">{error}</div>;
 
-  // ============================================
-  // RENDER - แสดงผล UI
-  // ============================================
+
   return (
 
     <div className="m-5 flex flex-col gap-6 w-full">
@@ -305,7 +379,7 @@ export default function AdminRoomLists() {
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={() => handleEdit(room)}
+                        onClick={() => handleRoomEdit(room)}
                       >
                         <Edit size={16} />
                       </Button>
@@ -319,9 +393,7 @@ export default function AdminRoomLists() {
       </Card>
 
 
-      {/* ============================================ */}
       {/* EDIT DIALOG - หน้าต่างสำหรับแก้ไขข้อมูลห้อง */}
-      {/* ============================================ */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent className="max-w-md">
           <DialogHeader className="pb-5">
@@ -334,6 +406,17 @@ export default function AdminRoomLists() {
           {/* แสดงฟอร์มถ้ามีข้อมูลห้องที่กำลังแก้ไข */}
           {editingRoom && (
             <div className="space-y-4">
+              {/* Floor */}
+              <div>
+                <Label className="pb-2">Floor</Label>
+                <Input
+                  className="w-1/5"
+                  type="number"
+                  value={editingRoom.floor}
+                  onChange={(e) => setEditingRoom({ ...editingRoom, floor: parseInt(e.target.value) })}
+                />
+              </div>
+
               {/* เลือกประเภทห้อง */}
               <div>
                 <Label className="pb-2">Room Type</Label>
@@ -379,12 +462,16 @@ export default function AdminRoomLists() {
 
               {/* ใส่ราคา */}
               <div>
-                <Label className="pb-2">Room Rate (฿)</Label>
-                <Input
-                  type="number"
-                  value={editingRoom.roomRate}
-                  onChange={(e) => setEditingRoom({ ...editingRoom, roomRate: parseInt(e.target.value) })}
-                />
+                <Label className="pb-2">Room Rate</Label>
+                <div className="flex items-center gap-2">
+                  <Input
+                    className="w-1/5"
+                    type="number"
+                    value={editingRoom.roomRate}
+                    onChange={(e) => setEditingRoom({ ...editingRoom, roomRate: parseInt(e.target.value) })}
+                  />
+                  <span>฿</span>
+                </div>
               </div>
 
               {/* ใส่ชื่อผู้เข้าพัก */}
@@ -396,6 +483,52 @@ export default function AdminRoomLists() {
                   placeholder="Leave empty if no guest"
                   disabled
                 />
+              </div>
+
+              {/* รูปห้อง */}
+              <div>
+                <Label className="pb-2">Image Link</Label>
+                <Input
+                  value={editingRoom.imagelink || ''}
+                  onChange={(e) => setEditingRoom({ ...editingRoom, imagelink: e.target.value })}
+                  placeholder="e.g. https://imageurl.com/001.png"
+                />
+              </div>
+
+              {/* Size */}
+              <div>
+                <Label className="pb-2">Size</Label>
+                <div className="flex items-center gap-2">
+                    <Input
+                    className="w-1/5"
+                    type="number"
+                    value={editingRoom.size || ''}
+                    onChange={(e) => setEditingRoom({ ...editingRoom, size: e.target.value })}
+                />
+                  <span>m²</span>
+                </div>
+              </div>
+
+              {/* Additionals */}
+              <div>
+                <Label className="pb-2">Additionals</Label>
+                <div className='flex flex-col gap-2'>
+                  <Input
+                    value={editingRoom.additional1 || ''}
+                    onChange={(e) => setEditingRoom({ ...editingRoom, additional1: e.target.value })}
+                    placeholder="e.g. Free Wi-Fi, Shower & Toiletries, Capacity N guests"
+                  />
+                  <Input
+                    value={editingRoom.additional2 || ''}
+                    onChange={(e) => setEditingRoom({ ...editingRoom, additional2: e.target.value })}
+                    placeholder="e.g. Free Wi-Fi, Shower & Toiletries, Capacity N guests"
+                  />
+                  <Input
+                    value={editingRoom.additional3 || ''}
+                    onChange={(e) => setEditingRoom({ ...editingRoom, additional3: e.target.value })}
+                    placeholder="e.g. Free Wi-Fi, Shower & Toiletries, Capacity N guests"
+                  />
+                </div>
               </div>
 
               {/* ใส่หมายเหตุ */}
@@ -412,18 +545,43 @@ export default function AdminRoomLists() {
           )}
 
           {/* ปุ่มด้านล่าง Dialog */}
-          <DialogFooter>
-            {/* ปุ่มยกเลิก */}
-            <Button className="rounded-lg" variant="outline" onClick={() => setIsDialogOpen(false)}>
-              Cancel
+          <DialogFooter className="flex flex-row! justify-between! items-center w-full mt-6">
+             {/* DELETE */}
+            <Button className="rounded-lg" variant='destructive' onClick={handleDeleteRoom}>
+              Delete
             </Button>
+
             {/* ปุ่มบันทึก */}
-            <Button className="rounded-lg" onClick={handleSave}>Save Changes</Button>
+            <Button className="rounded-lg" onClick={handleSave}>
+              Save Changes
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
       {/* ADD ROOM DIALOG */}
-      <Dialog open={isDialogOpen2} onOpenChange={setIsDialogOpen2}>
+      <Dialog
+      open={isAddRoomDialogOpen}
+      onOpenChange={(open) => {
+        // 1. อัปเดตสถานะการเปิด/ปิดตามปกติ
+        setIsAddRoomDialogOpen(open);
+
+        // 2. ถ้า open เป็น false (กำลังจะปิด) ให้ล้างข้อมูล
+        if (!open) {
+          setNewRoom({
+            roomNumber: '',
+            type: 'Single',
+            floor: 1,
+            roomRate: '',
+            notes: '',
+            size: '',
+            additional1: '',
+            additional2: '',
+            additional3: ''
+          });
+          // ถ้ามีการเก็บ Error Message ไว้ ก็ควรล้างตรงนี้ด้วยครับ
+          // setErrorMessage("");
+        }
+      }}>
         <DialogContent className="max-w-md">
           <DialogHeader className="pb-5">
             <DialogTitle>Add Room</DialogTitle>
@@ -439,52 +597,109 @@ export default function AdminRoomLists() {
               <div>
                 <Label className="pb-2">Room Number</Label>
                 <Input
+                  className="w-1/5"
                   type="number"
+                  value={newRoom.roomNumber}
+                  onChange={(e) => setNewRoom({ ...newRoom, roomNumber: e.target.value })}
+                  placeholder="e.g. 101"
                 />
               </div>
-              {/* เลือกประเภทห้อง */}
+
+              {/* Floor */}
+              <div>
+                <Label className="pb-2">Floor</Label>
+                <Input
+                  className="w-1/5"
+                  type="number"
+                  value={newRoom.floor}
+                  onChange={(e) => setNewRoom({ ...newRoom, floor: parseInt(e.target.value) })}
+                />
+              </div>
+
+              {/* Room Type */}
               <div>
                 <Label className="pb-2">Room Type</Label>
                 <Select
+                  value={newRoom.type}
+                  onValueChange={(value) => setNewRoom({ ...newRoom, type: value })}
                 >
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
+                  <SelectTrigger><SelectValue /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="Single">Single</SelectItem>
                     <SelectItem value="Double">Double</SelectItem>
-                    <SelectItem value="Suite">Suite</SelectItem>
+                    <SelectItem value="Twin">Twin</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
-              {/* ใส่ราคา */}
+              {/* Room Rate */}
               <div>
-                <Label className="pb-2">Room Rate (฿)</Label>
+                <Label className="pb-2">Room Rate</Label>
+                <div className="flex items-center gap-2">
+                  <Input
+                    className="w-1/5"
+                    type="number"
+                    value={newRoom.roomRate}
+                    onChange={(e) => setNewRoom({ ...newRoom, roomRate: parseInt(e.target.value) })}
+                  />
+                  <span>฿</span>
+                </div>
+              </div>
+
+              {/* imagelink */}
+              <div>
+                <Label className="pb-2">imagelink</Label>
                 <Input
-                  type="number"
+                  value={newRoom.imagelink}
+                  onChange={(e) => setNewRoom({ ...newRoom, imagelink: e.target.value })}
+                  placeholder="e.g. https://imageurl.com/001.png"
                 />
               </div>
 
-              {/* ใส่หมายเหตุ */}
+              {/* Size */}
               <div>
-                <Label className="pb-2">Notes</Label>
-                <Textarea
-                  placeholder="Add notes about the room"
-                  rows={3}
+                <Label className="pb-2">Size</Label>
+                <div className="flex items-center gap-2">
+                    <Input
+                    className="w-1/5"
+                    type="number"
+                    value={newRoom.size}
+                    onChange={(e) => setNewRoom({ ...newRoom, size: e.target.value })}
                 />
+                  <span>m²</span>
+                </div>
+              </div>
+
+              {/* Additionals */}
+              <div>
+                <Label className="pb-2">Additionals</Label>
+                <div className='flex flex-col gap-2'>
+                  <Input
+                    value={newRoom.additional1}
+                    onChange={(e) => setNewRoom({ ...newRoom, additional1: e.target.value })}
+                    placeholder="e.g. Free Wi-Fi, Shower & Toiletries, Capacity N guests"
+                  />
+                  <Input
+                    value={newRoom.additional2}
+                    onChange={(e) => setNewRoom({ ...newRoom, additional2: e.target.value })}
+                    placeholder="e.g. Free Wi-Fi, Shower & Toiletries, Capacity N guests"
+                  />
+                  <Input
+                    value={newRoom.additional3}
+                    onChange={(e) => setNewRoom({ ...newRoom, additional3: e.target.value })}
+                    placeholder="e.g. Free Wi-Fi, Shower & Toiletries, Capacity N guests"
+                  />
+                </div>
               </div>
             </div>
           )}
 
           {/* ปุ่มด้านล่าง Dialog */}
           <DialogFooter>
-            {/* ปุ่มยกเลิก */}
-            <Button className="rounded-lg" variant="outline" onClick={() => setIsDialogOpen2(false)}>
-              Cancel
+            {/* ปุ่มเพิ่ม */}
+            <Button className="rounded-lg" onClick={handleSaveRoom}>
+              Add Room
             </Button>
-            {/* ปุ่มบันทึก */}
-            <Button className="rounded-lg" onClick={handleSaveRoom}>Add Room</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
