@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import axios from "axios";
+import { addDays } from "date-fns";
 
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
@@ -18,10 +19,10 @@ const RoomDetail = () => {
 
   const [guestData, setGuestData] = useState([{ id: 1, adults: 2, children: 0, infants: 0 }]);
 
-  const [bookingDate, setBookingDate] = useState({
+  const [bookingDate, setBookingDate] = useState(() => ({
     from: new Date(),
-    to: new Date(new Date().setDate(new Date().getDate() + 1)), // Default 1 night
-  });
+    to: addDays(new Date(), 1),
+  }));
 
   useEffect(() => {
     const fetchRooms = async () => {
