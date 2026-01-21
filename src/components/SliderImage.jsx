@@ -11,7 +11,7 @@ export default function SliderImage() {
             {/* <!-- Slide 1 --> */}
             <div className="swiper-slide">
               <img
-                src="https://res.cloudinary.com/dhggmrfe1/image/upload/v1768890144/tw_x1bxue.jpg"
+                src="https://res.cloudinary.com/dhggmrfe1/image/upload/v1768980922/New-TWN_e2s8hr.png"
                 className="w-[80%] h-82 object-cover shadow-lg mx-auto transition-transform duration-500 hover:scale-105"
               />
             </div>
@@ -19,7 +19,7 @@ export default function SliderImage() {
             {/* <!-- Slide 2 --> */}
             <div className="swiper-slide">
               <img
-                src= "https://res.cloudinary.com/dhggmrfe1/image/upload/v1768890144/dbl_gubta7.jpg"
+                src= "https://res.cloudinary.com/dhggmrfe1/image/upload/v1768980921/New-DBL_pla1t7.png"
                 className="w-[80%] h-82 object-cover shadow-lg mx-auto transition-transform duration-500 hover:scale-105"
               />
             </div>
@@ -27,7 +27,7 @@ export default function SliderImage() {
             {/* <!-- Slide 3 --> */}
             <div className="swiper-slide">
               <img
-                src="https://res.cloudinary.com/dhggmrfe1/image/upload/v1768890144/sgl_qdxkqv.jpg"
+                src="https://res.cloudinary.com/dhggmrfe1/image/upload/v1768980922/New-SGL_yvj3lb.png"
                 className="w-[80%] h-82 object-cover shadow-lg mx-auto transition-transform duration-500 hover:scale-105"
               />
             </div>
