@@ -12,7 +12,7 @@ const Login = () => {
     if (!user) return;
 
     if (user.role === "admin") {
-      navigate("/asideadmin");
+      navigate("/admindashboard");
     } else {
       navigate("/");
     }
