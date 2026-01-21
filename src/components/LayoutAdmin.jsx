@@ -12,9 +12,7 @@ export default function LayoutAdmin ()
         <div className="min-h-screen">
             <SidebarProvider>
                 <SidebarApp />
-                <div className="mt-6 ml-6">
                     <SidebarTrigger />
-                </div>
                 <Outlet context={{ API, logout }} />
             </SidebarProvider>
         </div>

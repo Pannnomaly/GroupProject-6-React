@@ -23,6 +23,8 @@ import AuthContextProvider from './contexts/AuthContextProvider.jsx';
 import AdminRoute from "./components/adminRoutes.jsx";
 import AdminBookingManagement from './pages/AdminBookingManagement';
 
+import AdminUserManagement from './pages/AdminUserManagement';
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -54,6 +56,7 @@ const router = createBrowserRouter([
               { path: "adminroomlists", element: <AdminRoomLists />},
               { path: "adminbookingmanagement", element: <AdminBookingManagement />},
               { path: "admin", element: <Admin/> },
+              { path: "adminusermanagement", element: <AdminUserManagement /> },
             ],
           },
         ],
