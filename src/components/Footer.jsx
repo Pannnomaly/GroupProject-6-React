@@ -15,18 +15,18 @@ export default function Footer() {
                     <div>
                         <p className="font-bold text-lg">SITE MAP</p>
                     </div>
-                    <div className="pt-2 gap-5 flex flex-col">
-                        <div className="hover:bg-(--color-main2) rounded-lg transition duration-300 ease-in-out">
+                    <div className="pt-2 gap-2 flex flex-col">
+                        <div className="hover:bg-(--color-main2) px-0.5 py-1 transition duration-300 ease-in-out">
                             <Link to="/user">
                                 <p className="text-lg">User</p>
                             </Link>
                         </div>
-                        <div className="hover:bg-(--color-main2) rounded-lg transition duration-300 ease-in-out">
+                        <div className="hover:bg-(--color-main2) px-0.5 py-1 transition duration-300 ease-in-out">
                             <Link to="/roomdetail">
                                 <p className="text-lg">Availability</p>
                             </Link>
                         </div>
-                        <div className="hover:bg-(--color-main2) rounded-lg transition duration-300 ease-in-out">
+                        <div className="hover:bg-(--color-main2) px-0.5 py-1 transition duration-300 ease-in-out">
                             <Link to="/contactus">
                                 <p className="text-lg">Contact Us</p>
                             </Link>
@@ -37,18 +37,18 @@ export default function Footer() {
                     <div>
                         <p className="font-bold text-lg">SOCIALS</p>
                     </div>
-                <div className="pt-2 gap-5 flex flex-col">
-                    <div className="hover:bg-(--color-main2) rounded-lg transition duration-300 ease-in-out">
+                <div className="pt-2 gap-2 flex flex-col">
+                    <div className="hover:bg-(--color-main2) px-0.5 py-1 transition duration-300 ease-in-out">
                         <Link to="/">
                             <p className="text-lg">Facebook</p>
                         </Link>
                     </div>
-                    <div className="hover:bg-(--color-main2) rounded-lg transition duration-300 ease-in-out">
+                    <div className="hover:bg-(--color-main2) px-0.5 py-1 transition duration-300 ease-in-out">
                         <Link to="/">
                             <p className="text-lg">Instagram</p>
                         </Link>
                     </div>
-                    <div className="hover:bg-(--color-main2) rounded-lg transition duration-300 ease-in-out">
+                    <div className="hover:bg-(--color-main2) px-0.5 py-1 transition duration-300 ease-in-out">
                         <Link to="/">
                             <p className="text-lg">Twitter</p>
                         </Link>

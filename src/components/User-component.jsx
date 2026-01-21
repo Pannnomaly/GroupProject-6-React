@@ -19,9 +19,6 @@ export default function UserComponent()
     detail: "",
   });
 
-  console.log(bookings);
-  
-
   const handleEditChange = (e) => {
     setEditForm({ ...editForm, [e.target.name]: e.target.value });
   };
@@ -51,6 +48,29 @@ export default function UserComponent()
   const handleEditCancel = () => {
     setEditId(null);
   };
+
+  const handleCancelBooking = async (confirmationNumber) => {
+    console.log(confirmationNumber);
+    
+  const confirmCancel = window.confirm("Are you sure you want to cancel this booking?");
+  if (!confirmCancel) return;
+
+  try {
+    await axios.delete(
+      `${API}/bookings/${confirmationNumber}`,
+      { withCredentials: true }
+    );
+
+    const res = await axios.get(
+      `${API}/bookings/my-bookings?page=${page}&limit=${LIMIT}`,
+      { withCredentials: true }
+    );
+    setBookings(res.data.data);
+
+  } catch (error) {
+    alert(error.response?.data?.message || "Cancel failed");
+  }
+};
 
   useEffect(() => {
   if (!user) return;
@@ -137,6 +157,7 @@ export default function UserComponent()
           <div>
             <UserCard
               bookings={bookings}
+              onCancel={handleCancelBooking}
             />
           </div>
         </div>
@@ -182,7 +203,7 @@ export default function UserComponent()
                   name="firstname"
                   value={editForm.firstname}
                   onChange={handleEditChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-(--color-main3)"
+                  className="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-(--color-main3)"
                   placeholder="Enter first name"
                 />
               </div>
@@ -194,7 +215,7 @@ export default function UserComponent()
                   name="lastname"
                   value={editForm.lastname}
                   onChange={handleEditChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-(--color-main3)"
+                  className="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-(--color-main3)"
                   placeholder="Enter last name"
                 />
               </div>
@@ -206,7 +227,7 @@ export default function UserComponent()
                   name="imagelink"
                   value={editForm.imagelink}
                   onChange={handleEditChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-(--color-main3)"
+                  className="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-(--color-main3)"
                   placeholder="Enter image URL"
                 />
               </div>
@@ -217,7 +238,7 @@ export default function UserComponent()
                   name="detail"
                   value={editForm.detail}
                   onChange={handleEditChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-(--color-main3) resize-none"
+                  className="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-(--color-main3) resize-none"
                   placeholder="Enter user details"
                   rows="4"
                 />
@@ -227,13 +248,13 @@ export default function UserComponent()
             <div className="flex gap-3 mt-6">
               <button
                 onClick={() => handleEditSave(editId)}
-                className="flex-1 bg-(--color-main3) hover:bg-(--color-main2) text-white font-semibold py-2 px-4 rounded-md transition duration-300"
+                className="flex-1 bg-(--color-main3) hover:bg-(--color-main2) text-white font-semibold py-2 px-4 transition duration-300"
               >
                 Save Changes
               </button>
               <button
                 onClick={handleEditCancel}
-                className="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-md transition duration-300"
+                className="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 transition duration-300"
               >
                 Cancel
               </button>
