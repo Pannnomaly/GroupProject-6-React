@@ -17,7 +17,7 @@ export default function Navbar ({ logout })
                                 <img className="w-23 md:w-30 lg:w-27" src="hotel-logo.png" alt="Hotel Logo" />
                             </Link>
                     </div>
-                    <div className="flex items-center gap-x-4 pr-10 h-full">
+                    <div className="flex items-center gap-x-4 pr-10 h-full text-shadow-md">
                         <div className="h-full px-3 flex justify-center items-center hover:bg-(--color-main2) transition duration-300 ease-in-out cursor-pointer">
                             <Link to="/roomdetail">
                                 <p className="text-center hidden md:flex lg:flex">Availability</p>

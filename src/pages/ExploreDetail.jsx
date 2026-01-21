@@ -8,7 +8,7 @@ export default function Explore ()
     const { logout, user} = useOutletContext();
 
     return (
-        <div>
+        <div className="text-shadow-2xs">
             <Navbar logout={logout} user={user}/>
 
 

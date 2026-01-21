@@ -50,12 +50,12 @@ export default function ContactUs() {
     <div className="min-h-screen flex flex-col font-earn ">
       <Navbar logout={logout} user={user}/>
 
-      <div className="grow">
+      <div className="grow text-shadow-2xs">
         {/* Contact Form and Info Section */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900">Contact Us</h2>
-            <p className="mt-4 text-lg text-gray-600">
+            <h2 className="text-3xl font-bold text-(--color-main7)">Contact Us</h2>
+            <p className="mt-4 text-lg text-(--color-main6)">
               We'd love to hear from you. Send us a message and we'll respond as
               soon as possible.
             </p>
@@ -64,14 +64,14 @@ export default function ContactUs() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
             <div className="bg-white border-2 shadow-lg p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">
+              <h3 className="text-2xl font-bold text-(--color-main7) mb-6">
                 Send Us a Message
               </h3>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label
                     htmlFor="name"
-                    className="block text-sm font-medium text-gray-700 mb-1"
+                    className="block text-sm font-medium text-(--color-main7) mb-1"
                   >
                     Your Name
                   </label>
@@ -81,7 +81,7 @@ export default function ContactUs() {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-4 py-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 text-(--color-main6)"
                     required
                   />
                 </div>
@@ -89,7 +89,7 @@ export default function ContactUs() {
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium text-gray-700 mb-1"
+                    className="block text-sm font-medium text-(--color-main7) mb-1"
                   >
                     Email Address
                   </label>
@@ -99,7 +99,7 @@ export default function ContactUs() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300  focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-4 py-2 border border-gray-300  focus:ring-blue-500 focus:border-blue-500 text-(--color-main6)"
                     required
                   />
                 </div>
@@ -107,7 +107,7 @@ export default function ContactUs() {
                 <div>
                   <label
                     htmlFor="subject"
-                    className="block text-sm font-medium text-gray-700 mb-1"
+                    className="block text-sm font-medium text-(--color-main7) mb-1"
                   >
                     Subject
                   </label>
@@ -117,7 +117,7 @@ export default function ContactUs() {
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300  focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-4 py-2 border border-gray-300  focus:ring-blue-500 focus:border-blue-500 text-(--color-main6)"
                     required
                   />
                 </div>
@@ -125,7 +125,7 @@ export default function ContactUs() {
                 <div>
                   <label
                     htmlFor="message"
-                    className="block text-sm font-medium text-gray-700 mb-1"
+                    className="block text-sm font-medium text-(--color-main7) mb-1"
                   >
                     Your Message
                   </label>
@@ -135,7 +135,7 @@ export default function ContactUs() {
                     rows="5"
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300  focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-4 py-2 border border-gray-300  focus:ring-blue-500 focus:border-blue-500 text-(--color-main6)"
                     required
                   ></textarea>
                 </div>
@@ -172,10 +172,10 @@ export default function ContactUs() {
                     <FaMapMarkerAlt className="text-white" size={20} />
                   </div>
                   <div className="ml-4">
-                    <h3 className="text-lg font-medium text-gray-900">
+                    <h3 className="text-lg font-medium text-(--color-main7)">
                       Our Location
                     </h3>
-                    <p className="mt-1 text-gray-600">
+                    <p className="mt-1 text-(--color-main6)">
                       123 Hotel Street, Bangkok 10110, Thailand
                     </p>
                   </div>
@@ -186,10 +186,10 @@ export default function ContactUs() {
                     <FaPhone className="text-white" size={18} />
                   </div>
                   <div className="ml-4">
-                    <h3 className="text-lg font-medium text-gray-900">
+                    <h3 className="text-lg font-medium text-(--color-main7)">
                       Phone Number
                     </h3>
-                    <p className="mt-1 text-gray-600">+66 2 123 4567</p>
+                    <p className="mt-1 text-(--color-main6)">+66 2 123 4567</p>
                   </div>
                 </div>
 
@@ -198,15 +198,15 @@ export default function ContactUs() {
                     <FaEnvelope className="text-white" size={18} />
                   </div>
                   <div className="ml-4">
-                    <h3 className="text-lg font-medium text-gray-900">
+                    <h3 className="text-lg font-medium text-(--color-main7)">
                       Email Address
                     </h3>
-                    <p className="mt-1 text-gray-600">info@monkeydbhotel.com</p>
+                    <p className="mt-1 text-(--color-main6)">info@monkeydbhotel.com</p>
                   </div>
                 </div>
 
                 <div className="pt-2">
-                  <h3 className="text-lg font-medium text-gray-900 mb-4">
+                  <h3 className="text-lg font-medium text-(--color-main7) mb-4">
                     Follow Us
                   </h3>
                   <div className="flex space-x-4">

@@ -11,7 +11,7 @@ export default function Footer() {
                         </Link>
                     </div>
                 </div>
-                <div className="flex flex-col justify-center">
+                <div className="flex flex-col justify-center text-shadow-md">
                     <div>
                         <p className="font-bold text-lg">SITE MAP</p>
                     </div>
@@ -33,7 +33,7 @@ export default function Footer() {
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col justify-center">
+                <div className="flex flex-col justify-center text-shadow-md">
                     <div>
                         <p className="font-bold text-lg">SOCIALS</p>
                     </div>
