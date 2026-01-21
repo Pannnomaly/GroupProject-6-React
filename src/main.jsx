@@ -18,10 +18,10 @@ import Admin from './pages/Admin';
 import Explore from './pages/ExploreDetail';
 import LayoutAdmin from './components/LayoutAdmin';
 import ForgetPassword from './pages/ForgetPassword';
-import AsideAdmin from './pages/AsideAdmin';
 import AdminRoomLists from './pages/AdminRoomLists';
 import AuthContextProvider from './contexts/AuthContextProvider.jsx';
 import AdminRoute from "./components/adminRoutes.jsx";
+import AdminBookingManagement from './pages/AdminBookingManagement';
 
 const router = createBrowserRouter([
   {
@@ -50,9 +50,9 @@ const router = createBrowserRouter([
           {
             element: <LayoutAdmin />,
             children: [
-              // { path: "asideadmin", element: <AsideAdmin /> },
               { path: "admindashboard", element: <AdminDashboard /> },
               { path: "adminroomlists", element: <AdminRoomLists />},
+              { path: "adminbookingmanagement", element: <AdminBookingManagement />},
               { path: "admin", element: <Admin/> },
             ],
           },

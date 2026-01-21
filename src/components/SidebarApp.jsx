@@ -17,6 +17,11 @@ const items = [
     url: "../adminroomlists",
     icon: Bed,
   },
+  {
+    title: "Booking Management",
+    url: "../adminbookingmanagement",
+    icon: NotebookPen
+  },
 ]
 
 export default function SideBar() {
