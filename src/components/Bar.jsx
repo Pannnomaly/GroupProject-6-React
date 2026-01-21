@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { format } from "date-fns";
+import { format, startOfDay, isBefore } from "date-fns";
 import { CalendarIcon, Users, Trash2 } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -147,7 +147,7 @@ export default function Bar({ bookingDate, setBookingDate, guestData, setGuestDa
                   selected={bookingDate}
                   onSelect={setBookingDate}
                   numberOfMonths={2}
-                  disabled={(date) => date < new Date().setHours(0, 0, 0, 0)}
+                  disabled={(date) => isBefore(date, startOfDay(new Date()))}
                 />
               </PopoverContent>
             </Popover>
@@ -273,7 +273,7 @@ export default function Bar({ bookingDate, setBookingDate, guestData, setGuestDa
                   selected={bookingDate}
                   onSelect={setBookingDate}
                   numberOfMonths={2}
-                  disabled={(date) => date < new Date().setHours(0, 0, 0, 0)}
+                  disabled={(date) => isBefore(date, startOfDay(new Date()))}
                 />
               </PopoverContent>
             </Popover>

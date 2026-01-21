@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { format } from "date-fns";
+import { format, differenceInDays, startOfDay } from "date-fns";
 
 export default function Modal({ isModalOpen, handleCloseModal, room, bookingDate, guestData }) {
   const navigate = useNavigate();
@@ -8,7 +8,7 @@ export default function Modal({ isModalOpen, handleCloseModal, room, bookingDate
 
   const nights =
     bookingDate?.from && bookingDate?.to
-      ? Math.max(1, Math.round((bookingDate.to - bookingDate.from) / (1000 * 60 * 60 * 24)))
+      ? Math.max(1, differenceInDays(startOfDay(bookingDate.to), startOfDay(bookingDate.from)))
       : 1;
 
   const totalPrice = (parseInt(room.roomRate) || 0) * nights;
