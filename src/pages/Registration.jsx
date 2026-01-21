@@ -1,39 +1,42 @@
 import axios from "axios";
-import { useState } from "react";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
+const registerSchema = z.object({
+  firstname: z.string().min(2, { message: "First name must be at least 2 characters" }),
+  lastname: z.string().min(2, { message: "Last name must be at least 2 characters" }),
+  email: z.string().email({ message: "Invalid email address" }),
+  password: z
+    .string()
+    .min(8, { message: "Password must be at least 8 characters" })
+    .regex(/[0-9]/, { message: "Password must contain at least one number" })
+    .regex(/[a-z]/, { message: "Password must contain at least one lowercase letter" }),
+});
 
 const Registration = () => {
   const { API } = useOutletContext();
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    password: "",
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm({
+    resolver: zodResolver(registerSchema),
   });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const onSubmit = async (data) => {
     try {
-      await axios.post(`${API}/users`, formData);
-      setFormData({
-        firstname: "",
-        lastname: "",
-        email: "",
-        password: "",
-      });
-
+      await axios.post(`${API}/users`, data);
+      reset();
       navigate("/login");
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
   return (
     <>
       <main className="bg-white min-h-screen flex flex-col justify-center items-center font-earn px-5 md:px-0">
@@ -87,63 +90,68 @@ const Registration = () => {
             </h2>
 
             {/* Form */}
-            <form onSubmit={handleSubmit}>
-              <label htmlFor="firstname" className="text-lg">
-                First name
-              </label>
-              <input
-                type="text"
-                id="firstname"
-                name="firstname"
-                placeholder="First name"
-                className="w-full border px-3 py-2 mt-1 mb-4 focus:ring-2 focus:ring-black focus:outline-none"
-                value={formData.firstname}
-                onChange={handleChange}
-              />
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div>
+                <label htmlFor="firstname" className="text-lg">
+                  First name
+                </label>
+                <input
+                  type="text"
+                  id="firstname"
+                  placeholder="First name"
+                  className={`w-full border px-3 py-2 mt-1 focus:ring-2 focus:ring-black focus:outline-none ${errors.firstname ? "border-red-500" : "mb-4"}`}
+                  {...register("firstname")}
+                />
+                {errors.firstname && <p className="text-red-500 text-sm mb-4">{errors.firstname.message}</p>}
+              </div>
 
-              <label htmlFor="lastname" className="text-lg">
-                Last name
-              </label>
-              <input
-                type="text"
-                id="lastname"
-                name="lastname"
-                placeholder="Last name"
-                className="w-full border px-3 py-2 mt-1 mb-4 focus:ring-2 focus:ring-black focus:outline-none"
-                value={formData.lastname}
-                onChange={handleChange}
-              />
+              <div>
+                <label htmlFor="lastname" className="text-lg">
+                  Last name
+                </label>
+                <input
+                  type="text"
+                  id="lastname"
+                  placeholder="Last name"
+                  className={`w-full border px-3 py-2 mt-1 focus:ring-2 focus:ring-black focus:outline-none ${errors.lastname ? "border-red-500" : "mb-4"}`}
+                  {...register("lastname")}
+                />
+                {errors.lastname && <p className="text-red-500 text-sm mb-4">{errors.lastname.message}</p>}
+              </div>
 
-              <label htmlFor="email" className="text-lg">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="email@example.com"
-                className="w-full border px-3 py-2 mt-1 mb-4 focus:ring-2 focus:ring-black focus:outline-none"
-                value={formData.email}
-                onChange={handleChange}
-              />
+              <div>
+                <label htmlFor="email" className="text-lg">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="email@example.com"
+                  className={`w-full border px-3 py-2 mt-1 focus:ring-2 focus:ring-black focus:outline-none ${errors.email ? "border-red-500" : "mb-4"}`}
+                  {...register("email")}
+                />
+                {errors.email && <p className="text-red-500 text-sm mb-4">{errors.email.message}</p>}
+              </div>
 
-              <label htmlFor="password" className="text-lg">
-                Password
-              </label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                placeholder="********"
-                className="w-full border px-3 py-2 mt-1 mb-6 focus:ring-2 focus:ring-black focus:outline-none"
-                value={formData.password}
-                onChange={handleChange}
-              />
+              <div>
+                <label htmlFor="password" className="text-lg">
+                  Password
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="********"
+                  className={`w-full border px-3 py-2 mt-1 focus:ring-2 focus:ring-black focus:outline-none ${errors.password ? "border-red-500" : "mb-6"}`}
+                  {...register("password")}
+                />
+                {errors.password && <p className="text-red-500 text-sm mb-6">{errors.password.message}</p>}
+              </div>
               <button
                 type="submit"
-                className="w-full text-lg bg-(--color-main10) text-(--color-main11) py-3  mb-4 hover:bg-(--color-main5)"
+                disabled={isSubmitting}
+                className="w-full text-lg bg-(--color-main10) text-(--color-main11) py-3  mb-4 hover:bg-(--color-main5) disabled:opacity-70"
               >
-                Create Your Accout
+                {isSubmitting ? "Creating Account..." : "Create Your Account"}
               </button>
 
               <Link

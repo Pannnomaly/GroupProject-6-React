@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import {
   FaMapMarkerAlt,
   FaPhone,
@@ -12,35 +14,30 @@ import Navbar from "@/components/Navbar";
 import axios from "axios";
 import { useOutletContext } from "react-router-dom";
 
+const contactSchema = z.object({
+  name: z.string().min(2, { message: "Name must be at least 2 characters" }),
+  email: z.string().email({ message: "Invalid email address" }),
+  subject: z.string().min(1, { message: "Subject is required" }),
+  message: z.string().min(1, { message: "Message is required" }),
+});
+
 export default function ContactUs() {
 
   const { logout, user} = useOutletContext();
   const { API } = useOutletContext();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm({
+    resolver: zodResolver(contactSchema),
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log("Form submitted:", formData);
-
+  const onSubmit = async (data) => {
     try {
-      await axios.post(`${API}/v1/contacts/`, formData);
-
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-      });
+      await axios.post(`${API}/contacts`, data);
+      reset();
     } catch (error) {
       console.error(error);
     }
@@ -67,7 +64,7 @@ export default function ContactUs() {
               <h3 className="text-2xl font-bold text-gray-900 mb-6">
                 Send Us a Message
               </h3>
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 <div>
                   <label
                     htmlFor="name"
@@ -78,12 +75,10 @@ export default function ContactUs() {
                   <input
                     type="text"
                     id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                    required
+                    className={`w-full px-4 py-2 border focus:ring-blue-500 focus:border-blue-500 ${errors.name ? "border-red-500" : "border-gray-300"}`}
+                    {...register("name")}
                   />
+                  {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
                 </div>
 
                 <div>
@@ -96,12 +91,10 @@ export default function ContactUs() {
                   <input
                     type="email"
                     id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300  focus:ring-blue-500 focus:border-blue-500"
-                    required
+                    className={`w-full px-4 py-2 border focus:ring-blue-500 focus:border-blue-500 ${errors.email ? "border-red-500" : "border-gray-300"}`}
+                    {...register("email")}
                   />
+                  {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
                 </div>
 
                 <div>
@@ -114,12 +107,10 @@ export default function ContactUs() {
                   <input
                     type="text"
                     id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300  focus:ring-blue-500 focus:border-blue-500"
-                    required
+                    className={`w-full px-4 py-2 border focus:ring-blue-500 focus:border-blue-500 ${errors.subject ? "border-red-500" : "border-gray-300"}`}
+                    {...register("subject")}
                   />
+                  {errors.subject && <p className="text-red-500 text-sm mt-1">{errors.subject.message}</p>}
                 </div>
 
                 <div>
@@ -131,21 +122,20 @@ export default function ContactUs() {
                   </label>
                   <textarea
                     id="message"
-                    name="message"
                     rows="5"
-                    value={formData.message}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300  focus:ring-blue-500 focus:border-blue-500"
-                    required
+                    className={`w-full px-4 py-2 border focus:ring-blue-500 focus:border-blue-500 ${errors.message ? "border-red-500" : "border-gray-300"}`}
+                    {...register("message")}
                   ></textarea>
+                  {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message.message}</p>}
                 </div>
 
                 <div>
                   <button
                     type="submit"
-                    className="w-full  bg-(--color-main3) hover:bg-(--color-main2) text-white py-3 px-6 focus:outline-none focus:ring-2 focus:ring-offset transition-colors"
+                    disabled={isSubmitting}
+                    className="w-full  bg-(--color-main3) hover:bg-(--color-main2) text-white py-3 px-6 focus:outline-none focus:ring-2 focus:ring-offset transition-colors disabled:opacity-70"
                   >
-                    Send Message
+                    {isSubmitting ? "Sending..." : "Send Message"}
                   </button>
                 </div>
               </form>
