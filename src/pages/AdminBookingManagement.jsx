@@ -80,7 +80,7 @@ export default function AdminBookingManagement() {
     try {
       setLoading(true);
       await axios.patch(
-        `${API}/bookings/${editingBooking._id}`,
+        `${API}/bookings/${editingBooking.confirmationNumber}`,
         editingBooking
       );
       await fetchBookings();
@@ -94,16 +94,18 @@ export default function AdminBookingManagement() {
       setLoading(false);
     }
   };
-  
+
   const handleDeleteBooking = async () => {
     if (!window.confirm("Are you sure you want to delete this booking? This action cannot be undone.")) return;
-  
+
     try {
-      const response = await axios.delete(`${API}/bookings/${editingBooking._id}`);
-  
+      const response = await axios.delete(`${API}/bookings/${editingBooking.confirmationNumber}`, {
+        withCredentials: true
+      });
+
       if (response.data.success) {
-        setIsDialogOpen(false); 
-        fetchBookings();           
+        setIsDialogOpen(false);
+        fetchBookings();
         alert("Booking deleted successfully");
       }
     } catch (err) {
