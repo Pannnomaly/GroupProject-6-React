@@ -94,11 +94,11 @@ export default function UserComponent()
 
   return (
     <div className="w-full h-full flex flex-col justify-center items-center font-earn lg:flex-row lg:justify-center lg:items-stretch">
-      <div className="w-[90%] lg:w-[25%] bg-(--color-main3) py-10 mt-10 lg:mb-10 gap-10 flex flex-col justify-center items-center text-(--color-main12) shadow-(--box-shadow)">
+      <div className="w-[90%] lg:w-[25%] bg-(--color-main5) py-10 mt-10 lg:mb-10 gap-10 flex flex-col justify-center items-center text-(--color-main12) shadow-(--box-shadow)">
         <div className="w-full flex justify-end pr-10">
           <button
             onClick={() => handleEdit(user)}
-            className="flex justify-center items-center hover:bg-(--color-main2) transition duration-300 ease-in-out rounded-full object-cover aspect-square w-9 cursor-pointer"
+            className="flex justify-center items-center hover:bg-(--color-main3) transition duration-300 ease-in-out rounded-full object-cover aspect-square w-9 cursor-pointer"
             title="Edit user info"
           >
             <img
@@ -119,21 +119,22 @@ export default function UserComponent()
               className="rounded-full object-cover aspect-square shadow-(--box-shadow) border-2 border-(--color-main3)"
             />
           </div>
-          <div className="w-[90%] flex flex-col justify-center items-start mt-10 text-xl text-shadow-2xs">
+          <div className="w-[90%] flex flex-col justify-center items-start mt-10 text-xl text-shadow-md">
             <p className="text-xl">
-              <span className="font-semibold">First name: </span>
-              <span className="ml-2">{user?.firstname || "John"}</span>
+              <span className="font-semibold text-(--color-main7)">First name: </span>
+              <span className="ml-2 text-(--color-main6)">{user?.firstname || "John"}</span>
             </p>
             <p className="mt-2 text-xl">
-              <span className="font-semibold">Last name: </span>
-              <span className="ml-2">{user?.lastname || "Doe"}</span>
+              <span className="font-semibold text-(--color-main7)">Last name: </span>
+              <span className="ml-2 text-(--color-main6)">{user?.lastname || "Doe"}</span>
             </p>
             <p className="mt-2 text-xl">
-              <span className="font-semibold">Email: </span>
-              <span className="ml-2">{user?.email || "johndoe@example.com"}</span>
+              <span className="font-semibold text-(--color-main7)">Email: </span>
+              <span className="ml-2 text-(--color-main6)">{user?.email || "johndoe@example.com"}</span>
             </p>
-            <p className="mt-5 text-center">
-              {user?.detail || "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae eveniet nulla iure nam odit animi!"}
+            <p className='mt-10 w-full flex flex-col items-center border-[#aaa1a1] border-t-2 pt-7'>
+              <span className="font-semibold text-(--color-main7) flex justify-center">Tell us about you</span>
+              <span className="mt-2 text-center text-(--color-main6)">{user?.detail || "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae eveniet nulla iure nam odit animi!"}</span>
             </p>
           </div>
         </div>
@@ -141,7 +142,7 @@ export default function UserComponent()
       <div className="w-[90%] lg:w-[65%] lg:p-5 bg-white lg:mt-10 mb-10 py-10 flex flex-col justify-center items-center">
         <div className="w-[80%] flex flex-col">
           <div>
-            <p className="text-4xl text-black mt-5 font-bold text-shadow-2xs">
+            <p className="text-4xl text-(--color-main7) mt-5 font-bold text-shadow-2xs">
               Welcome, {user?.firstname || "John"} {user?.lastname || "Doe"}!
             </p>
           </div>
@@ -150,7 +151,7 @@ export default function UserComponent()
         </div>
         <div className="w-[80%] flex flex-col mt-3">
           <div className="mb-5">
-            <h3 className="text-black text-xl font-semibold text-shadow-2xs">
+            <h3 className="text-(--color-main6) text-xl font-semibold text-shadow-2xs">
               Booking History
             </h3>
           </div>
@@ -162,7 +163,7 @@ export default function UserComponent()
           </div>
         </div>
         <div className="flex items-center gap-x-10 mt-3">
-          <div className="flex justify-center items-center w-8 bg-(--color-main3) rounded-full object-cover aspect-square shadow-(--box-shadow) hover:bg-(--color-main2) transition duration-300 ease-in-out cursor-pointer">
+          <div className="flex justify-center items-center w-8 bg-(--color-main5) rounded-full object-cover aspect-square shadow-(--box-shadow) hover:bg-(--color-main3) transition duration-300 ease-in-out cursor-pointer">
             <button className="cursor-pointer disabled:cursor-auto disabled:opacity-30" disabled={page === 1} onClick={() => setPage(prev => Math.max(prev - 1, 1))}>
               <img
                 src="arrow-forward-navigation.svg"
@@ -173,10 +174,10 @@ export default function UserComponent()
               />
             </button>
           </div>
-          <span className="text-black text-shadow-2xs">
+          <span className="text-(--color-main6) text-shadow-2xs">
             Page {page} / {totalPages}
           </span>
-          <div className="flex justify-center items-center w-8 bg-(--color-main3) rounded-full object-cover aspect-square shadow-(--box-shadow) hover:bg-(--color-main2) transition duration-300 ease-in-out cursor-pointer">
+          <div className="flex justify-center items-center w-8 bg-(--color-main5) rounded-full object-cover aspect-square shadow-(--box-shadow) hover:bg-(--color-main3) transition duration-300 ease-in-out cursor-pointer">
             <button className="cursor-pointer disabled:cursor-auto disabled:opacity-30" disabled={page === totalPages} onClick={() => setPage(prev => Math.min(prev + 1, totalPages))}>
               <img
                 src="arrow-forward-navigation.svg"
@@ -193,52 +194,52 @@ export default function UserComponent()
       {editId && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4">
           <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
-            <h2 className="text-2xl font-bold mb-4 text-gray-800">Edit User Information</h2>
+            <h2 className="text-2xl font-bold mb-4 text-(--color-main7)">Edit User Information</h2>
             
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1">First Name</label>
+                <label className="block text-sm font-semibold text-(--color-main7) mb-1">First Name</label>
                 <input
                   type="text"
                   name="firstname"
                   value={editForm.firstname}
                   onChange={handleEditChange}
-                  className="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-(--color-main3)"
+                  className="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-(--color-main3) text-(--color-main6)"
                   placeholder="Enter first name"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1">Last Name</label>
+                <label className="block text-sm font-semibold text-(--color-main7) mb-1">Last Name</label>
                 <input
                   type="text"
                   name="lastname"
                   value={editForm.lastname}
                   onChange={handleEditChange}
-                  className="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-(--color-main3)"
+                  className="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-(--color-main3) text-(--color-main6)"
                   placeholder="Enter last name"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1">Image Link</label>
+                <label className="block text-sm font-semibold text-(--color-main7) mb-1">Image Link</label>
                 <input
                   type="text"
                   name="imagelink"
                   value={editForm.imagelink}
                   onChange={handleEditChange}
-                  className="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-(--color-main3)"
+                  className="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-(--color-main3) text-(--color-main6)"
                   placeholder="Enter image URL"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1">Detail</label>
+                <label className="block text-sm font-semibold text-(--color-main7) mb-1">Detail</label>
                 <textarea
                   name="detail"
                   value={editForm.detail}
                   onChange={handleEditChange}
-                  className="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-(--color-main3) resize-none"
+                  className="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-(--color-main3) text-(--color-main6) resize-none"
                   placeholder="Enter user details"
                   rows="4"
                 />

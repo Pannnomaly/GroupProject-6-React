@@ -26,7 +26,7 @@ const items = [
 
 export default function SideBar() {
 
-    const { logout } = useContext(AuthContext);
+    const { logout, user } = useContext(AuthContext);
 
     const navigate = useNavigate();
 
@@ -67,7 +67,7 @@ export default function SideBar() {
                         <SidebarMenuButton asChild>
                             <Link to="../admin">
                                 <User />
-                                <span>Joe Dorn</span>
+                                <span>{user.firstname} {user.lastname}</span>
                             </Link>
                         </SidebarMenuButton>
                             <SidebarMenuButton asChild>

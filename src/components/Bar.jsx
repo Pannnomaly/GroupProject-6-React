@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { format } from "date-fns";
+import { format, startOfDay, isBefore } from "date-fns";
 import { CalendarIcon, Users, Trash2 } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -116,7 +116,7 @@ export default function Bar({ bookingDate, setBookingDate, guestData, setGuestDa
                 <div className="pt-4 border-t border-gray-100 flex flex-col gap-3">
                   <button
                     onClick={addGuests}
-                    className="text-cyan-700 font-semibold border border-cyan-700 py-2 hover:bg-cyan-50 transition-colors"
+                    className="text-cyan-700 font-semibold border border-(--color-main3) py-2 hover:bg-cyan-50 transition-colors"
                   >
                     Add additional room
                   </button>
@@ -147,7 +147,7 @@ export default function Bar({ bookingDate, setBookingDate, guestData, setGuestDa
                   selected={bookingDate}
                   onSelect={setBookingDate}
                   numberOfMonths={2}
-                  disabled={(date) => date < new Date().setHours(0, 0, 0, 0)}
+                  disabled={(date) => isBefore(date, startOfDay(new Date()))}
                 />
               </PopoverContent>
             </Popover>
@@ -160,7 +160,7 @@ export default function Bar({ bookingDate, setBookingDate, guestData, setGuestDa
                   <span className="text-base">Checking auth session. . .</span>
                 ) : user ? (
                   <>
-                    <span className="text-base">
+                    <span className="text-base text-(--color-main6)">
                       Logged in as <span>{user.firstname}</span>
                     </span>
                   </>
@@ -243,7 +243,7 @@ export default function Bar({ bookingDate, setBookingDate, guestData, setGuestDa
                 <div className="pt-4 border-t border-gray-100 flex flex-col gap-3">
                   <button
                     onClick={addGuests}
-                    className="text-black font-semibold border border-cyan-700 py-2 hover:bg-cyan-50 transition-colors"
+                    className="text-black font-semibold border border-(--color-main3) py-2 hover:bg-cyan-50 transition-colors"
                   >
                     Add additional room
                   </button>
@@ -273,7 +273,7 @@ export default function Bar({ bookingDate, setBookingDate, guestData, setGuestDa
                   selected={bookingDate}
                   onSelect={setBookingDate}
                   numberOfMonths={2}
-                  disabled={(date) => date < new Date().setHours(0, 0, 0, 0)}
+                  disabled={(date) => isBefore(date, startOfDay(new Date()))}
                 />
               </PopoverContent>
             </Popover>
