@@ -33,7 +33,7 @@ export default function ContactUs() {
     console.log("Form submitted:", formData);
 
     try {
-      await axios.post(`${API}/v1/contacts/`, formData);
+      await axios.post(`${API}/contacts/`, formData);
 
       setFormData({
         name: "",
