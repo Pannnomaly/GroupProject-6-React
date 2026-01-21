@@ -275,13 +275,10 @@ const Homepage = () => {
                                     one bed, perfect for solo travelers who want privacy and comfort.
                                 </p>
                                 <p>
-                                    <span className="font-semibold">Double / Twin Room</span> — Ideal for
-                                    two guests, available with either one double bed or two single beds.
+                                    <span className="font-semibold">Double Room</span> — Ideal for two guests, available with either one double bed .
                                 </p>
                                 <p>
-                                    <span className="font-semibold">Family Room</span> — A larger room
-                                    designed for small groups or families, with extra space and multiple
-                                    beds.
+                                    <span className="font-semibold">Twin Room</span> — Ideal for two guests, available with two single beds.
                                 </p>
                             </div>
                         </div>
