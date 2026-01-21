@@ -351,7 +351,7 @@ export default function AdminRoomLists() {
                   <th className="px-4 py-3 text-left text-sm font-medium">Floor</th>
                   <th className="px-4 py-3 text-left text-sm font-medium">Status</th>
                   <th className="px-4 py-3 text-left text-sm font-medium">Room Rate</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium">Guest ID</th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">Guest</th>
                   <th className="px-4 py-3 text-left text-sm font-medium">Notes</th>
                   <th className="px-4 py-3 text-left text-sm font-medium">Actions</th>
                 </tr>
@@ -361,7 +361,16 @@ export default function AdminRoomLists() {
                 {/* วนลูปแสดงแต่ละแถว */}
                 {filteredRooms.map(room => (
                   <tr key={room.roomNumber} className="hover:bg-muted/50">
-                    <td className="px-4 py-3 font-medium">{room.roomNumber}</td>
+                    <td className="px-4 py-3 text-sm">
+                      <div className="flex flex-col">
+                        <span className="font-medium">
+                          {room.roomNumber}
+                        </span>
+                        <span className="text-xs text-gray-400">
+                          {room._id}
+                        </span>
+                      </div>
+                    </td>
                     <td className="px-4 py-3">{room.type}</td>
                     <td className="px-4 py-3">{room.floor}</td>
                     <td className="px-4 py-3">
@@ -377,7 +386,7 @@ export default function AdminRoomLists() {
                             {room.currentGuest.firstname} {room.currentGuest.lastname}
                           </span>
                           <span className="text-xs text-gray-400">
-                            (userID: {room.currentGuest._id})
+                            {room.currentGuest._id}
                           </span>
                         </div>
                       ) : (
@@ -450,13 +459,6 @@ export default function AdminRoomLists() {
               {/* เลือก Status */}
               <div>
                 <Label className="pb-2">Status</Label>
-                {editingRoom.status === "Occupied" || editingRoom.status === "Reserved" ?
-                <Input
-                  value={editingRoom.status || ''}
-                  onChange={(e) => setEditingRoom({ ...editingRoom, status: e.target.value })}
-                  disabled
-                />
-                :
                 <Select
                   value={editingRoom.status}
                   onValueChange={(value) => setEditingRoom({ ...editingRoom, status: value })}
@@ -466,10 +468,12 @@ export default function AdminRoomLists() {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="Available">Available</SelectItem>
+                    <SelectItem value="Occupied">Occupied</SelectItem>
+                    <SelectItem value="Reserved">Reserved</SelectItem>
                     <SelectItem value="Cleaning">Cleaning</SelectItem>
                     <SelectItem value="Maintenance">Maintenance</SelectItem>
                   </SelectContent>
-                </Select>}
+                </Select>
               </div>
 
               {/* ใส่ราคา */}

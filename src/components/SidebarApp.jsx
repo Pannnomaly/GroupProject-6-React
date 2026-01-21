@@ -22,6 +22,11 @@ const items = [
     url: "../adminbookingmanagement",
     icon: NotebookPen
   },
+  {
+    title: "User Management",
+    url: "../adminusermanagement",
+    icon: User,
+  },
 ]
 
 export default function SideBar() {
