@@ -132,7 +132,7 @@ export default function UserComponent()
               <span className="font-semibold text-(--color-main7)">Email: </span>
               <span className="ml-2 text-(--color-main6)">{user?.email || "johndoe@example.com"}</span>
             </p>
-            <p className='mt-10 flex flex-col border-[#aaa1a1] border-t-2 pt-7'>
+            <p className='mt-10 w-full flex flex-col items-center border-[#aaa1a1] border-t-2 pt-7'>
               <span className="font-semibold text-(--color-main7) flex justify-center">Tell us about you</span>
               <span className="mt-2 text-center text-(--color-main6)">{user?.detail || "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae eveniet nulla iure nam odit animi!"}</span>
             </p>
