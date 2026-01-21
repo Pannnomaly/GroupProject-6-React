@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Edit, Search } from 'lucide-react';
 import { useOutletContext } from "react-router-dom";
+import { format } from "date-fns";
 
 import {
   Card,
@@ -50,8 +51,14 @@ export default function AdminBookingManagement() {
     const matchesSearch = booking.confirmationNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          `${booking.firstname} ${booking.lastname}`.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus = statusFilter === 'all' || booking.status === statusFilter;
+    
     return matchesSearch && matchesStatus;
   });
+
+  const formatDate = (dateString) => {
+    if (!dateString) return "yyyy-mm-dd";
+    return format(new Date(dateString), "dd/MM/yyyy");
+  };
 
   const fetchBookings = async () => {
     try {
@@ -72,6 +79,10 @@ export default function AdminBookingManagement() {
   }, []);
 
   const handleBookingEdit = (booking) => {
+    if (booking.status === 'cancelled' || booking.status === 'checked_out') {
+      alert("รายการที่ยกเลิกไปแล้ว ไม่สามารถแก้ไขข้อมูลได้");
+      return; // จบการทำงาน ไม่เปิด Dialog
+    }
     setEditingBooking({ ...booking });
     setIsDialogOpen(true);
   };
@@ -79,14 +90,24 @@ export default function AdminBookingManagement() {
   const handleSaveBookingEdit = async () => {
     try {
       setLoading(true);
+
+      if (editingBooking.status === "cancelled" || editingBooking.status === 'checked_out'){
+        alert("You cannot edit booking that already cancelled");
+        setIsDialogOpen(false);
+        return;
+      }
+
       await axios.patch(
         `${API}/bookings/${editingBooking.confirmationNumber}`,
-        editingBooking
-      );
+        editingBooking, {
+        withCredentials: true
+      });
+
       await fetchBookings();
       setIsDialogOpen(false);
       setEditingBooking(null);
       console.log("Update successful and UI refreshed");
+
     } catch (err) {
       console.error("Error editing booking data:", err);
       alert("Failed to Edit the data");
@@ -99,9 +120,9 @@ export default function AdminBookingManagement() {
     if (!window.confirm("Are you sure you want to delete this booking? This action cannot be undone.")) return;
 
     try {
-      const response = await axios.delete(`${API}/bookings/${editingBooking.confirmationNumber}`, {
-        withCredentials: true
-      });
+      const response = await axios.delete(`${API}/bookings/${editingBooking.confirmationNumber}`,
+        { withCredentials: true }
+      );
 
       if (response.data.success) {
         setIsDialogOpen(false);
@@ -124,6 +145,8 @@ export default function AdminBookingManagement() {
 
   if (loading) return <div className="p-10 text-center">Loading bookings...</div>;
   if (error) return <div className="p-10 text-center text-red-500">{error}</div>;
+
+  console.log(bookings)
 
   return (
     <div className="m-5 flex flex-col gap-6 w-full">
@@ -198,9 +221,18 @@ export default function AdminBookingManagement() {
                   <tr key={booking._id} className="hover:bg-muted/50">
                     <td className="px-4 py-3 font-medium">{booking.confirmationNumber}</td>
                     <td className="px-4 py-3">{`${booking.firstname} ${booking.lastname}`}</td>
-                    <td className="px-4 py-3">{booking.roomId}</td>
-                    <td className="px-4 py-3">{new Date(booking.checkInDate).toLocaleDateString()}</td>
-                    <td className="px-4 py-3">{new Date(booking.checkOutDate).toLocaleDateString()}</td>
+                    <td className="px-4 py-3 text-sm">
+                      <div className="flex flex-col">
+                        <span className="font-medium">
+                          {booking.roomId?.roomNumber || 'N/A'}
+                        </span>
+                        <span className="text-xs text-gray-400">
+                          {booking._id}
+                        </span>
+                      </div>
+                    </td>
+                    <td className="px-4 py-3">{formatDate(booking.checkInDate)}</td>
+                    <td className="px-4 py-3">{formatDate(booking.checkOutDate)}</td>
                     <td className="px-4 py-3">
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${statusColors[booking.status]}`}>
                         {booking.status.replace('_', ' ')}
@@ -210,13 +242,19 @@ export default function AdminBookingManagement() {
                     <td className="px-4 py-3">{booking.phone}</td>
                     <td className="px-4 py-3">{booking.email}</td>
                     <td className="px-4 py-3">
+                      {booking.status === 'cancelled' || booking.status === 'checked_out' ? (
+                        <Button variant="ghost" size="sm" className="opacity-30 cursor-not-allowed">
+                          <Edit size={16} />
+                        </Button>
+                      ) : (
                       <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => handleBookingEdit(booking)}
                       >
                         <Edit size={16} />
-                      </Button>
+                      </Button>)
+                      }
                     </td>
                   </tr>
                 ))}
