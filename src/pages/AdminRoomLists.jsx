@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {Edit, Search, Plus } from 'lucide-react';
+import {Edit, Search, Plus, CloudFog } from 'lucide-react';
 import { useOutletContext } from "react-router-dom";
 
 import {
@@ -41,9 +41,8 @@ const statusColors = {
 
 export default function AdminRoomLists() {
 
-  const { API } = useOutletContext();
-
   // เก็บข้อมูลห้องพักทั้งหมด (ใช้ useState เพื่อให้สามารถอัพเดทข้อมูลได้)
+  const { API } = useOutletContext();
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -75,8 +74,7 @@ export default function AdminRoomLists() {
   });
 
 
-  // FILTER LOGIC - ตรรกะสำหรับกรองข้อมูล
-
+  // filter rooms logic
   const filteredRooms = rooms.filter(room => {
     // ตรวจสอบว่าเลขห้องหรือชื่อผู้เข้าพักตรงกับคำค้นหาหรือไม่
     const matchesSearch = room.roomNumber.toString().includes(searchTerm) ||
@@ -92,6 +90,7 @@ export default function AdminRoomLists() {
     return matchesSearch && matchesStatus && matchesType && matchesFloor;
   });
 
+  // fetch data
   const fetchRooms = async () => {
       try {
         const response = await axios.get(`${API}/rooms/`);
@@ -107,10 +106,10 @@ export default function AdminRoomLists() {
         setLoading(false);
       }
     };
-
   useEffect(() => {
     fetchRooms();
   }, []);
+
 
   // ฟังก์ชันเมื่อกดปุ่มแก้ไขห้อง
   const handleRoomEdit = (room) => {
@@ -125,9 +124,8 @@ export default function AdminRoomLists() {
     setEditingRoom({...cleanedData});
     setIsDialogOpen(true);
   };
-
   // ฟังก์ชันบันทึกการแก้ไข
-  const handleSave = async () => {
+  const handleSaveRoomEdit = async () => {
       try {
           const prepNewRoomData = {
           ...editingRoom,
@@ -156,6 +154,24 @@ export default function AdminRoomLists() {
         setLoading(false);
     }
   };
+  // เมื่อกดปุ่มลบห้อง
+  const handleDeleteRoom = async () => {
+  if (!window.confirm("Are you sure you want to delete this room? This action cannot be undone.")) return;
+
+  try {
+    // สมมติว่า Backend ใช้ห้องเลขที่ในการลบ หรือใช้ ID
+    const response = await axios.delete(`${API}/rooms/${editingRoom.roomNumber}`);
+
+    if (response.data.success) {
+      setIsDialogOpen(false); // ปิด Dialog
+      fetchRooms();           // ดึงข้อมูลใหม่มาโชว์ (ห้องที่ลบไปจะหายไป)
+      alert("Room deleted successfully");
+    }
+  } catch (err) {
+    console.error("Delete error:", err);
+    alert(err.response?.data?.message || "Failed to delete room");
+  }
+};
 
 
   // เมื่อกดปุ่ม add new room
@@ -163,9 +179,8 @@ export default function AdminRoomLists() {
     setAddingRoom(true);
     setIsAddRoomDialogOpen(true);
   };
-
   // เมื่อบันทึก new room
-  const handleSaveRoom = async () => {
+  const handleSaveADDRoom = async () => {
     try {
       setLoading(true);
       // ส่งข้อมูล newRoom ทั้ง Object ไปที่ Backend
@@ -204,24 +219,7 @@ export default function AdminRoomLists() {
     }
   };
 
-  // เมื่อกดปุ่มลบห้อง
-  const handleDeleteRoom = async () => {
-  if (!window.confirm("Are you sure you want to delete this room? This action cannot be undone.")) return;
 
-  try {
-    // สมมติว่า Backend ใช้ห้องเลขที่ในการลบ หรือใช้ ID
-    const response = await axios.delete(`${API}/rooms/${editingRoom.roomNumber}`);
-
-    if (response.data.success) {
-      setIsDialogOpen(false); // ปิด Dialog
-      fetchRooms();           // ดึงข้อมูลใหม่มาโชว์ (ห้องที่ลบไปจะหายไป)
-      alert("Room deleted successfully");
-    }
-  } catch (err) {
-    console.error("Delete error:", err);
-    alert(err.response?.data?.message || "Failed to delete room");
-  }
-};
   // ============================================
   // นับจำนวนห้องแต่ละ Status
   // ============================================
@@ -237,6 +235,7 @@ export default function AdminRoomLists() {
   if (loading) return <div className="p-10 text-center">Loading rooms...</div>;
   if (error) return <div className="p-10 text-center text-red-500">{error}</div>;
 
+  console.log(rooms)
 
   return (
 
@@ -371,7 +370,20 @@ export default function AdminRoomLists() {
                       </span>
                     </td>
                     <td className="px-4 py-3">฿{room.roomRate}</td>
-                    <td className="px-4 py-3">{room.currentGuest ? `userID: ${room.currentGuest}` : '-'}</td>
+                    <td className="px-4 py-3 text-sm">
+                      {room.currentGuest ? (
+                        <div className="flex flex-col">
+                          <span className="font-medium">
+                            {room.currentGuest.firstname} {room.currentGuest.lastname}
+                          </span>
+                          <span className="text-xs text-gray-400">
+                            (userID: {room.currentGuest._id})
+                          </span>
+                        </div>
+                      ) : (
+                        <span className="text-gray-400">-</span>
+                      )}
+                    </td>
                     <td className="px-4 py-3 text-sm text-muted-foreground max-w-xs truncate">
                       {room.notes || '-'}
                     </td>
@@ -552,7 +564,7 @@ export default function AdminRoomLists() {
             </Button>
 
             {/* ปุ่มบันทึก */}
-            <Button className="rounded-lg" onClick={handleSave}>
+            <Button className="rounded-lg" onClick={handleSaveRoomEdit}>
               Save Changes
             </Button>
           </DialogFooter>
@@ -697,7 +709,7 @@ export default function AdminRoomLists() {
           {/* ปุ่มด้านล่าง Dialog */}
           <DialogFooter>
             {/* ปุ่มเพิ่ม */}
-            <Button className="rounded-lg" onClick={handleSaveRoom}>
+            <Button className="rounded-lg" onClick={handleSaveADDRoom}>
               Add Room
             </Button>
           </DialogFooter>
