@@ -7,6 +7,9 @@ export default function UserComponent()
 {
   const { user, API, fetchUser } = useContext(AuthContext);
   const [bookings, setBookings] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const LIMIT = 3;
   const [editId, setEditId] = useState(null);
   const [editForm, setEditForm] = useState({
     firstname: "",
@@ -17,6 +20,7 @@ export default function UserComponent()
   });
 
   console.log(bookings);
+  
 
   const handleEditChange = (e) => {
     setEditForm({ ...editForm, [e.target.name]: e.target.value });
@@ -54,26 +58,27 @@ export default function UserComponent()
   const fetchBookings = async () => {
     try {
       const res = await axios.get(
-        `${API}/bookings/my-bookings`,
+        `${API}/bookings/my-bookings?page=${page}&limit=${LIMIT}`,
         { withCredentials: true }
       );
       setBookings(res.data.data);
+      setTotalPages(res.data.pagination.totalPages);
     } catch (err) {
       console.error(err);
     }
   };
 
   fetchBookings();
-}, [user, API]);
+}, [user, API, page]);
 
 
   return (
     <div className="w-full h-full flex flex-col justify-center items-center font-earn lg:flex-row lg:justify-center lg:items-stretch">
-      <div className="w-[90%] lg:w-[25%] bg-(--color-main3) py-10 mt-10 lg:mb-10 gap-10 flex flex-col justify-center items-center text-(--color-main12)">
+      <div className="w-[90%] lg:w-[25%] bg-(--color-main3) py-10 mt-10 lg:mb-10 gap-10 flex flex-col justify-center items-center text-(--color-main12) shadow-(--box-shadow)">
         <div className="w-full flex justify-end pr-10">
           <button
             onClick={() => handleEdit(user)}
-            className="flex justify-center items-center hover:bg-(--color-main2) transition duration-300 ease-in-out rounded-full object-cover aspect-square w-9"
+            className="flex justify-center items-center hover:bg-(--color-main2) transition duration-300 ease-in-out rounded-full object-cover aspect-square w-9 cursor-pointer"
             title="Edit user info"
           >
             <img
@@ -91,7 +96,7 @@ export default function UserComponent()
               alt="User Portrait"
               width="175"
               height="175"
-              className="rounded-full object-cover aspect-square shadow-(--box-shadow)"
+              className="rounded-full object-cover aspect-square shadow-(--box-shadow) border-2 border-(--color-main3)"
             />
           </div>
           <div className="w-[90%] flex flex-col justify-center items-start mt-10 text-xl text-shadow-2xs">
@@ -117,7 +122,7 @@ export default function UserComponent()
         <div className="w-[80%] flex flex-col">
           <div>
             <p className="text-4xl text-black mt-5 font-bold text-shadow-2xs">
-              Welcome, Jane Doe!
+              Welcome, {user?.firstname || "John"} {user?.lastname || "Doe"}!
             </p>
           </div>
 
@@ -135,9 +140,9 @@ export default function UserComponent()
             />
           </div>
         </div>
-        <div className="flex gap-x-10 mt-3">
+        <div className="flex items-center gap-x-10 mt-3">
           <div className="flex justify-center items-center w-8 bg-(--color-main3) rounded-full object-cover aspect-square shadow-(--box-shadow) hover:bg-(--color-main2) transition duration-300 ease-in-out cursor-pointer">
-            <button className="cursor-pointer">
+            <button className="cursor-pointer disabled:cursor-auto disabled:opacity-30" disabled={page === 1} onClick={() => setPage(prev => Math.max(prev - 1, 1))}>
               <img
                 src="arrow-forward-navigation.svg"
                 alt="backward"
@@ -147,8 +152,11 @@ export default function UserComponent()
               />
             </button>
           </div>
+          <span className="text-black text-shadow-2xs">
+            Page {page} / {totalPages}
+          </span>
           <div className="flex justify-center items-center w-8 bg-(--color-main3) rounded-full object-cover aspect-square shadow-(--box-shadow) hover:bg-(--color-main2) transition duration-300 ease-in-out cursor-pointer">
-            <button className="cursor-pointer">
+            <button className="cursor-pointer disabled:cursor-auto disabled:opacity-30" disabled={page === totalPages} onClick={() => setPage(prev => Math.min(prev + 1, totalPages))}>
               <img
                 src="arrow-forward-navigation.svg"
                 alt="backward"
