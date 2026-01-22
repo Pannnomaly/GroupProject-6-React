@@ -74,15 +74,20 @@ export default function AdminRoomLists() {
   });
 
   // filter rooms logic
-  const filteredRooms = rooms.filter(room => {
-    // ตรวจสอบว่าเลขห้องหรือชื่อผู้เข้าพักตรงกับคำค้นหาหรือไม่
-    console.log("room : ", room)
-    const matchesSearch = room.roomNumber.toString().includes(searchTerm) ||
-                         room.currentGuest?.firstname?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         room.currentGuest?.lastname?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         `${room.currentGuest?.firstname?.toLowerCase().includes(searchTerm.toLowerCase())} ${room.currentGuest?.flastname?.toLowerCase().includes(searchTerm.toLowerCase())}`
-    // ตรวจสอบว่าตรงกับตัวกรอง status หรือไม่ (ถ้าเลือก 'all' จะไม่กรอง)
+const filteredRooms = rooms.filter(room => {
+    // ถ้า currentGuest ไม่มีก็ให้รับค่า "" ถ้ามีก็เช็ค first and last name
+    const guestFullName = room.currentGuest
+      ? `${room.currentGuest.firstname} ${room.currentGuest.lastname}`.toLowerCase()
+      : "";
+
+    // ตรวจสอบคำค้นหา
+    const matchesSearch =
+      room.roomNumber.toString().includes(searchTerm) ||
+      guestFullName.includes(searchTerm.toLowerCase());
+
+    // ตรวจสอบ Filter สถานะ
     const matchesStatus = statusFilter === 'all' || room.status === statusFilter;
+
     // ตรวจสอบว่าตรงกับตัวกรองประเภทห้องหรือไม่
     const matchesType = typeFilter === 'all' || room.type === typeFilter;
     // ตรวจสอบว่าตรงกับตัวกรองชั้นหรือไม่
@@ -231,7 +236,7 @@ const handleResetRoom = async (room) => {
     await axios.patch(`${API}/rooms/${room.roomNumber}`, {
       status: "Available",
       currentGuest: null
-    });
+    }, { withCredentials: true });
 
     // ดึงข้อมูลใหม่เพื่ออัปเดต UI
     await fetchRooms();
