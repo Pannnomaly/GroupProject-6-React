@@ -39,7 +39,7 @@ const Registration = () => {
 
   return (
     <>
-      <main className="bg-white min-h-screen flex flex-col justify-center items-center font-earn px-5 md:px-0">
+      <main className="bg-white max-h-[60vh] flex flex-col justify-center items-center font-earn px-5 md:px-0">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="md:flex hidden flex-wrap absolute top-20 z-50 left-1/2 -translate-x-1/2 gap-10 text-shadow-lg">
             <Link to="/">
@@ -62,7 +62,7 @@ const Registration = () => {
           </div>
 
           {/* <!-- Right Section --> */}
-          <div className="flex flex-col justify-center w-full max-w-md mx-auto">
+          <div className="flex flex-col justify-center w-full max-w-md mx-auto pt-100">
             <div className="flex justify-center mt-10 text-shadow-lg">
               <Link to="/">
                 <h1 className="text-4xl text-(--color-main11) hidden md:flex lg:hidden">
@@ -162,7 +162,7 @@ const Registration = () => {
               </Link>
             </form>
 
-            <div className="flex items-center my-10">
+            {/* <div className="flex items-center my-10">
               <div className="grow border-t border-(--color-main10)"></div>
 
               <span className="mx-4 text-2xl text-center text-(--color-main6)">
@@ -170,10 +170,10 @@ const Registration = () => {
               </span>
 
               <div className="grow border-t border-(--color-main10)"></div>
-            </div>
+            </div> */}
 
-            <div className="flex flex-col items-center">
-              {/* <!-- Google Button --> */}
+            {/* <div className="flex flex-col items-center">
+
               <Link to="/roomdetail" className="w-[80%]">
                 <button className="w-full bg-(--color-main2) text-white py-3 flex justify-center mb-4 gap-5 hover:bg-(--color-main5) transition">
                   <img
@@ -184,7 +184,7 @@ const Registration = () => {
                 </button>
               </Link>
 
-              {/* <!-- Facebook Button --> */}
+
               <Link to="/roomdetail" className="w-[80%]">
                 <button className="w-full bg-(--color-main2) text-white py-3 flex justify-center items-center mb-4 gap-5 hover:bg-(--color-main5) transition">
                   <img
@@ -194,7 +194,7 @@ const Registration = () => {
                   <p className="text-lg">Continue with Facebook</p>
                 </button>
               </Link>
-            </div>
+            </div> */}
           </div>
         </div>
       </main>

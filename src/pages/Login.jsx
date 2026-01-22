@@ -96,13 +96,13 @@ const Login = () => {
             </Link>
           </div>
 
-          <div className="my-6 flex items-center gap-4">
+          {/* <div className="my-6 flex items-center gap-4">
             <span className="grow h-px bg-gray-300"></span>
             <span className="text-gray-500 text-sm">Or continue with</span>
             <span className="grow h-px bg-gray-300"></span>
-          </div>
+          </div> */}
 
-          <form className="grid grid-cols-2 gap-4 mb-6">
+          {/* <form className="grid grid-cols-2 gap-4 mb-6">
             <Link to="/roomdetail">
               <button className="w-full border  py-2 flex items-center justify-center gap-2 hover:bg-gray-50">
                 <img src="https://www.svgrepo.com/show/475656/google-color.svg" className="w-5" />
@@ -113,7 +113,7 @@ const Login = () => {
                 <img src="https://files.svgcdn.io/streamline-color/meta.svg" className="w-5" />
               </button>
             </Link>
-          </form>
+          </form> */}
         </div>
       </main>
     </>
