@@ -73,12 +73,14 @@ export default function AdminRoomLists() {
     additional3: ''
   });
 
-
   // filter rooms logic
   const filteredRooms = rooms.filter(room => {
     // ตรวจสอบว่าเลขห้องหรือชื่อผู้เข้าพักตรงกับคำค้นหาหรือไม่
+    console.log("room : ", room)
     const matchesSearch = room.roomNumber.toString().includes(searchTerm) ||
-                         (room.currentGuest && room.currentGuest.toLowerCase().includes(searchTerm.toLowerCase()));
+                         room.currentGuest?.firstname?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         room.currentGuest?.lastname?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         `${room.currentGuest?.firstname?.toLowerCase().includes(searchTerm.toLowerCase())} ${room.currentGuest?.flastname?.toLowerCase().includes(searchTerm.toLowerCase())}`
     // ตรวจสอบว่าตรงกับตัวกรอง status หรือไม่ (ถ้าเลือก 'all' จะไม่กรอง)
     const matchesStatus = statusFilter === 'all' || room.status === statusFilter;
     // ตรวจสอบว่าตรงกับตัวกรองประเภทห้องหรือไม่

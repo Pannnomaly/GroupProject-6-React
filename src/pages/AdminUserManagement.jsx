@@ -180,7 +180,16 @@ export default function AdminUserManagement() {
               <tbody className="divide-y">
                 {filteredUsers.map(user => (
                   <tr key={user._id} className="hover:bg-muted/50">
-                    <td className="px-4 py-3 font-medium">{`${user.firstname} ${user.lastname}`}</td>
+                  <td className="px-4 py-3 text-sm">
+                      <div className="flex flex-col">
+                        <span className="font-medium">
+                          {user.firstname} {user.lastname}
+                        </span>
+                        <span className="text-xs text-gray-400">
+                          {user._id}
+                        </span>
+                      </div>
+                    </td>
                     <td className="px-4 py-3">{user.email}</td>
                     <td className="px-4 py-3">{user.role}</td>
                     <td className="px-4 py-3">{new Date(user.createdAt).toLocaleDateString()}</td>
