@@ -49,7 +49,7 @@ export default function AuthContextProvider({ children }) {
       );
       setUser(response.data.user);
 
-      console.log(response);
+      // console.log(response);
       return true;
     } catch (error) {
       console.error(error);

@@ -133,7 +133,19 @@ export default function BookingDetail() {
                 <h3 className="text-2xl font-semibold mb-6 text-gray-800">Reservation Summary</h3>
                 <div className="space-y-6">
                   <HotelInfo />
-                  <div className="border-t pt-4 space-y-3">
+                    <div>
+                      <img src={bookingData.hotelImage} />
+                    </div>
+                    <div className="flex justify-between text-xl font-semibold border-b pb-2">
+                          <span className="text-gray-600">Room</span>
+                          <span className="font-medium">{bookingData.roomDetails.roomNumber}</span>
+                    </div>
+                  <div className="space-y-3">
+                      
+                      <div className="flex justify-between">
+                            <span className="text-gray-600">Room Type</span>
+                            <span className="font-medium">{bookingData.roomType}</span>
+                      </div>
                       <div className="flex justify-between">
                           <span className="text-gray-600">Check-in</span>
                           <span className="font-medium">{bookingData.checkIn}</span>
@@ -153,7 +165,6 @@ export default function BookingDetail() {
                   </div>
 
                   <div className="border-t pt-4">
-                       <h4 className="font-medium mb-2">{bookingData.roomType}</h4>
                        <div className="flex justify-between text-sm text-gray-500">
                            <span>Price per night</span>
                            <span>{parseInt(bookingData.roomPricePerNight).toLocaleString()} THB</span>

@@ -23,7 +23,7 @@ export default function Modal({ isModalOpen, handleCloseModal, room, bookingDate
       checkOut: bookingDate.to ? format(bookingDate.to, "dd-MMM-yyyy") : "-",
       guestCount: guestCountStr,
       nights: `${nights} night(s)`,
-      roomType: room.name,
+      roomType: room.type,
       roomPricePerNight: room.roomRate,
       totalPrice: totalPrice, 
       formattedTotalPrice: `${totalPrice.toLocaleString()} THB`,

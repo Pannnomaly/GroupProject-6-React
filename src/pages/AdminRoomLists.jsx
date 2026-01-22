@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {Edit, Search, Plus, CloudFog } from 'lucide-react';
+import {Edit, Search, Plus, RefreshCw } from 'lucide-react';
 import { useOutletContext } from "react-router-dom";
 
 import {
@@ -73,14 +73,21 @@ export default function AdminRoomLists() {
     additional3: ''
   });
 
-
   // filter rooms logic
-  const filteredRooms = rooms.filter(room => {
-    // ตรวจสอบว่าเลขห้องหรือชื่อผู้เข้าพักตรงกับคำค้นหาหรือไม่
-    const matchesSearch = room.roomNumber.toString().includes(searchTerm) ||
-                         (room.currentGuest && room.currentGuest.toLowerCase().includes(searchTerm.toLowerCase()));
-    // ตรวจสอบว่าตรงกับตัวกรอง status หรือไม่ (ถ้าเลือก 'all' จะไม่กรอง)
+const filteredRooms = rooms.filter(room => {
+    // ถ้า currentGuest ไม่มีก็ให้รับค่า "" ถ้ามีก็เช็ค first and last name
+    const guestFullName = room.currentGuest
+      ? `${room.currentGuest.firstname} ${room.currentGuest.lastname}`.toLowerCase()
+      : "";
+
+    // ตรวจสอบคำค้นหา
+    const matchesSearch =
+      room.roomNumber.toString().includes(searchTerm) ||
+      guestFullName.includes(searchTerm.toLowerCase());
+
+    // ตรวจสอบ Filter สถานะ
     const matchesStatus = statusFilter === 'all' || room.status === statusFilter;
+
     // ตรวจสอบว่าตรงกับตัวกรองประเภทห้องหรือไม่
     const matchesType = typeFilter === 'all' || room.type === typeFilter;
     // ตรวจสอบว่าตรงกับตัวกรองชั้นหรือไม่
@@ -219,10 +226,30 @@ export default function AdminRoomLists() {
     }
   };
 
+  // ฟังก์ชันสำหรับ Reset สถานะห้องเป็น Available และล้างชื่อแขก
+const handleResetRoom = async (room) => {
+  if (!window.confirm(`Are you sure you want to reset Room ${room.roomNumber}? This will set status to Available and clear guest data.`)) return;
 
-  // ============================================
-  // นับจำนวนห้องแต่ละ Status
-  // ============================================
+  try {
+    setLoading(true);
+    // ยิง Patch ไปที่ API ของ Room โดยตรง
+    await axios.patch(`${API}/rooms/${room.roomNumber}`, {
+      status: "Available",
+      currentGuest: null
+    }, { withCredentials: true });
+
+    // ดึงข้อมูลใหม่เพื่ออัปเดต UI
+    await fetchRooms();
+    alert(`Room ${room.roomNumber} has been reset.`);
+
+  } catch (err) {
+    console.error("Error resetting room:", err);
+    alert(err.response?.data?.message || "Failed to reset room");
+  } finally {
+    setLoading(false);
+  }
+};
+
   // ใช้ .filter() เพื่อนับจำนวนห้องที่มี status แต่ละประเภท
   const statusCounts = {
     Available: rooms.filter(r => r.status === 'Available').length,
@@ -397,13 +424,26 @@ export default function AdminRoomLists() {
                       {room.notes || '-'}
                     </td>
                     <td className="px-4 py-3">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => handleRoomEdit(room)}
-                      >
-                        <Edit size={16} />
-                      </Button>
+                      <div className="flex gap-2"> {/* เพิ่ม flex gap เพื่อจัดวางปุ่ม */}
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleRoomEdit(room)}
+                        >
+                          <Edit size={16} />
+                        </Button>
+
+                        {/* ปุ่ม Reset Room ใหม่ */}
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="text-orange-500 hover:text-orange-700 hover:bg-orange-50"
+                          onClick={() => handleResetRoom(room)}
+                          title="Reset Room Status"
+                        >
+                          <RefreshCw size={16} />
+                        </Button>
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -488,17 +528,6 @@ export default function AdminRoomLists() {
                   />
                   <span>฿</span>
                 </div>
-              </div>
-
-              {/* ใส่ชื่อผู้เข้าพัก */}
-              <div>
-                <Label className="pb-2">Guest ID</Label>
-                <Input
-                  value={editingRoom.currentGuest || ''}
-                  onChange={(e) => setEditingRoom({ ...editingRoom, currentGuest: e.target.value })}
-                  placeholder="Leave empty if no guest"
-                  disabled
-                />
               </div>
 
               {/* รูปห้อง */}
