@@ -91,12 +91,6 @@ export default function AdminBookingManagement() {
     try {
       setLoading(true);
 
-      if (editingBooking.status === "cancelled" || editingBooking.status === 'checked_out'){
-        alert("You cannot edit booking that already cancelled");
-        setIsDialogOpen(false);
-        return;
-      }
-
       await axios.patch(
         `${API}/bookings/${editingBooking.confirmationNumber}`,
         editingBooking, {
